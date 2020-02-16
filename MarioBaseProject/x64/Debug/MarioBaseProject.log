@@ -1,0 +1,28 @@
+﻿main.obj : error LNK2019: unresolved external symbol SDL_GetError referenced in function "bool __cdecl InitSDL(void)" (?InitSDL@@YA_NXZ)
+Texture2D.obj : error LNK2001: unresolved external symbol SDL_GetError
+main.obj : error LNK2019: unresolved external symbol SDL_CreateWindow referenced in function "bool __cdecl InitSDL(void)" (?InitSDL@@YA_NXZ)
+main.obj : error LNK2019: unresolved external symbol SDL_DestroyWindow referenced in function "void __cdecl CloseSDL(void)" (?CloseSDL@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol SDL_PollEvent referenced in function "bool __cdecl Update(void)" (?Update@@YA_NXZ)
+main.obj : error LNK2019: unresolved external symbol SDL_CreateRenderer referenced in function "bool __cdecl InitSDL(void)" (?InitSDL@@YA_NXZ)
+main.obj : error LNK2019: unresolved external symbol SDL_SetRenderDrawColor referenced in function "void __cdecl Render(void)" (?Render@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol SDL_RenderClear referenced in function "void __cdecl Render(void)" (?Render@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol SDL_RenderPresent referenced in function "void __cdecl Render(void)" (?Render@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol SDL_DestroyRenderer referenced in function "void __cdecl CloseSDL(void)" (?CloseSDL@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol SDL_GetTicks referenced in function "bool __cdecl Update(void)" (?Update@@YA_NXZ)
+main.obj : error LNK2019: unresolved external symbol SDL_Init referenced in function "bool __cdecl InitSDL(void)" (?InitSDL@@YA_NXZ)
+main.obj : error LNK2019: unresolved external symbol SDL_Quit referenced in function "void __cdecl CloseSDL(void)" (?CloseSDL@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol IMG_Init referenced in function "bool __cdecl InitSDL(void)" (?InitSDL@@YA_NXZ)
+main.obj : error LNK2019: unresolved external symbol IMG_Quit referenced in function "void __cdecl CloseSDL(void)" (?CloseSDL@@YAXXZ)
+Texture2D.obj : error LNK2019: unresolved external symbol SDL_MapRGB referenced in function "public: bool __cdecl Texture2D::LoadFromFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?LoadFromFile@Texture2D@@QEAA_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Texture2D.obj : error LNK2019: unresolved external symbol SDL_FreeSurface referenced in function "public: bool __cdecl Texture2D::LoadFromFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?LoadFromFile@Texture2D@@QEAA_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Texture2D.obj : error LNK2019: unresolved external symbol SDL_SetColorKey referenced in function "public: bool __cdecl Texture2D::LoadFromFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?LoadFromFile@Texture2D@@QEAA_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Texture2D.obj : error LNK2019: unresolved external symbol SDL_CreateTextureFromSurface referenced in function "public: bool __cdecl Texture2D::LoadFromFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?LoadFromFile@Texture2D@@QEAA_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Texture2D.obj : error LNK2019: unresolved external symbol SDL_RenderCopyEx referenced in function "public: void __cdecl Texture2D::Render(struct Vector2D,enum SDL_RendererFlip,double)" (?Render@Texture2D@@QEAAXUVector2D@@W4SDL_RendererFlip@@N@Z)
+Texture2D.obj : error LNK2019: unresolved external symbol SDL_DestroyTexture referenced in function "public: void __cdecl Texture2D::Free(void)" (?Free@Texture2D@@QEAAXXZ)
+Texture2D.obj : error LNK2019: unresolved external symbol IMG_Load referenced in function "public: bool __cdecl Texture2D::LoadFromFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?LoadFromFile@Texture2D@@QEAA_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+SDL\SDL2.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+SDL\SDL2main.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+SDL\SDL2_image.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+SDL\SDL2_mixer.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\Kyle\OneDrive - Staffordshire University\GitHub\Games-Engine-Creation\mario\x64\Debug\MarioBaseProject.exe : fatal error LNK1120: 22 unresolved externals
