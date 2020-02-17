@@ -35,6 +35,11 @@ public:
 	// Handle Collisions
 	float GetCollisionRadius();
 	Rect2D GetCollisionBox() { return Rect2D(mPosition.x, mPosition.y, mTexture->GetWidth(), mTexture->GetHeight()); }
+
+	// Character Jumping
+	bool IsJumping();
+	void CancelJump();
+
 private:
 	LevelMap* mCurrentLevelMap;
 protected:

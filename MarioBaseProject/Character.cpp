@@ -69,17 +69,6 @@ void Character::Update(float deltaTime, SDL_Event e)
             mJumping = false;
         }
     }
-
-    /*if (mPosition.y == SCREEN_HEIGHT)
-    {
-        // Collided with ground so we can jump again.
-        mCanJump = true;
-    }
-    else
-    {
-        // Add Gravity to the Character
-        AddGravity(deltaTime);
-    }*/
     
     // Character Direction and Movement
     if (mMovingLeft)
@@ -117,13 +106,6 @@ void Character::MoveRight(float deltaTime)
 void Character::AddGravity(float deltaTime)
 {
     mPosition.y += PLAYER_GRAVITY * deltaTime;
-	mCanJump = false;
-
-    // Stop the player from moving off screen.
-    /*if (mPosition.y >= SCREEN_HEIGHT - mTexture->GetHeight())
-    {
-        mPosition.y -= 1;
-    }*/
 }
 
 void Character::Jump()
@@ -139,4 +121,14 @@ void Character::Jump()
 float Character::GetCollisionRadius()
 {
 	return mCollisionRadius;
+}
+
+bool Character::IsJumping()
+{
+	return mJumping;
+}
+
+void Character::CancelJump()
+{
+	mJumpForce = 0;
 }

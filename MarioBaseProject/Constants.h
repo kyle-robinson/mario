@@ -10,9 +10,13 @@
 #define JUMP_FORCE_DECREMENT	400.0f
 #define INITIAL_JUMP_FORCE		500
 
+// Level Map
 #define GRAVITY			96.0f
 #define TILE_WIDTH		32
 #define TILE_HEIGHT		32
+
+// Screen Shake
+#define SCREENSHAKE_DURATION	0.25f
 
 // Map dimensions.
 #define MAP_HEIGHT	13
