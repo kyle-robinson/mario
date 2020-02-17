@@ -2,7 +2,7 @@
 #include "Texture2D.h"
 #include "Collisions.h"
 
-Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D startPosition)
+Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D startPosition, LevelMap* map)
 {
     mRenderer = renderer;
     mPosition = startPosition;
@@ -14,6 +14,8 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D startPos
     mMovingRight = false;
 
     mCollisionRadius = 15.0f;
+
+	mCurrentLevelMap = map;
 }
 
 Character::~Character()
@@ -38,7 +40,21 @@ void Character::Render()
 
 void Character::Update(float deltaTime, SDL_Event e)
 {
-    // Deal with Jumping first
+	int centralXPosition = (int)(mPosition.x + (mTexture->GetWidth() * 0.5f)) / TILE_WIDTH;
+	int footPosition = (int)(mPosition.y + mTexture->GetHeight()) / TILE_HEIGHT;
+
+	// Deal with gravity.
+	if (mCurrentLevelMap->GetTileAt(footPosition, centralXPosition) == 0)
+	{
+		AddGravity(deltaTime);
+	}
+	else
+	{
+		// Collided with ground so we can jump again.
+		mCanJump = true;
+	}
+	
+	// Deal with Jumping first
     if (mJumping)
     {
         // Adjust the position.
@@ -54,7 +70,7 @@ void Character::Update(float deltaTime, SDL_Event e)
         }
     }
 
-    if (mPosition.y == SCREEN_HEIGHT)
+    /*if (mPosition.y == SCREEN_HEIGHT)
     {
         // Collided with ground so we can jump again.
         mCanJump = true;
@@ -63,7 +79,7 @@ void Character::Update(float deltaTime, SDL_Event e)
     {
         // Add Gravity to the Character
         AddGravity(deltaTime);
-    }
+    }*/
     
     // Character Direction and Movement
     if (mMovingLeft)
@@ -101,12 +117,13 @@ void Character::MoveRight(float deltaTime)
 void Character::AddGravity(float deltaTime)
 {
     mPosition.y += PLAYER_GRAVITY * deltaTime;
+	mCanJump = false;
 
     // Stop the player from moving off screen.
-    if (mPosition.y >= SCREEN_HEIGHT - mTexture->GetHeight())
+    /*if (mPosition.y >= SCREEN_HEIGHT - mTexture->GetHeight())
     {
         mPosition.y -= 1;
-    }
+    }*/
 }
 
 void Character::Jump()

@@ -89,7 +89,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Kyle\OneDrive - Staffordshire University\GitHub\Games-Engine-Creation\mario\MarioBaseProject\SDL\mixer_include;C:\Users\Kyle\OneDrive - Staffordshire University\GitHub\Games-Engine-Creation\mario\MarioBaseProject\SDL\include;C:\Users\Kyle\OneDrive - Staffordshire University\GitHub\Games-Engine-Creation\mario\MarioBaseProject\SDL\image_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +132,7 @@
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameScreenLevel1.cpp" />
     <ClCompile Include="GameScreenManager.cpp" />
+    <ClCompile Include="LevelMap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Texture2D.cpp" />
   </ItemGroup>
@@ -146,6 +146,7 @@
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="GameScreenLevel1.h" />
     <ClInclude Include="GameScreenManager.h" />
+    <ClInclude Include="LevelMap.h" />
     <ClInclude Include="Texture2D.h" />
   </ItemGroup>
   <ItemGroup>

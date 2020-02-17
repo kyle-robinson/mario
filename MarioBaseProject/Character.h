@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Constants.h"
 #include "Texture2D.h"
+#include "LevelMap.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ class Character
 {
 public:
 	// Main Functions
-	Character(SDL_Renderer* renderer, string imagePath, Vector2D startPosition);
+	Character(SDL_Renderer* renderer, string imagePath, Vector2D startPosition, LevelMap* map);
 	~Character();
 
 	// Render Characters - Change Directions
@@ -35,7 +36,7 @@ public:
 	float GetCollisionRadius();
 	Rect2D GetCollisionBox() { return Rect2D(mPosition.x, mPosition.y, mTexture->GetWidth(), mTexture->GetHeight()); }
 private:
-
+	LevelMap* mCurrentLevelMap;
 protected:
 	// Character Creation
 	SDL_Renderer* mRenderer;

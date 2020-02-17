@@ -1,1 +1,6 @@
-﻿  MarioBaseProject.vcxproj -> C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\Debug\MarioBaseProject.exe
+﻿  Character.cpp
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37,110): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37,87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.cpp(108,31): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.cpp(114,31): warning C4305: '+=': truncation from 'double' to 'float'
+  MarioBaseProject.vcxproj -> C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\Debug\MarioBaseProject.exe

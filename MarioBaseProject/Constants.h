@@ -9,3 +9,11 @@
 #define PLAYER_GRAVITY			250
 #define JUMP_FORCE_DECREMENT	400.0f
 #define INITIAL_JUMP_FORCE		500
+
+#define GRAVITY			96.0f
+#define TILE_WIDTH		32
+#define TILE_HEIGHT		32
+
+// Map dimensions.
+#define MAP_HEIGHT	13
+#define MAP_WIDTH	16
