@@ -52,6 +52,9 @@ private:
 	
 	void DoScreenShake();
 
+	// Characters
+	void WallWrapping(Character* character);
+
 	// Enemy Characters
 	void UpdateEnemies(float deltaTime, SDL_Event e);
 	void CreateKoopa(Vector2D position, FACING direction, float speed);
@@ -64,5 +67,4 @@ private:
 	void CreateCoin(Vector2D position);
 
 	vector<CharacterCoin*> mCoins;
-	float coinTimer;
 };

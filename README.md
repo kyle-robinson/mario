@@ -11,6 +11,6 @@ Super Mario game for 2nd semester as part of GEC module.
 - [x] Add coins to the game.
 - [ ] Implement scoring system using coins.
 - [ ] Create a variety of enemies.
-- [ ] Create wall-wrapping for characters.
+- [x] Create wall-wrapping for characters.
 
 - [ ] Create Level 2

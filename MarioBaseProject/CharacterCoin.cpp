@@ -3,7 +3,7 @@
 CharacterCoin::CharacterCoin(SDL_Renderer* renderer, string imagePath, LevelMap* map, Vector2D startPosition) : Character(renderer, imagePath, startPosition, map)
 {
 	mPosition = startPosition;
-	//mCollected = false;
+	mCollected = false;
 
 	mCurrentFrame = 0;
 	mFrameDelay = ANIMATION_DELAY;
@@ -25,7 +25,7 @@ void CharacterCoin::Render()
 	SDL_Rect portionOfSpritesheet = { left, 0, mSingleSpriteWidth, mSingleSpriteHeight };
 	
 	// Determine where you want it drawn.
-	SDL_Rect destRect = {(int)(mPosition.x), (int)(mPosition.y), mSingleSpriteWidth, mSingleSpriteHeight};
+	SDL_Rect destRect = { (int)(mPosition.x), (int)(mPosition.y), mSingleSpriteWidth, mSingleSpriteHeight };
 	
 	mTexture->Render(portionOfSpritesheet, destRect, SDL_FLIP_NONE);
 }

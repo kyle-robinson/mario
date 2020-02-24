@@ -106,7 +106,9 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	
 	// Update the players.
 	characterMario->Update(deltaTime, e);
+	WallWrapping(characterMario);
 	characterLuigi->Update(deltaTime, e);
+	WallWrapping(characterLuigi);
 
 	// Update POW block for each player.
 	UpdatePOWBlock(characterMario);
@@ -241,6 +243,21 @@ void GameScreenLevel1::DoScreenShake()
 	}
 }
 
+void GameScreenLevel1::WallWrapping(Character* character)
+{
+	// Right wall collision - wrap left
+	if (character->GetPosition().x >= SCREEN_WIDTH - character->GetCollisionBox().width)
+	{
+		character->SetPosition(Vector2D(0, character->GetPosition().y));
+	}
+
+	// Left wall collision - wrap right
+	if (character->GetPosition().x < 0)
+	{
+		character->SetPosition(Vector2D(SCREEN_WIDTH - character->GetCollisionBox().width, character->GetPosition().y));
+	}
+}
+
 void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 {
 	// Update the Enemies.
@@ -325,7 +342,7 @@ void GameScreenLevel1::UpdateCoin(float deltaTime, SDL_Event e)
 			mCoins[i]->Update(deltaTime, e);
 
 			// Check to see if the enemy collides with the player.
-			if (Collisions::Instance()->Circle(mCoins[i], characterMario))
+			if (Collisions::Instance()->Box(mCoins[i]->GetCollisionBox(), characterMario->GetCollisionBox()))
 			{
 				if (mCoins[i]->GetCollected())
 				{
@@ -334,7 +351,7 @@ void GameScreenLevel1::UpdateCoin(float deltaTime, SDL_Event e)
 				}
 			}
 
-			if (Collisions::Instance()->Circle(mCoins[i], characterLuigi))
+			if (Collisions::Instance()->Box(mCoins[i]->GetCollisionBox(), characterLuigi->GetCollisionBox()))
 			{
 				if (mCoins[i]->GetCollected())
 				{
