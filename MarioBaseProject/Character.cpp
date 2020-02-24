@@ -135,4 +135,5 @@ void Character::CancelJump()
 void Character::SetAlive(bool isAlive)
 {
 	alive = isAlive;
+
 }

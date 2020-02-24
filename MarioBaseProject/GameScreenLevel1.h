@@ -4,6 +4,7 @@
 #include "GameScreen.h"
 #include "LevelMap.h"
 #include "CharacterKoopa.h"
+#include "CharacterCoin.h"
 
 #include <vector>
 
@@ -54,5 +55,14 @@ private:
 	// Enemy Characters
 	void UpdateEnemies(float deltaTime, SDL_Event e);
 	void CreateKoopa(Vector2D position, FACING direction, float speed);
+	
 	vector<CharacterKoopa*> mEnemies;
+	float koopaTimer;
+
+	// Coin Characters
+	void UpdateCoin(float deltaTime, SDL_Event e);
+	void CreateCoin(Vector2D position);
+
+	vector<CharacterCoin*> mCoins;
+	float coinTimer;
 };

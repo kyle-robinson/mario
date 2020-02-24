@@ -54,6 +54,9 @@
     <ClInclude Include="CharacterKoopa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterCoin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -90,6 +93,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CharacterKoopa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterCoin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
