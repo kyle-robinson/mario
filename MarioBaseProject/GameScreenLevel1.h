@@ -3,6 +3,9 @@
 #include "Commons.h"
 #include "GameScreen.h"
 #include "LevelMap.h"
+#include "CharacterKoopa.h"
+
+#include <vector>
 
 class Texture2D;
 class Character;
@@ -47,4 +50,10 @@ private:
 	float mBackgroundYPos;
 	
 	void DoScreenShake();
+
+	// Enemy Characters
+	void UpdateEnemies(float deltaTime, SDL_Event e);
+	void CreateKoopa(Vector2D position, FACING direction, float speed);
+
+	vector<CharacterKoopa*> mEnemies;
 };
