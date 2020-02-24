@@ -213,7 +213,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 				// Is the enemy off screen to the left / right?
 				if (mEnemies[i]->GetPosition().x < (float)(-mEnemies[i]->GetCollisionBox().width * 0.5f) || mEnemies[i]->GetPosition().x > SCREEN_WIDTH - (float)(mEnemies[i]->GetCollisionBox().width * 0.55f))
 				{
-					//mEnemies[i]->SetAlive(false);;
+					mEnemies[i]->SetAlive(false);;
 				}
 			}
 
@@ -229,15 +229,38 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 			{
 				if (Collisions::Instance()->Circle(mEnemies[i], characterMario))
 				{
-					//characterMario->SetState(CHARACTERSTATE_PLAYER_DEATH);
+					if (mEnemies[i]->GetInjured())
+					{
+						mEnemies[i]->SetAlive(false);
+					}
+					else
+					{
+						// Kill Mario.
+						characterMario->SetAlive(false);
+						cout << "Mario is dead." << endl;
+					}
+				}
+
+				if (Collisions::Instance()->Circle(mEnemies[i], characterLuigi))
+				{
+					if (mEnemies[i]->GetInjured())
+					{
+						mEnemies[i]->SetAlive(false);
+					}
+					else
+					{
+						// Kill Luigi.
+						characterLuigi->SetAlive(false);
+						cout << "Luigi is dead." << endl;
+					}
 				}
 			}
 
 			// If the enemy is no longer alive, then schedule it for deletion.
-			/*if (!mEnemies[i]->GetAlive())
+			if (!mEnemies[i]->GetAlive())
 			{
 				enemyIndexToDelete = i;
-			}*/
+			}
 		}
 
 		// Remove dead enemies - 1 each update.

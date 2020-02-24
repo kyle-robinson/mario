@@ -32,7 +32,7 @@ void CharacterKoopa::Render()
 	SDL_Rect portionOfSpritesheet = { left, 0, mSingleSpriteWidth, mSingleSpriteHeight };
 	
 	// Determine where you want it drawn.
-	SDL_Rect destRect = {(int)(mPosition.x), (int)(mPosition.y), mSingleSpriteWidth, mSingleSpriteHeight};
+	SDL_Rect destRect = { (int)(mPosition.x), (int)(mPosition.y), mSingleSpriteWidth, mSingleSpriteHeight };
 
 	// Draw it facing the correct direction.
 	if (mFacingDirection == FACING_RIGHT)

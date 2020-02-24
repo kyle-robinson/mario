@@ -54,6 +54,5 @@ private:
 	// Enemy Characters
 	void UpdateEnemies(float deltaTime, SDL_Event e);
 	void CreateKoopa(Vector2D position, FACING direction, float speed);
-
 	vector<CharacterKoopa*> mEnemies;
 };

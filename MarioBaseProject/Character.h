@@ -40,8 +40,13 @@ public:
 	bool IsJumping();
 	void CancelJump();
 
+	// Character states.
+	void SetAlive(bool isAlive);
+	bool GetAlive() { return alive; }
+
 private:
 	LevelMap* mCurrentLevelMap;
+
 protected:
 	// Character Creation
 	SDL_Renderer* mRenderer;
@@ -61,6 +66,8 @@ protected:
 
 	// Collision Variables
 	float mCollisionRadius;
+
+	bool alive = true;
 };
 
 #endif //_TEXTURE2D_H

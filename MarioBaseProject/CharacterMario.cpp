@@ -2,7 +2,7 @@
 
 CharacterMario::CharacterMario(SDL_Renderer* renderer, string imagePath, Vector2D startPosition, LevelMap* map) : Character(renderer, imagePath, startPosition, map)
 {
-	
+	mFacingDirection = FACING_RIGHT;
 }
 
 CharacterMario::~CharacterMario()
@@ -11,6 +11,12 @@ CharacterMario::~CharacterMario()
 }
 
 void CharacterMario::Update(float deltaTime, SDL_Event e)
+{
+	Character::Update(deltaTime, e);
+	Keyboard(deltaTime, e);
+}
+
+void CharacterMario::Keyboard(float deltaTime, SDL_Event e)
 {
 	// Deal with keyboard input.
 	switch (e.type)
@@ -56,5 +62,4 @@ void CharacterMario::Update(float deltaTime, SDL_Event e)
 		}
 		break;
 	}
-	Character::Update(deltaTime, e);
 }

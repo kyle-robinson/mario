@@ -7,9 +7,8 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D startPos
     mRenderer = renderer;
     mPosition = startPosition;
     mTexture = new Texture2D(mRenderer);
-    mTexture->LoadFromFile(imagePath);
+	mTexture->LoadFromFile(imagePath);
 
-    mFacingDirection = FACING_RIGHT;
     mMovingLeft = false;
     mMovingRight = false;
 
@@ -71,7 +70,7 @@ void Character::Update(float deltaTime, SDL_Event e)
     }
     
     // Character Direction and Movement
-    if (mMovingLeft)
+	if (mMovingLeft)
     {
         MoveLeft(deltaTime);
     }
@@ -131,4 +130,9 @@ bool Character::IsJumping()
 void Character::CancelJump()
 {
 	mJumpForce = 0;
+}
+
+void Character::SetAlive(bool isAlive)
+{
+	alive = isAlive;
 }

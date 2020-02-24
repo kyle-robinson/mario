@@ -1,38 +1,4 @@
-﻿  Character.cpp
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.cpp(97): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.cpp(103): warning C4305: '+=': truncation from 'double' to 'float'
-  CharacterKoopa.cpp
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(11): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(23): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(28): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(32): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(32): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(35): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(35): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  CharacterLuigi.cpp
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  CharacterMario.cpp
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Collisions.cpp
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  GameScreenLevel1.cpp
+﻿  GameScreenLevel1.cpp
 C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.h(15): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  GameScreenManager.cpp
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  LevelMap.cpp
-  PowBlock.cpp
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.h(15): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(52): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(55): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(55): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(58): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
-C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(58): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  main.cpp
-  Generating Code...
   MarioBaseProject.vcxproj -> C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\Debug\MarioBaseProject.exe

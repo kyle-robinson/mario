@@ -2,7 +2,7 @@
 
 CharacterLuigi::CharacterLuigi(SDL_Renderer* renderer, string imagePath, Vector2D startPosition, LevelMap* map) : Character(renderer, imagePath, startPosition, map)
 {
-
+	mFacingDirection = FACING_LEFT;
 }
 
 CharacterLuigi::~CharacterLuigi()
@@ -11,6 +11,12 @@ CharacterLuigi::~CharacterLuigi()
 }
 
 void CharacterLuigi::Update(float deltaTime, SDL_Event e)
+{
+	Character::Update(deltaTime, e);
+	Keyboard(deltaTime, e);
+}
+
+void CharacterLuigi::Keyboard(float deltaTime, SDL_Event e)
 {
 	// Deal with keyboard input.
 	switch (e.type)
@@ -56,5 +62,4 @@ void CharacterLuigi::Update(float deltaTime, SDL_Event e)
 		}
 		break;
 	}
-	Character::Update(deltaTime, e);
 }

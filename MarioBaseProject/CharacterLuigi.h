@@ -9,4 +9,5 @@ public:
 	~CharacterLuigi();
 protected:
 	void Update(float deltaTime, SDL_Event e);
+	void Keyboard(float deltaTime, SDL_Event e);
 };
