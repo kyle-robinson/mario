@@ -26,7 +26,7 @@
 #define INJURED_TIME					2.5f
 #define INITIAL_JUMP_FORCE_SMALL		250
 #define KOOPA_SPEED						96.0f
-#define KOOPA_TIME						10000.0f
+#define ENEMY_TIMER						20000.0f
 
 // Coin Character
 #define ANIMATION_DELAY					0.15

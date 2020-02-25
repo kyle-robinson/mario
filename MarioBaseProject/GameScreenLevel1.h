@@ -5,6 +5,7 @@
 #include "LevelMap.h"
 #include "CharacterKoopa.h"
 #include "CharacterCoin.h"
+#include "CharacterGoomba.h"
 
 #include <vector>
 
@@ -56,11 +57,15 @@ private:
 	void WallWrapping(Character* character);
 
 	// Enemy Characters
-	void UpdateEnemies(float deltaTime, SDL_Event e);
+	void UpdateKoopas(float deltaTime, SDL_Event e);
 	void CreateKoopa(Vector2D position, FACING direction, float speed);
-	
-	vector<CharacterKoopa*> mEnemies;
-	float koopaTimer;
+	vector<CharacterKoopa*> mEnemyKoopa;
+
+	void UpdateGoombas(float deltaTime, SDL_Event e);
+	void CreateGoomba(Vector2D position, FACING direction);
+	vector<CharacterGoomba*> mEnemyGoomba;
+
+	float enemyTimer;
 
 	// Coin Characters
 	void UpdateCoin(float deltaTime, SDL_Event e);

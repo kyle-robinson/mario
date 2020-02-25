@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterCoin.cpp" />
+    <ClCompile Include="CharacterGoomba.cpp" />
     <ClCompile Include="CharacterKoopa.cpp" />
     <ClCompile Include="CharacterLuigi.cpp" />
     <ClCompile Include="CharacterMario.cpp" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterCoin.h" />
+    <ClInclude Include="CharacterGoomba.h" />
     <ClInclude Include="CharacterKoopa.h" />
     <ClInclude Include="CharacterLuigi.h" />
     <ClInclude Include="CharacterMario.h" />
