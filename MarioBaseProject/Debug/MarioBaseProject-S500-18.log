@@ -1,0 +1,130 @@
+﻿  Character.cpp
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.cpp(96): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.cpp(102): warning C4305: '+=': truncation from 'double' to 'float'
+  CharacterCoin.cpp
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterCoin.cpp(9): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterCoin.cpp(11): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterCoin.cpp(12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterCoin.cpp(22): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterCoin.cpp(25): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterCoin.cpp(25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterCoin.cpp(28): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterCoin.cpp(28): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterCoin.cpp(42): warning C4305: '=': truncation from 'double' to 'float'
+  CharacterKoopa.cpp
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(11): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(23): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(28): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(32): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(32): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(35): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterKoopa.cpp(35): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  CharacterLuigi.cpp
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  CharacterMario.cpp
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Collisions.cpp
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GameScreen.cpp
+  GameScreenLevel1.cpp
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.h(15): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(14): error C2065: 'enemyTimer': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(14): error C2065: 'ENEMY_TIMER': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(38): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(39): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(59): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(61): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(63): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(65): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(114): error C3861: 'WallWrapping': identifier not found
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(116): error C3861: 'WallWrapping': identifier not found
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(123): error C2065: 'enemyTimer': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(124): error C2065: 'enemyTimer': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(128): error C2065: 'enemyTimer': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(130): error C3861: 'CreateGoomba': identifier not found
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(132): error C2065: 'enemyTimer': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(134): error C3861: 'CreateGoomba': identifier not found
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(136): error C2065: 'enemyTimer': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(138): error C2065: 'enemyTimer': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(138): error C2065: 'ENEMY_TIMER': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(141): error C3861: 'UpdateKoopas': identifier not found
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(142): error C3861: 'UpdateGoombas': identifier not found
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(179): error C3861: 'CreateGoomba': identifier not found
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(257): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(259): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(262): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(264): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(268): error C2039: 'WallWrapping': is not a member of 'GameScreenLevel1'
+  C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.h(15): note: see declaration of 'GameScreenLevel1'
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(283): error C2039: 'UpdateKoopas': is not a member of 'GameScreenLevel1'
+  C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.h(15): note: see declaration of 'GameScreenLevel1'
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(286): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(289): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(292): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(295): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(297): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(302): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(305): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(311): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(311): error C2065: 'characterMario': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(313): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(315): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(320): error C2065: 'characterMario': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(325): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(325): error C2065: 'characterLuigi': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(327): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(329): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(334): error C2065: 'characterLuigi': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(341): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(350): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(355): error C2039: 'UpdateGoombas': is not a member of 'GameScreenLevel1'
+  C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.h(15): note: see declaration of 'GameScreenLevel1'
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(358): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(361): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(364): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(367): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(369): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(374): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(377): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(383): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(383): error C2065: 'characterMario': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(385): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(387): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(392): error C2065: 'characterMario': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(397): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(397): error C2065: 'characterLuigi': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(399): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(401): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(406): error C2065: 'characterLuigi': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(413): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(422): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(475): error C2065: 'mEnemyKoopa': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(478): error C2039: 'CreateGoomba': is not a member of 'GameScreenLevel1'
+  C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.h(15): note: see declaration of 'GameScreenLevel1'
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(480): error C2065: 'CharacterGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(480): error C2065: 'characterGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(480): error C2061: syntax error: identifier 'CharacterGoomba'
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(481): error C2065: 'mEnemyGoomba': undeclared identifier
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\GameScreenLevel1.cpp(481): error C2065: 'characterGoomba': undeclared identifier
+  GameScreenManager.cpp
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  LevelMap.cpp
+  PowBlock.cpp
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.h(15): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(52): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(55): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(55): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(58): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\PowBlock.cpp(58): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Texture2D.cpp
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Texture2D.cpp(69): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Texture2D.cpp(69): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  main.cpp
+  Generating Code...

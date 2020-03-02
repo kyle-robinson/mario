@@ -1,0 +1,16 @@
+﻿  CharacterGoomba.cpp
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37,110): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\Character.h(37,87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(9,41): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(10,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(20,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(22,46): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(22,46): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(22,66): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(22,66): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(23,64): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(23,64): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(23,84): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(23,84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\CharacterGoomba.cpp(76,32): warning C4305: '=': truncation from 'double' to 'float'
+  MarioBaseProject.vcxproj -> C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\Debug\MarioBaseProject.exe
