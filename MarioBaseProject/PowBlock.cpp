@@ -16,7 +16,7 @@ PowBlock::PowBlock(SDL_Renderer* renderer, LevelMap* map)
 
 	mLevelMap = map;
 
-	mSingleSpriteWidth = mTexture->GetWidth() / 3;	// 3 sprites on this spritesheet in 1 row.
+	mSingleSpriteWidth = mTexture->GetWidth() / 3;
 	mSingleSpriteHeight = mTexture->GetHeight();
 	mNumberOfHitsLeft = 3;
 	mPosition = Vector2D((SCREEN_WIDTH * 0.5f) - mSingleSpriteWidth * 0.5f, 260);
@@ -48,16 +48,11 @@ void PowBlock::Render()
 {
 	if (mNumberOfHitsLeft > 0)
 	{
-		// Get the portion of the spritesheet you want to draw.
 		int left = mSingleSpriteWidth * (mNumberOfHitsLeft - 1);
 
-		// {XPos, YPos, WidthOfSingleSprite, HeightOfSingleSprite}
 		SDL_Rect portionOfSpritesheet = {left, 0, mSingleSpriteWidth, mSingleSpriteHeight};
-
-		// Determine where you want it drawn.
 		SDL_Rect destRect = { (int)(mPosition.x), (int)(mPosition.y), mSingleSpriteWidth, mSingleSpriteHeight};
 
-		// Then draw it.
 		mTexture->Render(portionOfSpritesheet, destRect, SDL_FLIP_NONE);
 	}
 }

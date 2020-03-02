@@ -1,14 +1,12 @@
 #include "CharacterKoopa.h"
 
-CharacterKoopa::CharacterKoopa(SDL_Renderer* renderer, string imagePath, LevelMap* map, Vector2D startPosition, FACING startFacing, float movementSpeed) : Character(renderer, imagePath, startPosition, map)
+CharacterKoopa::CharacterKoopa(SDL_Renderer* renderer, string imagePath, LevelMap* map, Vector2D startPosition, FACING startFacing) : Character(renderer, imagePath, startPosition, map)
 {
 	mFacingDirection = startFacing;
-	mMovementSpeed = movementSpeed;
 	mPosition = startPosition;
-
 	mInjured = false;
 
-	mSingleSpriteWidth = mTexture->GetWidth() / 2;	// 2 sprites on the spritesheet in one row
+	mSingleSpriteWidth = mTexture->GetWidth() / 2;
 	mSingleSpriteHeight = mTexture->GetHeight();
 }
 
@@ -19,22 +17,17 @@ CharacterKoopa::~CharacterKoopa()
 
 void CharacterKoopa::Render()
 {
-	// variable to hold the left position of the sprite we want to draw.
-	int left = 0.0f;
-
-	// If injured, move the left position to left position of the second image int the spritesheet.
+	int left = mCurrentFrame * mSingleSpriteWidth;
+	
 	if (mInjured)
 	{
-		left = mSingleSpriteWidth;
+		mCurrentFrame = 2;
+		left = mCurrentFrame * mSingleSpriteWidth;
 	}
 
-	// Get the portion of the spritesheet you want to draw.
 	SDL_Rect portionOfSpritesheet = { left, 0, mSingleSpriteWidth, mSingleSpriteHeight };
-	
-	// Determine where you want it drawn.
 	SDL_Rect destRect = { (int)(mPosition.x), (int)(mPosition.y), mSingleSpriteWidth, mSingleSpriteHeight };
 
-	// Draw it facing the correct direction.
 	if (mFacingDirection == FACING_RIGHT)
 	{
 		mTexture->Render(portionOfSpritesheet, destRect, SDL_FLIP_NONE);
@@ -47,12 +40,11 @@ void CharacterKoopa::Render()
 
 void CharacterKoopa::Update(float deltaTime, SDL_Event e)
 {
-	// To gain the benefit of the code written in the base class Update() function, call it.
 	Character::Update(deltaTime, e);
 
 	if (!mInjured)
 	{
-		// We are not injured so move.
+		AnimateKoopa(deltaTime, e);
 		if (mFacingDirection == FACING_LEFT)
 		{
 			mMovingLeft = true;
@@ -66,11 +58,9 @@ void CharacterKoopa::Update(float deltaTime, SDL_Event e)
 	}
 	else
 	{
-		// We should not be moving.
 		mMovingRight = false;
 		mMovingLeft = false;
 
-		// Count down the injured time.
 		mInjuredTime -= deltaTime;
 
 		if (mInjuredTime <= 0.0)
@@ -111,4 +101,19 @@ void CharacterKoopa::FlipRightWayUp()
 
 	mInjured = false;
 	Jump();
+}
+
+void CharacterKoopa::AnimateKoopa(float deltaTime, SDL_Event e)
+{
+	mFrameDelay -= deltaTime;
+	if (mFrameDelay <= 0.0f)
+	{
+		mFrameDelay = ANIMATION_DELAY;
+		mCurrentFrame++;
+
+		if (mCurrentFrame > 1)
+		{
+			mCurrentFrame = 0;
+		}
+	}
 }

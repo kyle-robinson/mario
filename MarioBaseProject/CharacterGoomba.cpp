@@ -6,8 +6,8 @@ CharacterGoomba::CharacterGoomba(SDL_Renderer* renderer, string imagePath, Level
 	mPosition = startPosition;
 	mInjured = false;
 
-	mSingleSpriteWidth = mTexture->GetWidth();
-	mSingleSpriteHeight = mTexture->GetHeight() / 2;
+	mSingleSpriteWidth = mTexture->GetWidth() / 2;
+	mSingleSpriteHeight = mTexture->GetHeight();
 }
 
 CharacterGoomba::~CharacterGoomba()
@@ -17,9 +17,9 @@ CharacterGoomba::~CharacterGoomba()
 
 void CharacterGoomba::Render()
 {
-	int upper = mCurrentFrame * mSingleSpriteHeight;
+	int left = mCurrentFrame * mSingleSpriteWidth;
 
-	SDL_Rect portionOfSpritesheet = { 0, upper, mSingleSpriteWidth, mSingleSpriteHeight };
+	SDL_Rect portionOfSpritesheet = { left, 0, mSingleSpriteWidth, mSingleSpriteHeight };
 	SDL_Rect destRect = { (int)(mPosition.x), (int)(mPosition.y), mSingleSpriteWidth, mSingleSpriteHeight };
 
 	if (mFacingDirection == FACING_RIGHT)

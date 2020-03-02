@@ -6,6 +6,7 @@
 #include "CharacterKoopa.h"
 #include "CharacterCoin.h"
 #include "CharacterGoomba.h"
+#include "CharacterPeach.h"
 
 #include <vector>
 
@@ -22,30 +23,21 @@ public:
 	void Render();
 	void Update(float deltaTime, SDL_Event e);
 
-	// Character pointers
 	Character* characterMario;
 	Character* characterLuigi;
 
-	void UpdatePOWBlock(Character* character);
+	void UpdatePOWBlock();
 
 private:
-	// Set up level
 	bool SetUpLevel();
 	Texture2D* mBackgroundTexture;
 	Texture2D* mLevelTexture;
 
-	// Bools to check for collisions
-	bool circleCollision;
-	bool boxCollision;
-
-	// Set up the Level Map
 	void SetLevelMap();
 	LevelMap* mLevelMap;
 
-	// POW Block pointer
 	PowBlock* mPowBlock;
 
-	// Set up Screenshake
 	bool mScreenshake;
 	float mScreenshakeTime;
 	float mWobble;
@@ -53,12 +45,20 @@ private:
 	
 	void DoScreenShake();
 
-	// Characters
 	void WallWrapping(Character* character);
 
-	// Enemy Characters
+	// GAME OBJECTS
+	void UpdatePeach(float deltaTime, SDL_Event e);
+	void CreatePeach(Vector2D position, FACING direction);
+	CharacterPeach* characterPeach;
+
+	void UpdateCoin(float deltaTime, SDL_Event e);
+	void CreateCoin(Vector2D position);
+	vector<CharacterCoin*> mCoins;
+
+	// ENEMIES
 	void UpdateKoopas(float deltaTime, SDL_Event e);
-	void CreateKoopa(Vector2D position, FACING direction, float speed);
+	void CreateKoopa(Vector2D position, FACING direction);
 	vector<CharacterKoopa*> mEnemyKoopa;
 
 	void UpdateGoombas(float deltaTime, SDL_Event e);
@@ -66,10 +66,4 @@ private:
 	vector<CharacterGoomba*> mEnemyGoomba;
 
 	float enemyTimer;
-
-	// Coin Characters
-	void UpdateCoin(float deltaTime, SDL_Event e);
-	void CreateCoin(Vector2D position);
-
-	vector<CharacterCoin*> mCoins;
 };

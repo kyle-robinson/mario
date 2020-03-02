@@ -131,6 +131,7 @@
     <ClCompile Include="CharacterKoopa.cpp" />
     <ClCompile Include="CharacterLuigi.cpp" />
     <ClCompile Include="CharacterMario.cpp" />
+    <ClCompile Include="CharacterPeach.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameScreenLevel1.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="CharacterKoopa.h" />
     <ClInclude Include="CharacterLuigi.h" />
     <ClInclude Include="CharacterMario.h" />
+    <ClInclude Include="CharacterPeach.h" />
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="Commons.h" />
     <ClInclude Include="Constants.h" />

@@ -4,15 +4,12 @@
 
 Texture2D::Texture2D(SDL_Renderer* renderer)
 {
-	// Initialise private variables.
 	mRenderer = renderer;
 }
 
 Texture2D::~Texture2D()
 {
-	// Free up the memory.
 	Free();
-
 	mRenderer = NULL;
 }
 
@@ -36,7 +33,6 @@ bool Texture2D::LoadFromFile(string path)
 		}
 		else
 		{
-			// Set the dimensions.
 			mWidth = mSurface->w;
 			mHeight = mSurface->h;
 		}
@@ -47,13 +43,11 @@ bool Texture2D::LoadFromFile(string path)
 		cout << "Unable to create texture from surface. Error: " << IMG_GetError() << endl;
 	}
 
-	// Return whether the process was successful.
 	return mTexture != NULL;
 }
 
 void Texture2D::Free()
 {
-	// Check if the texture exists before removing it.
 	if (mTexture != NULL)
 	{
 		SDL_DestroyTexture(mTexture);
@@ -65,15 +59,12 @@ void Texture2D::Free()
 
 void Texture2D::Render(Vector2D newPosition, SDL_RendererFlip flip, double angle)
 {
-	// Set where to render the texture.
 	SDL_Rect renderLocation = { newPosition.x, newPosition.y, mWidth, mHeight };
 
-	// Render to screen.
 	SDL_RenderCopyEx(mRenderer, mTexture, NULL, &renderLocation, 0, NULL, flip);
 }
 
 void Texture2D::Render(SDL_Rect srcRect, SDL_Rect destRect, SDL_RendererFlip flip, double angle)
 {
-	// Render to the screen.
 	SDL_RenderCopyEx(mRenderer, mTexture, &srcRect, &destRect, angle, NULL, flip);
 }

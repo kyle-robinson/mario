@@ -3,6 +3,7 @@
 #include "GameScreenManager.h"
 
 #include <iostream>
+
 using namespace std;
 
 GameScreenManager::GameScreenManager(SDL_Renderer* renderer, SCREENS startScreen)

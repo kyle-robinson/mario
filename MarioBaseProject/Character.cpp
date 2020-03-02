@@ -12,6 +12,8 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D startPos
     mMovingLeft = false;
     mMovingRight = false;
 
+	mScore = 0;
+
     mCollisionRadius = 15.0f;
 
 	mCurrentLevelMap = map;
@@ -24,17 +26,7 @@ Character::~Character()
 
 void Character::Render()
 {
-    mTexture->Render(GetPosition(), SDL_FLIP_NONE);
 
-    // Change character direction.
-    if (mFacingDirection == FACING_RIGHT)
-    {
-        mTexture->Render(mPosition, SDL_FLIP_NONE);
-    }
-    else
-    {
-        mTexture->Render(mPosition, SDL_FLIP_HORIZONTAL);
-    }
 }
 
 void Character::Update(float deltaTime, SDL_Event e)
@@ -49,27 +41,21 @@ void Character::Update(float deltaTime, SDL_Event e)
 	}
 	else
 	{
-		// Collided with ground so we can jump again.
 		mCanJump = true;
 	}
 	
 	// Deal with Jumping first
     if (mJumping)
     {
-        // Adjust the position.
         mPosition.y -= mJumpForce * deltaTime;
-
-        // Reduce the jump force.
         mJumpForce -= JUMP_FORCE_DECREMENT * deltaTime;
 
-        // Has the jump force reduced to zero?
         if (mJumpForce <= 0.0f)
         {
             mJumping = false;
         }
     }
-    
-    // Character Direction and Movement
+
 	if (mMovingLeft)
     {
         MoveLeft(deltaTime);
@@ -129,7 +115,7 @@ bool Character::IsJumping()
 
 void Character::CancelJump()
 {
-	mJumpForce = 0;
+	mJumpForce = -mJumpForce;
 }
 
 void Character::SetAlive(bool isAlive)
