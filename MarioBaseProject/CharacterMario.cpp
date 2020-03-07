@@ -68,7 +68,10 @@ void CharacterMario::Keyboard(float deltaTime, SDL_Event e)
 		{
 		case SDLK_w:
 			Character::Jump();
-			Mix_PlayMusic(gJump, -1);
+			if (Mix_PlayMusic(gJump, 0))
+			{
+				cout << "Played jump sound effect." << endl;
+			}
 			break;
 
 		case SDLK_s:
