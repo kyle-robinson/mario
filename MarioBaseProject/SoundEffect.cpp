@@ -1,26 +1,26 @@
 #include "SoundEffect.h"
 
-/*SoundEffect::SoundEffect()
+SoundEffect::SoundEffect()
 {
-	//gSoundEffect = NULL;
+	gSoundEffect = NULL;
 }
 
 SoundEffect::~SoundEffect()
 {
-	//Mix_FreeChunk(sound);
-	//gSoundEffect = NULL;
+	Mix_FreeMusic(gSoundEffect);
+	gSoundEffect = NULL;
 }
 
-void SoundEffect::Load(Mix_Chunk* sound, string path)
+void SoundEffect::Load(Mix_Music* sound, string path)
 {
-	sound = Mix_LoadWAV(path.c_str);
+	sound = Mix_LoadMUS(path.c_str());
 	if (sound == NULL)
 	{
 		cout << "Failed to load sound effect! Error: " << Mix_GetError() << endl;
 	}
 }
 
-void SoundEffect::Play(int channel, Mix_Chunk* sound, int loop)
+void SoundEffect::Play(int channel, Mix_Music* sound, int loop)
 {
-	Mix_PlayChannel(channel, sound, loop);
-}*/
+	Mix_PlayMusic(sound, loop);
+}

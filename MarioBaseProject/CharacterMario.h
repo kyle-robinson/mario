@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Character.h"
-//#include "SoundEffect.h"
 #include <SDL_mixer.h>
+#include "SoundEffect.h"
 
 class CharacterMario : public Character
 {
@@ -21,9 +21,9 @@ private:
 	
 	float mFrameDelay;
 	int mCurrentFrame;
-	
-	//Mix_Chunk* gJump;
-	//string audioPath;
+
+	Mix_Music* gJump;
+	SoundEffect* soundEffect;
 
 	void AnimateMario(float deltaTime, SDL_Event e);
 };

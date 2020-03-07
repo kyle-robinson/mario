@@ -2,7 +2,7 @@
 
 // Map and Screen Dimesions
 #define SCREEN_WIDTH					512
-#define SCREEN_HEIGHT					416
+#define SCREEN_HEIGHT					410
 
 #define TILE_WIDTH						32
 #define TILE_HEIGHT						32

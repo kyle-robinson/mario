@@ -12,8 +12,8 @@ public:
 	SoundEffect();
 	~SoundEffect();
 
-	static void Load(Mix_Chunk* sound, string path);
-	static void Play(int channel, Mix_Chunk* gSoundEffect, int loop);
+	void Load(Mix_Music* sound, string path);
+	void Play(int channel, Mix_Music* gSoundEffect, int loop);
 
-	//static Mix_Chunk* gSoundEffect;
+	Mix_Music* gSoundEffect;
 };

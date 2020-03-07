@@ -120,14 +120,14 @@ bool GameScreenLevel1::SetUpLevel()
 	SetLevelMap();
 
 	mBackgroundTexture = new Texture2D(mRenderer);
-	if (!mBackgroundTexture->LoadFromFile("Images/Black_Background.png"))
+	if (!mBackgroundTexture->LoadFromFile("Images/Level1/Overworld_Bg_Small.png"))
 	{
 		cout << "Failed to load background texture!";
 		return false;
 	}
 
 	mLevelTexture = new Texture2D(mRenderer);
-	if (!mLevelTexture->LoadFromFile("Images/Level_1.png"))
+	if (!mLevelTexture->LoadFromFile("Images/Level1/Level_1.png"))
 	{
 		cout << "Failed to load level map texture!";
 		return false;
@@ -176,7 +176,7 @@ void GameScreenLevel1::SetLevelMap()
 {
 	int map[MAP_HEIGHT][MAP_WIDTH] = {	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-										{1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
+										{1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0},

@@ -4,9 +4,8 @@ CharacterMario::CharacterMario(SDL_Renderer* renderer, string imagePath, Vector2
 {
 	mFacingDirection = FACING_RIGHT;
 
-	//SoundEffect::Load(gJump, "Music/Jump.wav");
-	//gJump = Mix_LoadWAV("Music/Jump.wav".c_str);
-	//audioPath = "Music/Jump.wav";
+	gJump = NULL;
+	soundEffect->Load(gJump, "Music/Jump.mp3");
 	
 	mSingleSpriteWidth = mTexture->GetWidth() / 3;
 	mSingleSpriteHeight = mTexture->GetHeight();
@@ -20,7 +19,7 @@ CharacterMario::~CharacterMario()
 void CharacterMario::Render()
 {
 	int left = mCurrentFrame * mSingleSpriteWidth;
-
+	
 	SDL_Rect portionOfSpritesheet = { left, 0, mSingleSpriteWidth, mSingleSpriteHeight };
 	SDL_Rect destRect = { (int)(mPosition.x), (int)(mPosition.y), mSingleSpriteWidth, mSingleSpriteHeight };
 	
@@ -69,9 +68,7 @@ void CharacterMario::Keyboard(float deltaTime, SDL_Event e)
 		{
 		case SDLK_w:
 			Character::Jump();
-			//SoundEffect::Play(-1, gJump, 0);
-			//gJump = Mix_LoadWAV(audioPath.c_str);
-			//Mix_PlayChannel(-1, gJump, 0);
+			Mix_PlayMusic(gJump, -1);
 			break;
 
 		case SDLK_s:
