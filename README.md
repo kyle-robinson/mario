@@ -5,7 +5,7 @@ Super Mario game created in semester 2 as part of Games Engine Creation module.
 ### Main Features
 - [x] POW Block
 - [x] Enemy Characters
-- [ ] Audio
+- [x] Audio
 
 #### Bug Fixes
 - [ ] Fix collision with the POW block.
@@ -28,6 +28,7 @@ Super Mario game created in semester 2 as part of Games Engine Creation module.
 - [ ] Different movement speed for players and enemies.
 
 ### Complex Features
+- [ ] Implement a variety of different sound effects.
 - [ ] Provide characters with additional sprite sheets.
 - [ ] Incorporate a user interface.
 - [ ] Create Level 2
