@@ -10,7 +10,7 @@
 #define MAP_WIDTH						17
 
 // Character Movement Constants
-#define MOVEMENT_SPEED					0.03
+#define MOVEMENT_SPEED					0.018
 #define PLAYER_GRAVITY					250
 #define JUMP_FORCE_DECREMENT			400.0f
 #define INITIAL_JUMP_FORCE				520

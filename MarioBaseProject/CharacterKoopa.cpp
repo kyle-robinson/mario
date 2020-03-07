@@ -21,9 +21,14 @@ void CharacterKoopa::Render()
 	
 	if (mInjured)
 	{
-		mCurrentFrame = 2;
-		left = mCurrentFrame * mSingleSpriteWidth;
+		mCurrentFrame = 1;
+		//left = mCurrentFrame * mSingleSpriteWidth;
 	}
+	else
+	{
+		mCurrentFrame = 0;
+	}
+	left = mCurrentFrame * mSingleSpriteWidth;
 
 	SDL_Rect portionOfSpritesheet = { left, 0, mSingleSpriteWidth, mSingleSpriteHeight };
 	SDL_Rect destRect = { (int)(mPosition.x), (int)(mPosition.y), mSingleSpriteWidth, mSingleSpriteHeight };
@@ -44,7 +49,7 @@ void CharacterKoopa::Update(float deltaTime, SDL_Event e)
 
 	if (!mInjured)
 	{
-		AnimateKoopa(deltaTime, e);
+		//AnimateKoopa(deltaTime, e);
 		if (mFacingDirection == FACING_LEFT)
 		{
 			mMovingLeft = true;
