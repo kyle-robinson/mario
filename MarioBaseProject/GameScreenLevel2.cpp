@@ -1,24 +1,24 @@
-#include "GameScreenLevel1.h"
+#include "GameScreenLevel2.h"
 #include "Collisions.h"
 #include "Texture2D.h"
 #include "CharacterMario.h"
 #include "CharacterLuigi.h"
-#include "PowBlock.h"
 
-GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
+GameScreenLevel2::GameScreenLevel2(SDL_Renderer* renderer) : GameScreen(renderer)
 {
 	enemyTimer = ENEMY_TIMER;
+	mBackgroundYPos = 0.0f;
 
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	redFont = 12;
 	greenFont = 10;
 	pinkFont = 13;
 	whiteFont = 15;
-	
+
 	SetUpLevel();
 }
 
-GameScreenLevel1::~GameScreenLevel1()
+GameScreenLevel2::~GameScreenLevel2()
 {
 	delete mBackgroundTexture;
 	mBackgroundTexture = NULL;
@@ -37,16 +37,13 @@ GameScreenLevel1::~GameScreenLevel1()
 
 	mLevelMap = NULL;
 
-	delete mPowBlock;
-	mPowBlock = NULL;
-
 	mEnemyKoopa.clear();
 	mEnemyGoomba.clear();
 	mCoins.clear();
 }
 
-void GameScreenLevel1::Render()
-{	
+void GameScreenLevel2::Render()
+{
 	mBackgroundTexture->Render(Vector2D(), SDL_FLIP_NONE);
 	mLevelTexture->Render(Vector2D(0, mBackgroundYPos), SDL_FLIP_NONE);
 
@@ -54,7 +51,6 @@ void GameScreenLevel1::Render()
 	characterLuigi->Render();
 
 	characterPeach->Render();
-	mPowBlock->Render();
 
 	for (unsigned int i = 0; i < mCoins.size(); i++)
 	{
@@ -70,31 +66,15 @@ void GameScreenLevel1::Render()
 	}
 }
 
-void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
+void GameScreenLevel2::Update(float deltaTime, SDL_Event e)
 {
-	if (mScreenshake)
-	{
-		mScreenshakeTime -= deltaTime;
-		mWobble++;
-		mBackgroundYPos = sin(mWobble);
-		mBackgroundYPos *= 3.0f;
-
-		// End the shake after the duration.
-		if (mScreenshakeTime <= 0.0f)
-		{
-			mScreenshake = false;
-			mBackgroundYPos = 0.0f;
-		}
-	}
-
 	characterMario->Update(deltaTime, e);
-	WallWrapping(characterMario);
+	WallCollisions(characterMario);
 
 	characterLuigi->Update(deltaTime, e);
-	WallWrapping(characterLuigi);
+	WallCollisions(characterLuigi);
 
 	UpdatePeach(deltaTime, e);
-	UpdatePOWBlock();
 
 	// Update and spawn the enemy characters.
 	enemyTimer -= 1.0f;
@@ -121,78 +101,71 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	UpdateCoin(deltaTime, e);
 }
 
-bool GameScreenLevel1::SetUpLevel()
+bool GameScreenLevel2::SetUpLevel()
 {
 	SetLevelMap();
 
 	mBackgroundTexture = new Texture2D(mRenderer);
-	if (!mBackgroundTexture->LoadFromFile("Images/Levels/Level1/Overworld_Bg_Small.png"))
+	if (!mBackgroundTexture->LoadFromFile("Images/Levels/Level2/Black_Bg_Small.png"))
 	{
 		cout << "Failed to load background texture!";
 		return false;
 	}
 
 	mLevelTexture = new Texture2D(mRenderer);
-	if (!mLevelTexture->LoadFromFile("Images/Levels/Level1/Level1_New.png"))
+	if (!mLevelTexture->LoadFromFile("Images/Levels/Level2/Level2.png"))
 	{
 		cout << "Failed to load level map texture!";
 		return false;
 	}
 
 	characterMario = new CharacterMario(mRenderer, "Images/Characters/MarioWalk.png", Vector2D(64, 330), mLevelMap);
-	characterLuigi = new CharacterLuigi(mRenderer, "Images//Characters/LuigiWalk.png", Vector2D(414, 330), mLevelMap);
+	characterLuigi = new CharacterLuigi(mRenderer, "Images/Characters/LuigiWalk.png", Vector2D(414, 330), mLevelMap);
 
-	mPowBlock = new PowBlock(mRenderer, mLevelMap);
-	mScreenshake = false;
-	mBackgroundYPos = 0.0f;
-
-	CreatePeach(Vector2D(32, 20), FACING_RIGHT);
+	CreatePeach(Vector2D(240, 20), FACING_RIGHT);
 	CreateKoopa(Vector2D(64, 32), FACING_RIGHT);
 	CreateGoomba(Vector2D(414, 32), FACING_LEFT);
 
 	// Create and set coin positions.
 	{
 		// Bottom-left platform
-		CreateCoin(Vector2D(25, 266));
-		CreateCoin(Vector2D(89, 266));
-		CreateCoin(Vector2D(153, 266));
+		CreateCoin(Vector2D(25, 201));
 
 		// Bottom-right platform
-		CreateCoin(Vector2D(345, 266));
-		CreateCoin(Vector2D(409, 266));
-		CreateCoin(Vector2D(471, 266));
+		CreateCoin(Vector2D(471, 201));
 
-		// Middle-left platform
-		CreateCoin(Vector2D(25, 170));
+		// Bottom-middle platform
+		CreateCoin(Vector2D(208, 267));
+		CreateCoin(Vector2D(248, 267));
+		CreateCoin(Vector2D(288, 267));
 
-		// Middle platform
-		CreateCoin(Vector2D(153, 138));
-		CreateCoin(Vector2D(217, 138));
-		CreateCoin(Vector2D(281, 138));
-		CreateCoin(Vector2D(345, 138));
+		// Top-left platform
+		CreateCoin(Vector2D(145, 109));
+		CreateCoin(Vector2D(185, 109));
 
-		// Middle-right platform
-		CreateCoin(Vector2D(471, 170));
+		// Top-right platform
+		CreateCoin(Vector2D(310, 109));
+		CreateCoin(Vector2D(350, 109));
 	}
 
 	return true;
 }
 
-void GameScreenLevel1::SetLevelMap()
+void GameScreenLevel2::SetLevelMap()
 {
-	int map[MAP_HEIGHT][MAP_WIDTH] = {	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	int map[MAP_HEIGHT][MAP_WIDTH] = {  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-										{1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1},
+										{1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+										{0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0},
+										{0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-										{0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0},
 										{1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+										{0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0},
+										{0, 1, 1, 0, 0, 0 ,0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-										{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0},
-										{1, 1, 1, 1, 1, 1 ,1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-										{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+										{1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1} };
 
 	// Clear up any old map.
 	if (mLevelMap != NULL)
@@ -204,77 +177,47 @@ void GameScreenLevel1::SetLevelMap()
 	mLevelMap = new LevelMap(map);
 }
 
-void GameScreenLevel1::UpdatePOWBlock()
+void GameScreenLevel2::WallCollisions(Character* character)
 {
-	if (Collisions::Instance()->Box(characterMario->GetCollisionBox(), mPowBlock->GetCollisionBox()))
-	{
-		if (mPowBlock->IsAvailable())
-		{
-			if (characterMario->IsJumping())
-			{
-				DoScreenShake();
-				mPowBlock->TakeAHit();
-				characterMario->CancelJump();
-
-				SetConsoleTextAttribute(hConsole, redFont);
-				cout << endl << "Mario";
-				SetConsoleTextAttribute(hConsole, whiteFont);
-				cout << " hit the POW block." << endl;
-			}
-		}
-	}
-	else if (Collisions::Instance()->Box(characterLuigi->GetCollisionBox(), mPowBlock->GetCollisionBox()))
-	{
-		if (mPowBlock->IsAvailable())
-		{
-			if (characterLuigi->IsJumping())
-			{
-				DoScreenShake();
-				mPowBlock->TakeAHit();
-				characterLuigi->CancelJump();
-
-				SetConsoleTextAttribute(hConsole, greenFont);
-				cout << endl << "Luigi";
-				SetConsoleTextAttribute(hConsole, whiteFont);
-				cout << " hit the POW block." << endl;
-			}
-		}
-	}
-}
-
-void GameScreenLevel1::DoScreenShake()
-{
-	mScreenshake = true;
-	mScreenshakeTime = SCREENSHAKE_DURATION;
-	mWobble = 0.0f;
-	
-	for (unsigned int i = 0; i < mEnemyKoopa.size(); i++)
-	{
-		mEnemyKoopa[i]->TakeDamage();
-	}
-
-	for (unsigned int i = 0; i < mEnemyGoomba.size(); i++)
-	{
-		mEnemyGoomba[i]->TakeDamage();
-	}
-}
-
-void GameScreenLevel1::WallWrapping(Character* character)
-{
-	// Right wall collision - wrap left
+	// Right wall collision - wrap left.
 	if (character->GetPosition().x >= SCREEN_WIDTH - character->GetCollisionBox().width / 3)
 	{
 		character->SetPosition(Vector2D(0, character->GetPosition().y));
 	}
 
-	// Left wall collision - wrap right
+	// Left wall collision - wrap right.
 	if (character->GetPosition().x < 0)
 	{
 		character->SetPosition(Vector2D(SCREEN_WIDTH - character->GetCollisionBox().width / 3, character->GetPosition().y));
 	}
+
+	// Characters fall out of the map - bottom wall collision.
+	if (character->GetPosition().y > SCREEN_HEIGHT)
+	{
+		if (character == characterMario && character->GetAlive() == true)
+		{
+			character->SetAlive(false);
+			characterMario->SetPosition(Vector2D(500, 1000));
+
+			SetConsoleTextAttribute(hConsole, redFont);
+			cout << endl << "Mario";
+			SetConsoleTextAttribute(hConsole, whiteFont);
+			cout << " fell out of the map." << endl;
+		}
+		else if (character == characterLuigi && character->GetAlive() == true)
+		{
+			character->SetAlive(false);
+			characterLuigi->SetPosition(Vector2D(500, 1000));
+
+			SetConsoleTextAttribute(hConsole, greenFont);
+			cout << endl << "Luigi";
+			SetConsoleTextAttribute(hConsole, whiteFont);
+			cout << " fell out of the map." << endl;
+		}
+	}
 }
 
-void GameScreenLevel1::UpdatePeach(float deltaTime, SDL_Event e)
+void GameScreenLevel2::UpdatePeach(float deltaTime, SDL_Event e)
 {
 	characterPeach->Update(deltaTime, e);
 
@@ -284,13 +227,13 @@ void GameScreenLevel1::UpdatePeach(float deltaTime, SDL_Event e)
 		{
 			characterPeach->isRescued = true;
 
-			SetConsoleTextAttribute(hConsole, redFont);
+			SetConsoleTextAttribute(hConsole, greenFont);
 			cout << endl << "Mario";
 			SetConsoleTextAttribute(hConsole, whiteFont);
 			cout << " saved ";
 			SetConsoleTextAttribute(hConsole, pinkFont);
-			cout << "Princess Peach." << endl;
-			
+			cout << "Princess Peach!" << endl;
+
 			characterMario->mScore += 50;
 
 			SetConsoleTextAttribute(hConsole, redFont);
@@ -307,8 +250,8 @@ void GameScreenLevel1::UpdatePeach(float deltaTime, SDL_Event e)
 			SetConsoleTextAttribute(hConsole, whiteFont);
 			cout << " saved ";
 			SetConsoleTextAttribute(hConsole, pinkFont);
-			cout << "Princess Peach." << endl;
-			
+			cout << "Princess Peach!" << endl;
+
 			characterLuigi->mScore += 50;
 			SetConsoleTextAttribute(hConsole, greenFont);
 			cout << "Luigi";
@@ -318,7 +261,7 @@ void GameScreenLevel1::UpdatePeach(float deltaTime, SDL_Event e)
 	}
 }
 
-void GameScreenLevel1::UpdateKoopas(float deltaTime, SDL_Event e)
+void GameScreenLevel2::UpdateKoopas(float deltaTime, SDL_Event e)
 {
 	if (!mEnemyKoopa.empty())
 	{
@@ -379,14 +322,14 @@ void GameScreenLevel1::UpdateKoopas(float deltaTime, SDL_Event e)
 					if (mEnemyKoopa[i]->GetInjured())
 					{
 						mEnemyKoopa[i]->SetAlive(false);
-						
+
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << endl << "Luigi";
 						SetConsoleTextAttribute(hConsole, whiteFont);
 						cout << " killed a koopa." << endl;
 
 						characterLuigi->mScore += 20;
-						
+
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << "Luigi";
 						SetConsoleTextAttribute(hConsole, whiteFont);
@@ -396,7 +339,7 @@ void GameScreenLevel1::UpdateKoopas(float deltaTime, SDL_Event e)
 					{
 						characterLuigi->SetAlive(false);
 						characterLuigi->SetPosition(Vector2D(500, 1000));
-						
+
 						cout << endl << "A Koopa killed ";
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << "Luigi." << endl;
@@ -418,7 +361,7 @@ void GameScreenLevel1::UpdateKoopas(float deltaTime, SDL_Event e)
 	}
 }
 
-void GameScreenLevel1::UpdateGoombas(float deltaTime, SDL_Event e)
+void GameScreenLevel2::UpdateGoombas(float deltaTime, SDL_Event e)
 {
 	if (!mEnemyGoomba.empty())
 	{
@@ -449,7 +392,7 @@ void GameScreenLevel1::UpdateGoombas(float deltaTime, SDL_Event e)
 					if (mEnemyGoomba[i]->GetInjured())
 					{
 						mEnemyGoomba[i]->SetAlive(false);
-						
+
 						SetConsoleTextAttribute(hConsole, redFont);
 						cout << endl << "Mario";
 						SetConsoleTextAttribute(hConsole, whiteFont);
@@ -478,14 +421,14 @@ void GameScreenLevel1::UpdateGoombas(float deltaTime, SDL_Event e)
 					if (mEnemyGoomba[i]->GetInjured())
 					{
 						mEnemyGoomba[i]->SetAlive(false);
-						
+
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << endl << "Luigi";
 						SetConsoleTextAttribute(hConsole, whiteFont);
 						cout << " killed a Goomba." << endl;
 
 						characterLuigi->mScore += 20;
-						
+
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << "Luigi";
 						SetConsoleTextAttribute(hConsole, whiteFont);
@@ -517,7 +460,7 @@ void GameScreenLevel1::UpdateGoombas(float deltaTime, SDL_Event e)
 	}
 }
 
-void GameScreenLevel1::UpdateCoin(float deltaTime, SDL_Event e)
+void GameScreenLevel2::UpdateCoin(float deltaTime, SDL_Event e)
 {
 	if (!mCoins.empty())
 	{
@@ -529,14 +472,14 @@ void GameScreenLevel1::UpdateCoin(float deltaTime, SDL_Event e)
 			if (Collisions::Instance()->Circle(mCoins[i], characterMario))
 			{
 				mCoins[i]->SetAlive(false);
-				
+
 				SetConsoleTextAttribute(hConsole, redFont);
 				cout << endl << "Mario";
 				SetConsoleTextAttribute(hConsole, whiteFont);
 				cout << " collected a coin." << endl;
 
 				characterMario->mScore += 10;
-				
+
 				SetConsoleTextAttribute(hConsole, redFont);
 				cout << "Mario";
 				SetConsoleTextAttribute(hConsole, whiteFont);
@@ -550,9 +493,9 @@ void GameScreenLevel1::UpdateCoin(float deltaTime, SDL_Event e)
 				cout << endl << "Luigi";
 				SetConsoleTextAttribute(hConsole, whiteFont);
 				cout << " collected a coin." << endl;
-				
+
 				characterLuigi->mScore += 10;
-				
+
 				SetConsoleTextAttribute(hConsole, greenFont);
 				cout << "Luigi";
 				SetConsoleTextAttribute(hConsole, whiteFont);
@@ -572,24 +515,24 @@ void GameScreenLevel1::UpdateCoin(float deltaTime, SDL_Event e)
 	}
 }
 
-void GameScreenLevel1::CreatePeach(Vector2D position, FACING direction)
+void GameScreenLevel2::CreatePeach(Vector2D position, FACING direction)
 {
 	characterPeach = new CharacterPeach(mRenderer, "Images/Objects/Peach.png", mLevelMap, position, direction);
 }
 
-void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction)
+void GameScreenLevel2::CreateKoopa(Vector2D position, FACING direction)
 {
 	CharacterKoopa* characterKoopa = new CharacterKoopa(mRenderer, "Images/Enemies/Koopa.png", mLevelMap, position, direction);
 	mEnemyKoopa.push_back(characterKoopa);
 }
 
-void GameScreenLevel1::CreateGoomba(Vector2D position, FACING direction)
+void GameScreenLevel2::CreateGoomba(Vector2D position, FACING direction)
 {
 	CharacterGoomba* characterGoomba = new CharacterGoomba(mRenderer, "Images/Enemies/GoombaNPC.png", mLevelMap, position, direction);
 	mEnemyGoomba.push_back(characterGoomba);
 }
 
-void GameScreenLevel1::CreateCoin(Vector2D position)
+void GameScreenLevel2::CreateCoin(Vector2D position)
 {
 	CharacterCoin* characterCoin = new CharacterCoin(mRenderer, "Images/Objects/Coin.png", mLevelMap, position);
 	mCoins.push_back(characterCoin);

@@ -33,6 +33,7 @@ public:
 
 	bool IsJumping();
 	void CancelJump();
+	bool playedJump;
 
 	void SetAlive(bool isAlive);
 	bool GetAlive() { return alive; }

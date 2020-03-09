@@ -15,19 +15,17 @@ class Texture2D;
 class Character;
 class PowBlock;
 
-class GameScreenLevel1 : GameScreen
+class GameScreenLevel2 : GameScreen
 {
 public:
-	GameScreenLevel1(SDL_Renderer* renderer);
-	~GameScreenLevel1();
+	GameScreenLevel2(SDL_Renderer* renderer);
+	~GameScreenLevel2();
 
 	void Render();
 	void Update(float deltaTime, SDL_Event e);
 
 	Character* characterMario;
 	Character* characterLuigi;
-
-	void UpdatePOWBlock();
 
 private:
 	bool SetUpLevel();
@@ -37,16 +35,9 @@ private:
 	void SetLevelMap();
 	LevelMap* mLevelMap;
 
-	PowBlock* mPowBlock;
-
-	bool mScreenshake;
-	float mScreenshakeTime;
-	float mWobble;
 	float mBackgroundYPos;
-	
-	void DoScreenShake();
 
-	void WallWrapping(Character* character);
+	void WallCollisions(Character* character);
 
 	HANDLE hConsole;
 	int redFont, greenFont, pinkFont, whiteFont;

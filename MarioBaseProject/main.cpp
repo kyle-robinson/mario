@@ -21,7 +21,8 @@ int main(int argc, char* args[])
 {
 	if (InitSDL())
 	{
-		LoadMusic("Music/Mario.mp3");
+		LoadMusic("Music/Mario_Overworld.mp3");
+		//LoadMusic("Music/Mario_Underworld.mp3");
 		if (Mix_PlayingMusic() == 0)
 		{
 			Mix_PlayMusic(gMusic, -1);
@@ -32,6 +33,8 @@ int main(int argc, char* args[])
 	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL1);
 	gOldTime = SDL_GetTicks();
 
+	cout << "Mario Bros. Stats Window" << endl;
+	
 	bool quit = false;
 	while (!quit)
 	{
@@ -161,6 +164,6 @@ void LoadMusic(string path)
 	gMusic = Mix_LoadMUS(path.c_str());
 	if (gMusic == NULL)
 	{
-		cout << "Failed to laod background music! Error: " << Mix_GetError() << endl;
+		cout << "Failed to load background music! Error: " << Mix_GetError() << endl;
 	}
 }
