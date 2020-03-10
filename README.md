@@ -15,6 +15,7 @@ Super Mario game created in semester 2 as part of Games Engine Creation module.
 - [ ] Make gravity more fluid.
 - [ ] Make map collision more solid.
 - [ ] Remove POW map collision when destroyed.
+- [x] Create transition to Level 2.
 
 ### Additional Features
 - [x] Add coins to the game.
