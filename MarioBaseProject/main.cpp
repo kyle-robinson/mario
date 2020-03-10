@@ -42,6 +42,15 @@ int main(int argc, char* args[])
 		quit = Update();
 	}
 
+	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL2);
+
+	quit = false;
+	while (!quit)
+	{
+		Render();
+		quit = Update();
+	}
+
 	CloseSDL();
 
 	return 0;

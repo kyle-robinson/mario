@@ -7,6 +7,8 @@
 #include "CharacterCoin.h"
 #include "CharacterGoomba.h"
 #include "CharacterPeach.h"
+#include "GameScreenManager.h"
+
 #include <Windows.h>
 
 #include <vector>
@@ -26,6 +28,7 @@ public:
 
 	Character* characterMario;
 	Character* characterLuigi;
+	CharacterPeach* characterPeach;
 
 	void UpdatePOWBlock();
 
@@ -51,10 +54,11 @@ private:
 	HANDLE hConsole;
 	int redFont, greenFont, pinkFont, whiteFont;
 
+	GameScreenManager* gameScreenManager;
+
 	// GAME OBJECTS
 	void UpdatePeach(float deltaTime, SDL_Event e);
 	void CreatePeach(Vector2D position, FACING direction);
-	CharacterPeach* characterPeach;
 
 	void UpdateCoin(float deltaTime, SDL_Event e);
 	void CreateCoin(Vector2D position);
