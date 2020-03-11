@@ -30,7 +30,7 @@ Super Mario game created in semester 2 as part of Games Engine Creation module.
 - [x] Change font colours for characters in console.
 
 ### Complex Features
-- [ ] Implement a variety of different sound effects.
+- [x] Implement a variety of different sound effects.
 - [ ] Provide characters with additional sprite sheets.
 - [ ] Incorporate a user interface.
 - [x] Create Level 2
