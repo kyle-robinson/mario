@@ -227,7 +227,7 @@ void GameScreenLevel2::UpdatePeach(float deltaTime, SDL_Event e)
 		{
 			characterPeach->isRescued = true;
 
-			SetConsoleTextAttribute(hConsole, greenFont);
+			SetConsoleTextAttribute(hConsole, redFont);
 			cout << endl << "Mario";
 			SetConsoleTextAttribute(hConsole, whiteFont);
 			cout << " saved ";

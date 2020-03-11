@@ -12,8 +12,8 @@ public:
 	SoundEffect();
 	~SoundEffect();
 
-	void Load(Mix_Music* sound, string path);
+	void Load();
 	void Play(int channel, Mix_Music* gSoundEffect, int loop);
 
-	Mix_Music* gSoundEffect;
+	Mix_Chunk* jumpSound;
 };

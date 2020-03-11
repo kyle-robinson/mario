@@ -8,6 +8,7 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D startPos
     mPosition = startPosition;
     mTexture = new Texture2D(mRenderer);
 	mTexture->LoadFromFile(imagePath);
+	LoadAudio();
 
     mMovingLeft = false;
     mMovingRight = false;
@@ -78,14 +79,30 @@ Vector2D Character::GetPosition()
 
 void Character::MoveLeft(float deltaTime)
 {
+	mMovementSpeedRight = 0.0f;
 	mFacingDirection = FACING_LEFT;
-	mPosition.x -= MOVEMENT_SPEED;
+
+	mPosition.x -= mMovementSpeedLeft * deltaTime;
+	mMovementSpeedLeft -= MOVEMENT_SPEED_INCREASE_LEFT * deltaTime;
+
+	if (mMovementSpeedLeft > MAX_MOVEMENT_SPEED)
+	{
+		mMovementSpeedLeft = MAX_MOVEMENT_SPEED;
+	}
 }
 
 void Character::MoveRight(float deltaTime)
 {
+	mMovementSpeedLeft = 0.0f;
 	mFacingDirection = FACING_RIGHT;
-	mPosition.x += MOVEMENT_SPEED;
+
+	mPosition.x += mMovementSpeedRight * deltaTime;
+	mMovementSpeedRight += MOVEMENT_SPEED_INCREASE_RIGHT * deltaTime;
+
+	if (mMovementSpeedRight > MAX_MOVEMENT_SPEED)
+	{
+		mMovementSpeedRight = MAX_MOVEMENT_SPEED;
+	}
 }
 
 void Character::AddGravity(float deltaTime)
@@ -97,6 +114,7 @@ void Character::Jump()
 {
     if (!mJumping)
     {
+		Mix_PlayChannel(-1, jumpSound, 0);
         mJumpForce = INITIAL_JUMP_FORCE;
         mJumping = true;
         mCanJump = false;
@@ -121,4 +139,13 @@ void Character::CancelJump()
 void Character::SetAlive(bool isAlive)
 {
 	alive = isAlive;
+}
+
+void Character::LoadAudio()
+{
+	jumpSound = Mix_LoadWAV("Music/WAV/Jump_WAV.wav");
+	if (jumpSound == NULL)
+	{
+		cout << "Failed to load sound effect! Error: " << Mix_GetError() << endl;
+	}
 }

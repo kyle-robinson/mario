@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include "Texture2D.h"
 #include "LevelMap.h"
+#include <SDL_mixer.h>
 
 using namespace std;
 
@@ -21,19 +22,24 @@ public:
 	virtual void Render();
 	virtual void Update(float deltaTime, SDL_Event e);
 
+	void LoadAudio();
+	Mix_Chunk* jumpSound;
+
 	void SetPosition(Vector2D newPosition);
 	Vector2D GetPosition();
 
 	FACING mFacingDirection;
 	bool mMovingLeft;
 	bool mMovingRight;
+	//float mMovementSpeed;
+	float mMovementSpeedRight;
+	float mMovementSpeedLeft;
 
 	float GetCollisionRadius();
 	Rect2D GetCollisionBox() { return Rect2D(mPosition.x, mPosition.y, mTexture->GetWidth(), mTexture->GetHeight()); }
 
 	bool IsJumping();
 	void CancelJump();
-	bool playedJump;
 
 	void SetAlive(bool isAlive);
 	bool GetAlive() { return alive; }

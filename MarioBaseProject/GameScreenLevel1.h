@@ -10,6 +10,11 @@
 #include "GameScreenManager.h"
 
 #include <Windows.h>
+//#include <SDL_ttf.h>
+//#include <SDL_Image.h>
+//#include <stdio.h>
+//#include <string>
+//#include <cmath>
 
 #include <vector>
 

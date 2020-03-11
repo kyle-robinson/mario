@@ -1,5 +1,6 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+#include <SDL_ttf.h>
 #include <iostream>
 #include "Texture2D.h"
 #include "GameScreenManager.h"
@@ -9,7 +10,7 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 GameScreenManager* gameScreenManager;
 Uint32 gOldTime;
-Mix_Music* gMusic = NULL;
+Mix_Music* gMusic = nullptr;
 
 bool InitSDL();
 void CloseSDL();
@@ -19,10 +20,11 @@ void LoadMusic(string path);
 
 int main(int argc, char* args[])
 {
+	cout << "Mario Bros. Stats Window" << endl;
+	
 	if (InitSDL())
 	{
-		LoadMusic("Music/Mario_Overworld.mp3");
-		//LoadMusic("Music/Mario_Underworld.mp3");
+		LoadMusic("Music/OGG/Mario_Overworld.ogg");
 		if (Mix_PlayingMusic() == 0)
 		{
 			Mix_PlayMusic(gMusic, -1);
@@ -32,8 +34,6 @@ int main(int argc, char* args[])
 	// Set up the game screen manager - Start with Level1
 	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL1);
 	gOldTime = SDL_GetTicks();
-
-	cout << "Mario Bros. Stats Window" << endl;
 	
 	bool quit = false;
 	while (!quit)
@@ -43,6 +43,15 @@ int main(int argc, char* args[])
 	}
 
 	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL2);
+
+	Mix_HaltMusic();
+	gMusic = nullptr;
+
+	LoadMusic("Music/OGG/Mario_Underworld.ogg");
+	if (Mix_PlayingMusic() == 0)
+	{
+		Mix_PlayMusic(gMusic, -1);
+	}
 
 	quit = false;
 	while (!quit)
@@ -88,6 +97,13 @@ bool InitSDL()
 				cout << "SDL_Image could not initialise. Error: " << IMG_GetError();
 				return false;
 			}
+
+			// Initialise SDL_ttf
+			if (TTF_Init() == -1)
+			{
+				printf("SDL_ttf could not initialise! SDL_ttf Error: %s\n", TTF_GetError());
+				return false;
+			}
 		}
 		else
 		{
@@ -95,7 +111,7 @@ bool InitSDL()
 			return false;
 		}
 
-		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+		if (Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 2048) < 0)
 		{
 			cout << "Mixer could not initialise. Error: " << Mix_GetError();
 			return false;
@@ -118,6 +134,7 @@ void CloseSDL()
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
 
+	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }

@@ -128,5 +128,6 @@
     <Library Include="SDL\SDL2_image.lib" />
     <Library Include="SDL\SDL2_mixer.lib" />
     <Library Include="SDL\SDL2main.lib" />
+    <Library Include="SDL\SDL2_ttf.lib" />
   </ItemGroup>
 </Project>

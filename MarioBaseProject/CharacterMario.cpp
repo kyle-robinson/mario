@@ -3,10 +3,6 @@
 CharacterMario::CharacterMario(SDL_Renderer* renderer, string imagePath, Vector2D startPosition, LevelMap* map) : Character(renderer, imagePath, startPosition, map)
 {
 	mFacingDirection = FACING_RIGHT;
-
-	gJump = NULL;
-	soundEffect->Load(gJump, "Music/Jump.mp3");
-	playedJump = false;
 	
 	mSingleSpriteWidth = mTexture->GetWidth() / 3;
 	mSingleSpriteHeight = mTexture->GetHeight();
@@ -69,17 +65,6 @@ void CharacterMario::Keyboard(float deltaTime, SDL_Event e)
 		{
 		case SDLK_w:
 			Character::Jump();
-			//Mix_HaltMusic();
-			//soundEffect->Play(1, gJump, 0);
-			//Mix_PlayMusic(gJump, -1);
-			if (Mix_PlayMusic(gJump, -1))
-			{
-				if (!playedJump)
-				{
-					cout << endl << "Played jump sound effect." << endl;
-					playedJump = true;
-				}
-			}
 			break;
 
 		case SDLK_s:

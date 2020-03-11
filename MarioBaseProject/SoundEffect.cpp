@@ -2,19 +2,19 @@
 
 SoundEffect::SoundEffect()
 {
-	gSoundEffect = NULL;
+	jumpSound = NULL;
 }
 
 SoundEffect::~SoundEffect()
 {
-	Mix_FreeMusic(gSoundEffect);
-	gSoundEffect = NULL;
+	Mix_FreeChunk(jumpSound);
+	jumpSound = NULL;
 }
 
-void SoundEffect::Load(Mix_Music* sound, string path)
+void SoundEffect::Load()
 {
-	sound = Mix_LoadMUS(path.c_str());
-	if (sound == NULL)
+	jumpSound = Mix_LoadWAV("Music/WAV/Jump.wav");
+	if (jumpSound == NULL)
 	{
 		cout << "Failed to load sound effect! Error: " << Mix_GetError() << endl;
 	}

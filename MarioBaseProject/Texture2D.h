@@ -2,6 +2,9 @@
 
 #include <SDL.h>
 #include <string>
+//#include <SDL_ttf.h>
+//#include <stdio.h>
+//#include <cmath>
 #include "Commons.h"
 
 using namespace::std;
@@ -13,6 +16,7 @@ public:
 	~Texture2D();
 	
 	bool LoadFromFile(string path);
+	bool LoadFromRenderedText(string textureText, SDL_Color textColor);
 	void Free();
 	
 	void Render(Vector2D newPosition, SDL_RendererFlip flip, double angle = 0.0f);
@@ -21,10 +25,12 @@ public:
 	int GetWidth() { return mWidth; }
 	int GetHeight() { return mHeight; }
 
+	//TTF_Font* gFont;
+
 private:
 	SDL_Renderer* mRenderer;
-	
 	SDL_Texture* mTexture;
+	
 	int	mWidth;
 	int	mHeight;
 };

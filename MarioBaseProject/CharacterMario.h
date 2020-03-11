@@ -2,7 +2,6 @@
 
 #include "Character.h"
 #include <SDL_mixer.h>
-#include "SoundEffect.h"
 
 class CharacterMario : public Character
 {
@@ -14,6 +13,7 @@ protected:
 	void Render();
 	void Update(float deltaTime, SDL_Event e);
 	void Keyboard(float deltaTime, SDL_Event e);
+	void LoadAudio();
 
 private:
 	float mSingleSpriteWidth;
@@ -21,9 +21,6 @@ private:
 	
 	float mFrameDelay;
 	int mCurrentFrame;
-
-	Mix_Music* gJump;
-	SoundEffect* soundEffect;
 
 	void AnimateMario(float deltaTime, SDL_Event e);
 };
