@@ -15,6 +15,12 @@ GameScreenLevel2::GameScreenLevel2(SDL_Renderer* renderer) : GameScreen(renderer
 	pinkFont = 13;
 	whiteFont = 15;
 
+	startTimer = false;
+	pauseMusic = MUSIC_TIMER;
+
+	marioIsDead = false;
+	luigiIsDead = false;
+
 	SetUpLevel();
 }
 
@@ -34,6 +40,33 @@ GameScreenLevel2::~GameScreenLevel2()
 
 	delete characterPeach;
 	characterPeach = NULL;
+
+	delete gMusic;
+	gMusic = NULL;
+
+	delete coinSound;
+	coinSound = NULL;
+
+	delete dieSound;
+	dieSound = NULL;
+
+	delete flagpoleSound;
+	flagpoleSound = NULL;
+
+	delete gameOverSound;
+	gameOverSound = NULL;
+
+	delete kickSound;
+	kickSound = NULL;
+
+	delete pauseSound;
+	pauseSound = NULL;
+
+	delete pipeSound;
+	pipeSound = NULL;
+
+	delete thwompSound;
+	thwompSound = NULL;
 
 	mLevelMap = NULL;
 
@@ -77,7 +110,7 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event e)
 	UpdatePeach(deltaTime, e);
 
 	// Update and spawn the enemy characters.
-	enemyTimer -= 1.0f;
+	enemyTimer -= 0.6f;
 	switch ((int)enemyTimer)
 	{
 	case 15000:
@@ -99,11 +132,25 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event e)
 	UpdateKoopas(deltaTime, e);
 	UpdateGoombas(deltaTime, e);
 	UpdateCoin(deltaTime, e);
+
+	if (characterMario->GetAlive() == false && characterLuigi->GetAlive() == false && (marioIsDead || luigiIsDead))
+	{
+		Mix_HaltMusic();
+		Mix_HaltChannel(-1);
+		Mix_PlayChannel(-1, gameOverSound, 0);
+
+		marioIsDead = false;
+		luigiIsDead = false;
+	}
 }
 
 bool GameScreenLevel2::SetUpLevel()
 {
 	SetLevelMap();
+	LoadAudio();
+
+	Mix_PlayChannel(-1, pipeSound, 0);
+	Mix_PlayMusic(gMusic, -1);
 
 	mBackgroundTexture = new Texture2D(mRenderer);
 	if (!mBackgroundTexture->LoadFromFile("Images/Levels/Level2/Black_Bg_Small.png"))
@@ -119,8 +166,8 @@ bool GameScreenLevel2::SetUpLevel()
 		return false;
 	}
 
-	characterMario = new CharacterMario(mRenderer, "Images/Characters/MarioWalk.png", Vector2D(64, 330), mLevelMap);
-	characterLuigi = new CharacterLuigi(mRenderer, "Images/Characters/LuigiWalk.png", Vector2D(414, 330), mLevelMap);
+	characterMario = new CharacterMario(mRenderer, "Images/Characters/MarioWalk.png", Vector2D(64, 300), mLevelMap);
+	characterLuigi = new CharacterLuigi(mRenderer, "Images/Characters/LuigiWalk.png", Vector2D(414, 300), mLevelMap);
 
 	CreatePeach(Vector2D(240, 20), FACING_RIGHT);
 	CreateKoopa(Vector2D(64, 32), FACING_RIGHT);
@@ -129,10 +176,10 @@ bool GameScreenLevel2::SetUpLevel()
 	// Create and set coin positions.
 	{
 		// Bottom-left platform
-		CreateCoin(Vector2D(25, 201));
+		CreateCoin(Vector2D(25, 180));
 
 		// Bottom-right platform
-		CreateCoin(Vector2D(471, 201));
+		CreateCoin(Vector2D(471, 180));
 
 		// Bottom-middle platform
 		CreateCoin(Vector2D(208, 267));
@@ -162,7 +209,7 @@ void GameScreenLevel2::SetLevelMap()
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
 										{0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0},
-										{0, 1, 1, 0, 0, 0 ,0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
+										{0, 0, 0, 0, 0, 0 ,0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1} };
@@ -175,6 +222,63 @@ void GameScreenLevel2::SetLevelMap()
 
 	// Set the new one.
 	mLevelMap = new LevelMap(map);
+}
+
+void GameScreenLevel2::LoadAudio()
+{
+	gMusic = Mix_LoadMUS("Music/OGG/Mario_Underworld.ogg");
+	if (gMusic == NULL)
+	{
+		cout << "Failed to load underworld theme! Error: " << Mix_GetError() << endl;
+	}
+	
+	coinSound = Mix_LoadWAV("Music/WAV/Coin.wav");
+	if (coinSound == NULL)
+	{
+		cout << "Failed to load coin sound! Error: " << Mix_GetError() << endl;
+	}
+
+	dieSound = Mix_LoadWAV("Music/WAV/Die.wav");
+	if (dieSound == NULL)
+	{
+		cout << "Failed to load die sound! Error: " << Mix_GetError() << endl;
+	}
+
+	flagpoleSound = Mix_LoadWAV("Music/WAV/Flagpole.wav");
+	if (flagpoleSound == NULL)
+	{
+		cout << "Failed to load flagpole sound! Error: " << Mix_GetError() << endl;
+	}
+
+	gameOverSound = Mix_LoadWAV("Music/WAV/GameOver.wav");
+	if (gameOverSound == NULL)
+	{
+		cout << "Failed to load game over sound! Error: " << Mix_GetError() << endl;
+	}
+
+	kickSound = Mix_LoadWAV("Music/WAV/Kick.wav");
+	if (kickSound == NULL)
+	{
+		cout << "Failed to load kick sound! Error: " << Mix_GetError() << endl;
+	}
+
+	pauseSound = Mix_LoadWAV("Music/WAV/Pause.wav");
+	if (pauseSound == NULL)
+	{
+		cout << "Failed to load pause sound! Error: " << Mix_GetError() << endl;
+	}
+
+	pipeSound = Mix_LoadWAV("Music/WAV/Pipe.wav");
+	if (pipeSound == NULL)
+	{
+		cout << "Failed to load pipe sound! Error: " << Mix_GetError() << endl;
+	}
+
+	thwompSound = Mix_LoadWAV("Music/WAV/Thwomp.wav");
+	if (thwompSound == NULL)
+	{
+		cout << "Failed to load thwomp sound! Error: " << Mix_GetError() << endl;
+	}
 }
 
 void GameScreenLevel2::WallCollisions(Character* character)
@@ -196,7 +300,12 @@ void GameScreenLevel2::WallCollisions(Character* character)
 	{
 		if (character == characterMario && character->GetAlive() == true)
 		{
+			Mix_PauseMusic();
+			startTimer = true;
+			Mix_PlayChannel(-1, dieSound, 0);
+			
 			character->SetAlive(false);
+			marioIsDead = true;
 			characterMario->SetPosition(Vector2D(500, 1000));
 
 			SetConsoleTextAttribute(hConsole, redFont);
@@ -206,7 +315,12 @@ void GameScreenLevel2::WallCollisions(Character* character)
 		}
 		else if (character == characterLuigi && character->GetAlive() == true)
 		{
+			Mix_PauseMusic();
+			startTimer = true;
+			Mix_PlayChannel(-1, dieSound, 0);
+
 			character->SetAlive(false);
+			luigiIsDead = true;
 			characterLuigi->SetPosition(Vector2D(500, 1000));
 
 			SetConsoleTextAttribute(hConsole, greenFont);
@@ -214,6 +328,18 @@ void GameScreenLevel2::WallCollisions(Character* character)
 			SetConsoleTextAttribute(hConsole, whiteFont);
 			cout << " fell out of the map." << endl;
 		}
+	}
+
+	if (startTimer == true)
+	{
+		pauseMusic -= 1.0f;
+	}
+
+	if (pauseMusic == 0.0f)
+	{
+		pauseMusic = MUSIC_TIMER;
+		startTimer = false;
+		Mix_ResumeMusic();
 	}
 }
 
@@ -225,6 +351,9 @@ void GameScreenLevel2::UpdatePeach(float deltaTime, SDL_Event e)
 	{
 		if (Collisions::Instance()->Circle(characterPeach, characterMario))
 		{
+			Mix_HaltMusic();
+			Mix_PlayChannel(-1, flagpoleSound, 0);
+			
 			characterPeach->isRescued = true;
 
 			SetConsoleTextAttribute(hConsole, redFont);
@@ -243,6 +372,9 @@ void GameScreenLevel2::UpdatePeach(float deltaTime, SDL_Event e)
 		}
 		else if (Collisions::Instance()->Circle(characterPeach, characterLuigi))
 		{
+			Mix_HaltMusic();
+			Mix_PlayChannel(-1, flagpoleSound, 0);
+			
 			characterPeach->isRescued = true;
 
 			SetConsoleTextAttribute(hConsole, greenFont);
@@ -292,6 +424,7 @@ void GameScreenLevel2::UpdateKoopas(float deltaTime, SDL_Event e)
 				{
 					if (mEnemyKoopa[i]->GetInjured())
 					{
+						Mix_PlayChannel(-1, kickSound, 0);
 						mEnemyKoopa[i]->SetAlive(false);
 
 						SetConsoleTextAttribute(hConsole, redFont);
@@ -308,6 +441,10 @@ void GameScreenLevel2::UpdateKoopas(float deltaTime, SDL_Event e)
 					}
 					else
 					{
+						Mix_PauseMusic();
+						startTimer = true;
+						Mix_PlayChannel(-1, dieSound, 0);
+
 						characterMario->SetAlive(false);
 						characterMario->SetPosition(Vector2D(500, 1000));
 
@@ -321,6 +458,7 @@ void GameScreenLevel2::UpdateKoopas(float deltaTime, SDL_Event e)
 				{
 					if (mEnemyKoopa[i]->GetInjured())
 					{
+						Mix_PlayChannel(-1, kickSound, 0);
 						mEnemyKoopa[i]->SetAlive(false);
 
 						SetConsoleTextAttribute(hConsole, greenFont);
@@ -337,6 +475,10 @@ void GameScreenLevel2::UpdateKoopas(float deltaTime, SDL_Event e)
 					}
 					else
 					{
+						Mix_PauseMusic();
+						startTimer = true;
+						Mix_PlayChannel(-1, dieSound, 0);
+
 						characterLuigi->SetAlive(false);
 						characterLuigi->SetPosition(Vector2D(500, 1000));
 
@@ -358,6 +500,18 @@ void GameScreenLevel2::UpdateKoopas(float deltaTime, SDL_Event e)
 		{
 			mEnemyKoopa.erase(mEnemyKoopa.begin() + enemyIndexToDelete);
 		}
+	}
+
+	if (startTimer == true)
+	{
+		pauseMusic -= 0.9f;
+	}
+
+	if (pauseMusic <= 0.0f)
+	{
+		pauseMusic = MUSIC_TIMER;
+		startTimer = false;
+		Mix_ResumeMusic();
 	}
 }
 
@@ -391,6 +545,7 @@ void GameScreenLevel2::UpdateGoombas(float deltaTime, SDL_Event e)
 				{
 					if (mEnemyGoomba[i]->GetInjured())
 					{
+						Mix_PlayChannel(-1, kickSound, 0);
 						mEnemyGoomba[i]->SetAlive(false);
 
 						SetConsoleTextAttribute(hConsole, redFont);
@@ -407,6 +562,10 @@ void GameScreenLevel2::UpdateGoombas(float deltaTime, SDL_Event e)
 					}
 					else
 					{
+						Mix_PauseMusic();
+						startTimer = true;
+						Mix_PlayChannel(-1, dieSound, 0);
+						
 						characterMario->SetAlive(false);
 						characterMario->SetPosition(Vector2D(500, 1000));
 
@@ -420,6 +579,7 @@ void GameScreenLevel2::UpdateGoombas(float deltaTime, SDL_Event e)
 				{
 					if (mEnemyGoomba[i]->GetInjured())
 					{
+						Mix_PlayChannel(-1, kickSound, 0);
 						mEnemyGoomba[i]->SetAlive(false);
 
 						SetConsoleTextAttribute(hConsole, greenFont);
@@ -436,6 +596,10 @@ void GameScreenLevel2::UpdateGoombas(float deltaTime, SDL_Event e)
 					}
 					else
 					{
+						Mix_PauseMusic();
+						startTimer = true;
+						Mix_PlayChannel(-1, dieSound, 0);
+
 						characterLuigi->SetAlive(false);
 						characterLuigi->SetPosition(Vector2D(500, 1000));
 
@@ -458,6 +622,18 @@ void GameScreenLevel2::UpdateGoombas(float deltaTime, SDL_Event e)
 			mEnemyGoomba.erase(mEnemyGoomba.begin() + enemyIndexToDelete);
 		}
 	}
+
+	if (startTimer == true)
+	{
+		pauseMusic -= 0.9f;
+	}
+
+	if (pauseMusic <= 0.0f)
+	{
+		pauseMusic = MUSIC_TIMER;
+		startTimer = false;
+		Mix_ResumeMusic();
+	}
 }
 
 void GameScreenLevel2::UpdateCoin(float deltaTime, SDL_Event e)
@@ -471,6 +647,7 @@ void GameScreenLevel2::UpdateCoin(float deltaTime, SDL_Event e)
 
 			if (Collisions::Instance()->Circle(mCoins[i], characterMario))
 			{
+				Mix_PlayChannel(-1, coinSound, 0);
 				mCoins[i]->SetAlive(false);
 
 				SetConsoleTextAttribute(hConsole, redFont);
@@ -487,6 +664,7 @@ void GameScreenLevel2::UpdateCoin(float deltaTime, SDL_Event e)
 			}
 			if (Collisions::Instance()->Circle(mCoins[i], characterLuigi))
 			{
+				Mix_PlayChannel(-1, coinSound, 0);
 				mCoins[i]->SetAlive(false);
 
 				SetConsoleTextAttribute(hConsole, greenFont);

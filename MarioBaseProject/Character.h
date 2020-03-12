@@ -31,7 +31,6 @@ public:
 	FACING mFacingDirection;
 	bool mMovingLeft;
 	bool mMovingRight;
-	//float mMovementSpeed;
 	float mMovementSpeedRight;
 	float mMovementSpeedLeft;
 

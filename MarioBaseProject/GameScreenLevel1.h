@@ -33,7 +33,6 @@ public:
 
 	Character* characterMario;
 	Character* characterLuigi;
-	CharacterPeach* characterPeach;
 
 	void UpdatePOWBlock();
 
@@ -61,7 +60,24 @@ private:
 
 	GameScreenManager* gameScreenManager;
 
+	// SOUNDS
+	void LoadAudio();
+
+	Mix_Music* gMusic;
+	bool startTimer;
+	float pauseMusic;
+
+	Mix_Chunk* coinSound;
+	Mix_Chunk* dieSound;
+	Mix_Chunk* flagpoleSound;
+	Mix_Chunk* gameOverSound;
+	Mix_Chunk* kickSound;
+	Mix_Chunk* pauseSound;
+	Mix_Chunk* pipeSound;
+	Mix_Chunk* thwompSound;
+
 	// GAME OBJECTS
+	CharacterPeach* characterPeach;
 	void UpdatePeach(float deltaTime, SDL_Event e);
 	void CreatePeach(Vector2D position, FACING direction);
 

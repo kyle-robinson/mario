@@ -141,7 +141,6 @@
     <ClCompile Include="LevelMap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PowBlock.cpp" />
-    <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="Texture2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +160,6 @@
     <ClInclude Include="GameScreenManager.h" />
     <ClInclude Include="LevelMap.h" />
     <ClInclude Include="PowBlock.h" />
-    <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Texture2D.h" />
   </ItemGroup>
   <ItemGroup>

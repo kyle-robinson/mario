@@ -17,7 +17,7 @@
 
 #define PLAYER_GRAVITY					250
 #define JUMP_FORCE_DECREMENT			400.0f
-#define INITIAL_JUMP_FORCE				540
+#define INITIAL_JUMP_FORCE				500
 
 #define INJURED_TIME					2.5f
 #define INITIAL_JUMP_FORCE_SMALL		250
@@ -26,3 +26,4 @@
 
 // Miscellaneous Constants
 #define SCREENSHAKE_DURATION			0.25f
+#define MUSIC_TIMER						30000.0f

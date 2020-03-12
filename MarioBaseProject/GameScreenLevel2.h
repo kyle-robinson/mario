@@ -3,12 +3,14 @@
 #include "Commons.h"
 #include "GameScreen.h"
 #include "LevelMap.h"
+
 #include "CharacterKoopa.h"
 #include "CharacterCoin.h"
 #include "CharacterGoomba.h"
 #include "CharacterPeach.h"
-#include <Windows.h>
 
+#include <SDL_mixer.h>
+#include <Windows.h>
 #include <vector>
 
 class Texture2D;
@@ -41,6 +43,25 @@ private:
 
 	HANDLE hConsole;
 	int redFont, greenFont, pinkFont, whiteFont;
+
+	bool marioIsDead;
+	bool luigiIsDead;
+
+	// SOUNDS
+	void LoadAudio();
+	
+	Mix_Music* gMusic;
+	bool startTimer;
+	float pauseMusic;
+
+	Mix_Chunk* coinSound;
+	Mix_Chunk* dieSound;
+	Mix_Chunk* flagpoleSound;
+	Mix_Chunk* gameOverSound;
+	Mix_Chunk* kickSound;
+	Mix_Chunk* pauseSound;
+	Mix_Chunk* pipeSound;
+	Mix_Chunk* thwompSound;
 
 	// GAME OBJECTS
 	void UpdatePeach(float deltaTime, SDL_Event e);

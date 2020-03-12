@@ -143,9 +143,9 @@ void Character::SetAlive(bool isAlive)
 
 void Character::LoadAudio()
 {
-	jumpSound = Mix_LoadWAV("Music/WAV/Jump_WAV.wav");
+	jumpSound = Mix_LoadWAV("Music/WAV/Jump.wav");
 	if (jumpSound == NULL)
 	{
-		cout << "Failed to load sound effect! Error: " << Mix_GetError() << endl;
+		cout << "Failed to load jump sound! Error: " << Mix_GetError() << endl;
 	}
 }
