@@ -3,6 +3,7 @@
 #include "Commons.h"
 #include "GameScreen.h"
 #include "LevelMap.h"
+
 #include "CharacterKoopa.h"
 #include "CharacterCoin.h"
 #include "CharacterGoomba.h"
@@ -10,13 +11,10 @@
 #include "GameScreenManager.h"
 
 #include <Windows.h>
-//#include <SDL_ttf.h>
-//#include <SDL_Image.h>
-//#include <stdio.h>
-//#include <string>
-//#include <cmath>
-
 #include <vector>
+#include <string>
+
+using namespace std;
 
 class Texture2D;
 class Character;
@@ -34,15 +32,23 @@ public:
 	Character* characterMario;
 	Character* characterLuigi;
 
+	int marioScore;
+	int luigiScore;
+	bool playersDead;
+
 	void UpdatePOWBlock();
 
 private:
 	bool SetUpLevel();
 	Texture2D* mBackgroundTexture;
 	Texture2D* mLevelTexture;
+	Texture2D* mTransparency;
 
 	void SetLevelMap();
 	LevelMap* mLevelMap;
+	
+	void CheckPaused(SDL_Event e);
+	bool paused;
 
 	PowBlock* mPowBlock;
 
@@ -58,7 +64,54 @@ private:
 	HANDLE hConsole;
 	int redFont, greenFont, pinkFont, whiteFont;
 
-	GameScreenManager* gameScreenManager;
+	// FONTS
+	void LoadFont();
+	void LoadPlayerScores();
+
+	TTF_Font* fontVeryLarge;
+	TTF_Font* fontLarge;
+	TTF_Font* fontMedium;
+	TTF_Font* fontSmall;
+	
+	SDL_Color colorFg;
+	SDL_Color colorBg;
+	SDL_Color colorRed;
+	SDL_Color colorGreen;
+	SDL_Color colorPink;
+
+	SDL_Surface* pauseTextSurface;
+	SDL_Texture* pauseText;
+	SDL_Rect pauseTextRect;
+
+	SDL_Surface* marioTextSurface;
+	SDL_Texture* marioText;
+	SDL_Rect marioTextRect;
+
+	SDL_Surface* marioScoreTextSurface;
+	SDL_Texture* marioScoreText;
+	SDL_Rect marioScoreTextRect;
+	string marioScoreString;
+
+	SDL_Surface* luigiTextSurface;
+	SDL_Texture* luigiText;
+	SDL_Rect luigiTextRect;
+
+	SDL_Surface* luigiScoreTextSurface;
+	SDL_Texture* luigiScoreText;
+	SDL_Rect luigiScoreTextRect;
+	string luigiScoreString;
+
+	SDL_Surface* peachTextSurface;
+	SDL_Texture* peachText;
+	SDL_Rect peachTextRect;
+
+	SDL_Surface* gameOverTextSurface;
+	SDL_Texture* gameOverText;
+	SDL_Rect gameOverTextRect;
+
+	SDL_Surface* nextLevelTextSurface;
+	SDL_Texture* nextLevelText;
+	SDL_Rect nextLevelTextRect;
 
 	// SOUNDS
 	void LoadAudio();

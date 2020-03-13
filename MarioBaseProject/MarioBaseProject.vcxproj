@@ -80,7 +80,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\SDL;C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester2\MarioBaseProject\MarioBaseProject\SDL\mixer_include;C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester2\MarioBaseProject\MarioBaseProject\SDL\include;C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester2\MarioBaseProject\MarioBaseProject\SDL\image_include;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\SDL;C:\Users\Kyle\OneDrive - Staffordshire University\Game_Engine_Creation\Semester 2\MarioBaseProject\MarioBaseProject\SDL;C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester2\MarioBaseProject\MarioBaseProject\SDL\mixer_include;C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester2\MarioBaseProject\MarioBaseProject\SDL\include;C:\Users\w021256j\OneDrive - Staffordshire University\Game_Engine_Creation\Semester2\MarioBaseProject\MarioBaseProject\SDL\image_include;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

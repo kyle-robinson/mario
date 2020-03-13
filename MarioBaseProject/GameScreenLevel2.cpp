@@ -6,8 +6,15 @@
 
 GameScreenLevel2::GameScreenLevel2(SDL_Renderer* renderer) : GameScreen(renderer)
 {
-	enemyTimer = ENEMY_TIMER;
 	mBackgroundYPos = 0.0f;
+	marioScore = 0;
+	luigiScore = 0;
+	playersDead = false;
+	
+	paused = false;
+	startTimer = false;
+	pauseMusic = MUSIC_TIMER;
+	enemyTimer = ENEMY_TIMER;
 
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	redFont = 12;
@@ -15,17 +22,12 @@ GameScreenLevel2::GameScreenLevel2(SDL_Renderer* renderer) : GameScreen(renderer
 	pinkFont = 13;
 	whiteFont = 15;
 
-	startTimer = false;
-	pauseMusic = MUSIC_TIMER;
-
-	marioIsDead = false;
-	luigiIsDead = false;
-
 	SetUpLevel();
 }
 
 GameScreenLevel2::~GameScreenLevel2()
 {
+	// OBJECTS
 	delete mBackgroundTexture;
 	mBackgroundTexture = NULL;
 
@@ -41,6 +43,9 @@ GameScreenLevel2::~GameScreenLevel2()
 	delete characterPeach;
 	characterPeach = NULL;
 
+	mLevelMap = NULL;
+
+	// SOUNDS
 	delete gMusic;
 	gMusic = NULL;
 
@@ -65,11 +70,29 @@ GameScreenLevel2::~GameScreenLevel2()
 	delete pipeSound;
 	pipeSound = NULL;
 
-	delete thwompSound;
-	thwompSound = NULL;
+	// FONTS
+	delete fontVeryLarge;
+	fontVeryLarge = NULL;
 
-	mLevelMap = NULL;
+	delete fontLarge;
+	fontLarge = NULL;
 
+	delete fontMedium;
+	fontMedium = NULL;
+
+	delete fontSmall;
+	fontSmall = NULL;
+
+	SDL_DestroyTexture(pauseText);
+	SDL_DestroyTexture(marioText);
+	SDL_DestroyTexture(marioScoreText);
+	SDL_DestroyTexture(luigiText);
+	SDL_DestroyTexture(luigiScoreText);
+	SDL_DestroyTexture(peachText);
+	SDL_DestroyTexture(gameOverText);
+	SDL_DestroyTexture(escapeText);
+
+	// ENEMIES
 	mEnemyKoopa.clear();
 	mEnemyGoomba.clear();
 	mCoins.clear();
@@ -97,57 +120,140 @@ void GameScreenLevel2::Render()
 	{
 		mEnemyGoomba[i]->Render();
 	}
+
+	// Render Mario Score
+	marioTextRect.x = 75;
+	marioTextRect.y = 5;
+	SDL_RenderCopy(mRenderer, marioText, NULL, &marioTextRect);
+	marioScoreTextRect.x = 187;
+	marioScoreTextRect.y = 6;
+	SDL_RenderCopy(mRenderer, marioScoreText, NULL, &marioScoreTextRect);
+
+	// Render Luigi Score
+	luigiTextRect.x = 321;
+	luigiTextRect.y = 5;
+	SDL_RenderCopy(mRenderer, luigiText, NULL, &luigiTextRect);
+	luigiScoreTextRect.x = 425;
+	luigiScoreTextRect.y = 6;
+	SDL_RenderCopy(mRenderer, luigiScoreText, NULL, &luigiScoreTextRect);
+
+	if (paused)
+	{
+		mTransparency->Render(Vector2D(), SDL_FLIP_NONE);
+
+		pauseTextRect.x = (SCREEN_WIDTH / 2) - (pauseTextRect.w / 2);
+		pauseTextRect.y = (SCREEN_HEIGHT / 2) - (pauseTextRect.h / 2);
+		SDL_RenderCopy(mRenderer, pauseText, NULL, &pauseTextRect);
+	}
+	else
+	{
+		if (characterPeach->isRescued)
+		{
+			mTransparency->Render(Vector2D(), SDL_FLIP_NONE);
+
+			peachTextRect.x = (SCREEN_WIDTH / 2) - (peachTextRect.w / 2);
+			peachTextRect.y = (SCREEN_HEIGHT / 2) - (peachTextRect.h / 2);
+			SDL_RenderCopy(mRenderer, peachText, NULL, &peachTextRect);
+
+			escapeTextRect.x = (SCREEN_WIDTH / 2) - (escapeTextRect.w / 2);
+			escapeTextRect.y = ((SCREEN_HEIGHT / 2) - (escapeTextRect.h / 2)) + 40;
+			SDL_RenderCopy(mRenderer, escapeText, NULL, &escapeTextRect);
+		}
+
+		if (characterMario->GetAlive() == false && characterLuigi->GetAlive() == false && !characterPeach->isRescued)
+		{
+			mTransparency->Render(Vector2D(), SDL_FLIP_NONE);
+
+			gameOverTextRect.x = (SCREEN_WIDTH / 2) - (gameOverTextRect.w / 2);
+			gameOverTextRect.y = (SCREEN_HEIGHT / 2) - (gameOverTextRect.h / 2);
+			SDL_RenderCopy(mRenderer, gameOverText, NULL, &gameOverTextRect);
+
+			escapeTextRect.x = (SCREEN_WIDTH / 2) - (escapeTextRect.w / 2);
+			escapeTextRect.y = ((SCREEN_HEIGHT / 2) - (escapeTextRect.h / 2)) + 40;
+			SDL_RenderCopy(mRenderer, escapeText, NULL, &escapeTextRect);
+		}
+	}
 }
 
 void GameScreenLevel2::Update(float deltaTime, SDL_Event e)
 {
-	characterMario->Update(deltaTime, e);
-	WallCollisions(characterMario);
-
-	characterLuigi->Update(deltaTime, e);
-	WallCollisions(characterLuigi);
-
-	UpdatePeach(deltaTime, e);
-
-	// Update and spawn the enemy characters.
-	enemyTimer -= 0.6f;
-	switch ((int)enemyTimer)
+	CheckPaused(e);
+	
+	if (!paused)
 	{
-	case 15000:
-		CreateKoopa(Vector2D(64, 32), FACING_RIGHT);
-		break;
-	case 10000:
-		CreateGoomba(Vector2D(414, 32), FACING_LEFT);
-		break;
-	case 5000:
-		CreateGoomba(Vector2D(64, 32), FACING_RIGHT);
-		break;
-	case 0:
-		enemyTimer = ENEMY_TIMER;
-		CreateKoopa(Vector2D(414, 32), FACING_LEFT);
-		break;
-	default:
-		break;
+		if (pauseMusic == MUSIC_TIMER)
+		{
+			Mix_ResumeMusic();
+		}
+		
+		characterMario->Update(deltaTime, e);
+		WallCollisions(characterMario);
+
+		characterLuigi->Update(deltaTime, e);
+		WallCollisions(characterLuigi);
+
+		UpdatePeach(deltaTime, e);
+
+		// Update and spawn the enemy characters.
+		enemyTimer -= 0.5f;
+		switch ((int)enemyTimer)
+		{
+		case 15000:
+			CreateKoopa(Vector2D(64, 32), FACING_RIGHT);
+			break;
+		case 10000:
+			CreateGoomba(Vector2D(414, 32), FACING_LEFT);
+			break;
+		case 5000:
+			CreateGoomba(Vector2D(64, 32), FACING_RIGHT);
+			break;
+		case 0:
+			enemyTimer = ENEMY_TIMER;
+			CreateKoopa(Vector2D(414, 32), FACING_LEFT);
+			break;
+		default:
+			break;
+		}
+		UpdateKoopas(deltaTime, e);
+		UpdateGoombas(deltaTime, e);
+		UpdateCoin(deltaTime, e);
+
+		if (characterMario->GetAlive() == false && characterLuigi->GetAlive() == false && playersDead == false)
+		{
+			Mix_HaltMusic();
+			Mix_HaltChannel(-1);
+			Mix_PlayChannel(-1, gameOverSound, 0);
+			playersDead = true;
+		}
 	}
-	UpdateKoopas(deltaTime, e);
-	UpdateGoombas(deltaTime, e);
-	UpdateCoin(deltaTime, e);
-
-	if (characterMario->GetAlive() == false && characterLuigi->GetAlive() == false && (marioIsDead || luigiIsDead))
+	else
 	{
-		Mix_HaltMusic();
-		Mix_HaltChannel(-1);
-		Mix_PlayChannel(-1, gameOverSound, 0);
+		Mix_PauseMusic();
+	}
+}
 
-		marioIsDead = false;
-		luigiIsDead = false;
+void GameScreenLevel2::CheckPaused(SDL_Event e)
+{
+	switch (e.type)
+	{
+	case SDL_KEYUP:
+		switch (e.key.keysym.sym)
+		{
+		case SDLK_p:
+			Mix_PlayChannel(-1, pauseSound, 0);
+			paused = !paused;
+			break;
+		}
+		break;
 	}
 }
 
 bool GameScreenLevel2::SetUpLevel()
 {
 	SetLevelMap();
+	
 	LoadAudio();
+	LoadFont();
 
 	Mix_PlayChannel(-1, pipeSound, 0);
 	Mix_PlayMusic(gMusic, -1);
@@ -163,6 +269,13 @@ bool GameScreenLevel2::SetUpLevel()
 	if (!mLevelTexture->LoadFromFile("Images/Levels/Level2/Level2.png"))
 	{
 		cout << "Failed to load level map texture!";
+		return false;
+	}
+
+	mTransparency = new Texture2D(mRenderer);
+	if (!mTransparency->LoadFromFile("Images/Transparency.png"))
+	{
+		cout << "Failed to load transparency image!";
 		return false;
 	}
 
@@ -208,7 +321,7 @@ void GameScreenLevel2::SetLevelMap()
 										{0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-										{0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0},
+										{0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0},
 										{0, 0, 0, 0, 0, 0 ,0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -273,12 +386,107 @@ void GameScreenLevel2::LoadAudio()
 	{
 		cout << "Failed to load pipe sound! Error: " << Mix_GetError() << endl;
 	}
+}
 
-	thwompSound = Mix_LoadWAV("Music/WAV/Thwomp.wav");
-	if (thwompSound == NULL)
-	{
-		cout << "Failed to load thwomp sound! Error: " << Mix_GetError() << endl;
-	}
+void GameScreenLevel2::LoadFont()
+{
+	fontVeryLarge = TTF_OpenFont("Fonts/MarioFont.ttf", 72);
+	fontLarge = TTF_OpenFont("Fonts/MarioFont.ttf", 36);
+	fontMedium = TTF_OpenFont("Fonts/MarioFont.ttf", 24);
+	fontSmall = TTF_OpenFont("Fonts/MarioFont.ttf", 18);
+
+	colorFg = { 255, 255, 255, 255 };
+	colorBg = { 0, 0, 0, 255 };
+	colorRed = { 240, 102, 102, 255 };
+	colorGreen = { 102, 240, 102, 255 };
+	colorPink = { 255, 153, 255, 255 };
+
+	// PAUSE
+	pauseTextSurface = TTF_RenderText_Solid(fontVeryLarge, "paused", colorFg);
+	pauseText = SDL_CreateTextureFromSurface(mRenderer, pauseTextSurface);
+	SDL_QueryTexture(pauseText, NULL, NULL, &pauseTextRect.w, &pauseTextRect.h);
+
+	SDL_FreeSurface(pauseTextSurface);
+	pauseTextSurface = nullptr;
+
+	// MARIO
+	marioTextSurface = TTF_RenderText_Solid(fontMedium, "mario score: ", colorRed);
+	marioText = SDL_CreateTextureFromSurface(mRenderer, marioTextSurface);
+	SDL_QueryTexture(marioText, NULL, NULL, &marioTextRect.w, &marioTextRect.h);
+
+	SDL_FreeSurface(marioTextSurface);
+	marioTextSurface = nullptr;
+
+	// MARIO SCORE
+	marioScoreString = to_string(marioScore);
+	marioScoreTextSurface = TTF_RenderText_Solid(fontSmall, marioScoreString.c_str(), colorFg);
+	marioScoreText = SDL_CreateTextureFromSurface(mRenderer, marioScoreTextSurface);
+	SDL_QueryTexture(marioScoreText, NULL, NULL, &marioScoreTextRect.w, &marioScoreTextRect.h);
+
+	SDL_FreeSurface(marioScoreTextSurface);
+	marioScoreTextSurface = nullptr;
+
+	// LUIGI
+	luigiTextSurface = TTF_RenderText_Solid(fontMedium, "luigi score: ", colorGreen);
+	luigiText = SDL_CreateTextureFromSurface(mRenderer, luigiTextSurface);
+	SDL_QueryTexture(luigiText, NULL, NULL, &luigiTextRect.w, &luigiTextRect.h);
+
+	SDL_FreeSurface(luigiTextSurface);
+	luigiTextSurface = nullptr;
+
+	// LUIGI SCORE
+	luigiScoreString = to_string(luigiScore);
+	luigiScoreTextSurface = TTF_RenderText_Solid(fontSmall, luigiScoreString.c_str(), colorFg);
+	luigiScoreText = SDL_CreateTextureFromSurface(mRenderer, luigiScoreTextSurface);
+	SDL_QueryTexture(luigiScoreText, NULL, NULL, &luigiScoreTextRect.w, &luigiScoreTextRect.h);
+
+	SDL_FreeSurface(luigiScoreTextSurface);
+	luigiScoreTextSurface = nullptr;
+
+	// PEACH
+	peachTextSurface = TTF_RenderText_Solid(fontLarge, "princess peach has been rescued", colorPink);
+	peachText = SDL_CreateTextureFromSurface(mRenderer, peachTextSurface);
+	SDL_QueryTexture(peachText, NULL, NULL, &peachTextRect.w, &peachTextRect.h);
+
+	SDL_FreeSurface(peachTextSurface);
+	peachTextSurface = nullptr;
+
+	// GAME OVER
+	gameOverTextSurface = TTF_RenderText_Solid(fontLarge, "game over", colorFg);
+	gameOverText = SDL_CreateTextureFromSurface(mRenderer, gameOverTextSurface);
+	SDL_QueryTexture(gameOverText, NULL, NULL, &gameOverTextRect.w, &gameOverTextRect.h);
+
+	SDL_FreeSurface(gameOverTextSurface);
+	gameOverTextSurface = nullptr;
+
+	// NEXT LEVEL
+	escapeTextSurface = TTF_RenderText_Solid(fontSmall, "PRESS 'ESCAPE' TO EXIT", colorFg);
+	escapeText = SDL_CreateTextureFromSurface(mRenderer, escapeTextSurface);
+	SDL_QueryTexture(escapeText, NULL, NULL, &escapeTextRect.w, &escapeTextRect.h);
+
+	SDL_FreeSurface(escapeTextSurface);
+	escapeTextSurface = nullptr;
+}
+
+void GameScreenLevel2::LoadPlayerScores()
+{
+	// MARIO SCORE
+	marioScoreString = to_string(marioScore);
+	marioScoreTextSurface = TTF_RenderText_Solid(fontSmall, marioScoreString.c_str(), colorFg);
+	marioScoreText = SDL_CreateTextureFromSurface(mRenderer, marioScoreTextSurface);
+	SDL_QueryTexture(marioScoreText, NULL, NULL, &marioScoreTextRect.w, &marioScoreTextRect.h);
+
+	SDL_FreeSurface(marioScoreTextSurface);
+	marioScoreTextSurface = nullptr;
+
+	// LUIGI SCORE
+	luigiScoreString = to_string(luigiScore);
+	luigiScoreTextSurface = TTF_RenderText_Solid(fontSmall, luigiScoreString.c_str(), colorFg);
+	luigiScoreText = SDL_CreateTextureFromSurface(mRenderer, luigiScoreTextSurface);
+	SDL_QueryTexture(luigiScoreText, NULL, NULL, &luigiScoreTextRect.w, &luigiScoreTextRect.h);
+
+	SDL_FreeSurface(luigiScoreTextSurface);
+	luigiScoreTextSurface = nullptr;
 }
 
 void GameScreenLevel2::WallCollisions(Character* character)
@@ -305,7 +513,6 @@ void GameScreenLevel2::WallCollisions(Character* character)
 			Mix_PlayChannel(-1, dieSound, 0);
 			
 			character->SetAlive(false);
-			marioIsDead = true;
 			characterMario->SetPosition(Vector2D(500, 1000));
 
 			SetConsoleTextAttribute(hConsole, redFont);
@@ -320,7 +527,6 @@ void GameScreenLevel2::WallCollisions(Character* character)
 			Mix_PlayChannel(-1, dieSound, 0);
 
 			character->SetAlive(false);
-			luigiIsDead = true;
 			characterLuigi->SetPosition(Vector2D(500, 1000));
 
 			SetConsoleTextAttribute(hConsole, greenFont);
@@ -332,10 +538,10 @@ void GameScreenLevel2::WallCollisions(Character* character)
 
 	if (startTimer == true)
 	{
-		pauseMusic -= 1.0f;
+		pauseMusic -= 0.5f;
 	}
 
-	if (pauseMusic == 0.0f)
+	if (pauseMusic <= 0.0f)
 	{
 		pauseMusic = MUSIC_TIMER;
 		startTimer = false;
@@ -356,14 +562,16 @@ void GameScreenLevel2::UpdatePeach(float deltaTime, SDL_Event e)
 			
 			characterPeach->isRescued = true;
 
+			marioScore += 50;
+			LoadPlayerScores();
+			characterMario->mScore += 50;
+
 			SetConsoleTextAttribute(hConsole, redFont);
 			cout << endl << "Mario";
 			SetConsoleTextAttribute(hConsole, whiteFont);
 			cout << " saved ";
 			SetConsoleTextAttribute(hConsole, pinkFont);
 			cout << "Princess Peach!" << endl;
-
-			characterMario->mScore += 50;
 
 			SetConsoleTextAttribute(hConsole, redFont);
 			cout << "Mario";
@@ -376,6 +584,10 @@ void GameScreenLevel2::UpdatePeach(float deltaTime, SDL_Event e)
 			Mix_PlayChannel(-1, flagpoleSound, 0);
 			
 			characterPeach->isRescued = true;
+
+			luigiScore += 50;
+			LoadPlayerScores();
+			characterLuigi->mScore += 50;
 
 			SetConsoleTextAttribute(hConsole, greenFont);
 			cout << endl << "Luigi";
@@ -427,12 +639,14 @@ void GameScreenLevel2::UpdateKoopas(float deltaTime, SDL_Event e)
 						Mix_PlayChannel(-1, kickSound, 0);
 						mEnemyKoopa[i]->SetAlive(false);
 
+						marioScore += 20;
+						LoadPlayerScores();
+						characterMario->mScore += 20;
+
 						SetConsoleTextAttribute(hConsole, redFont);
 						cout << endl << "Mario";
 						SetConsoleTextAttribute(hConsole, whiteFont);
 						cout << " killed a Koopa." << endl;
-
-						characterMario->mScore += 20;
 
 						SetConsoleTextAttribute(hConsole, redFont);
 						cout << "Mario";
@@ -461,12 +675,14 @@ void GameScreenLevel2::UpdateKoopas(float deltaTime, SDL_Event e)
 						Mix_PlayChannel(-1, kickSound, 0);
 						mEnemyKoopa[i]->SetAlive(false);
 
+						luigiScore += 20;
+						LoadPlayerScores();
+						characterLuigi->mScore += 20;
+
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << endl << "Luigi";
 						SetConsoleTextAttribute(hConsole, whiteFont);
 						cout << " killed a koopa." << endl;
-
-						characterLuigi->mScore += 20;
 
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << "Luigi";
@@ -504,7 +720,7 @@ void GameScreenLevel2::UpdateKoopas(float deltaTime, SDL_Event e)
 
 	if (startTimer == true)
 	{
-		pauseMusic -= 0.9f;
+		pauseMusic -= 0.5f;
 	}
 
 	if (pauseMusic <= 0.0f)
@@ -548,12 +764,14 @@ void GameScreenLevel2::UpdateGoombas(float deltaTime, SDL_Event e)
 						Mix_PlayChannel(-1, kickSound, 0);
 						mEnemyGoomba[i]->SetAlive(false);
 
+						marioScore += 20;
+						LoadPlayerScores();
+						characterMario->mScore += 20;
+
 						SetConsoleTextAttribute(hConsole, redFont);
 						cout << endl << "Mario";
 						SetConsoleTextAttribute(hConsole, whiteFont);
 						cout << " killed a Goomba." << endl;
-
-						characterMario->mScore += 20;
 
 						SetConsoleTextAttribute(hConsole, redFont);
 						cout << "Mario";
@@ -582,12 +800,14 @@ void GameScreenLevel2::UpdateGoombas(float deltaTime, SDL_Event e)
 						Mix_PlayChannel(-1, kickSound, 0);
 						mEnemyGoomba[i]->SetAlive(false);
 
+						luigiScore += 20;
+						LoadPlayerScores();
+						characterLuigi->mScore += 20;
+
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << endl << "Luigi";
 						SetConsoleTextAttribute(hConsole, whiteFont);
 						cout << " killed a Goomba." << endl;
-
-						characterLuigi->mScore += 20;
 
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << "Luigi";
@@ -625,7 +845,7 @@ void GameScreenLevel2::UpdateGoombas(float deltaTime, SDL_Event e)
 
 	if (startTimer == true)
 	{
-		pauseMusic -= 0.9f;
+		pauseMusic -= 0.5f;
 	}
 
 	if (pauseMusic <= 0.0f)
@@ -650,12 +870,14 @@ void GameScreenLevel2::UpdateCoin(float deltaTime, SDL_Event e)
 				Mix_PlayChannel(-1, coinSound, 0);
 				mCoins[i]->SetAlive(false);
 
+				marioScore += 10;
+				LoadPlayerScores();
+				characterMario->mScore += 10;
+
 				SetConsoleTextAttribute(hConsole, redFont);
 				cout << endl << "Mario";
 				SetConsoleTextAttribute(hConsole, whiteFont);
 				cout << " collected a coin." << endl;
-
-				characterMario->mScore += 10;
 
 				SetConsoleTextAttribute(hConsole, redFont);
 				cout << "Mario";
@@ -667,12 +889,14 @@ void GameScreenLevel2::UpdateCoin(float deltaTime, SDL_Event e)
 				Mix_PlayChannel(-1, coinSound, 0);
 				mCoins[i]->SetAlive(false);
 
+				luigiScore += 10;
+				LoadPlayerScores();
+				characterLuigi->mScore += 10;
+
 				SetConsoleTextAttribute(hConsole, greenFont);
 				cout << endl << "Luigi";
 				SetConsoleTextAttribute(hConsole, whiteFont);
 				cout << " collected a coin." << endl;
-
-				characterLuigi->mScore += 10;
 
 				SetConsoleTextAttribute(hConsole, greenFont);
 				cout << "Luigi";

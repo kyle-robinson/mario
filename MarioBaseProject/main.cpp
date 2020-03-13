@@ -2,6 +2,7 @@
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 #include <iostream>
+
 #include "Texture2D.h"
 #include "GameScreenManager.h"
 #include "Constants.h"
@@ -10,13 +11,13 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 GameScreenManager* gameScreenManager;
 Uint32 gOldTime;
-//Mix_Music* gMusic = nullptr;
 
 bool InitSDL();
 void CloseSDL();
 bool Update();
 void Render();
-//void LoadMusic(string path);
+
+bool closeGame = false;
 
 int main(int argc, char* args[])
 {
@@ -24,39 +25,18 @@ int main(int argc, char* args[])
 	
 	InitSDL();
 
-	/*if (InitSDL())
-	{
-		LoadMusic("Music/OGG/Mario_Overworld.ogg");
-		if (Mix_PlayingMusic() == 0)
-		{
-			Mix_PlayMusic(gMusic, -1);
-		}
-	}*/
-
-	// Set up the game screen manager - Start with Level1
 	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL1);
 	gOldTime = SDL_GetTicks();
-	
 	bool quit = false;
-	while (!quit)
+	while (!quit && !closeGame)
 	{
 		Render();
 		quit = Update();
 	}
 
 	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL2);
-
-	//Mix_HaltMusic();
-	//gMusic = nullptr;
-
-	/*LoadMusic("Music/OGG/Mario_Underworld.ogg");
-	if (Mix_PlayingMusic() == 0)
-	{
-		Mix_PlayMusic(gMusic, -1);
-	}*/
-
 	quit = false;
-	while (!quit)
+	while (!quit && !closeGame)
 	{
 		Render();
 		quit = Update();
@@ -124,9 +104,6 @@ bool InitSDL()
 
 void CloseSDL()
 {
-	//Mix_FreeMusic(gMusic);
-	//gMusic = NULL;
-
 	delete gameScreenManager;
 	gameScreenManager = NULL;
 
@@ -152,6 +129,7 @@ bool Update()
 	switch (e.type)
 	{
 		case SDL_QUIT:
+			closeGame = true;
 			return true;
 		break;
 
@@ -160,6 +138,9 @@ bool Update()
 			{
 				case SDLK_q:
 					return true;
+				break;
+				case SDLK_ESCAPE:
+					closeGame = true;
 				break;
 			}
 		break;
@@ -186,12 +167,3 @@ void Render()
 
 	SDL_RenderPresent(gRenderer);
 }
-
-/*void LoadMusic(string path)
-{
-	gMusic = Mix_LoadMUS(path.c_str());
-	if (gMusic == NULL)
-	{
-		cout << "Failed to load background music! Error: " << Mix_GetError() << endl;
-	}
-}*/
