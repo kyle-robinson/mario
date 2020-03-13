@@ -10,12 +10,7 @@ Super Mario game created in semester 2 as part of Games Engine Creation module.
 #### Bug Fixes
 - [ ] Fix collision with the POW block.
 - [x] Make wall-wrapping more fluid.
-- [ ] Prevent player from jumping until they touch the ground.
-- [ ] Don't reset the players jump when they collide with the POW block.
-- [ ] Make gravity more fluid.
 - [ ] Make map collision more solid.
-- [ ] Remove POW map collision when destroyed.
-- [x] Create transition to Level 2.
 
 ### Additional Features
 - [x] Add coins to the game.
@@ -26,11 +21,11 @@ Super Mario game created in semester 2 as part of Games Engine Creation module.
 - [x] Add win and lose conditions.
 - [x] Remove players when injured.
 - [x] Add a pause menu.
-- [ ] Different movement speed for players and enemies.
 - [x] Change font colours for characters in console.
 
 ### Complex Features
 - [x] Implement a variety of different sound effects.
-- [ ] Provide characters with additional sprite sheets.
 - [x] Incorporate a user interface.
+- [x] Create Start Menu
 - [x] Create Level 2
+- [x] Create Score Menu
