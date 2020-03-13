@@ -23,14 +23,14 @@ Super Mario game created in semester 2 as part of Games Engine Creation module.
 - [x] Create a variety of enemies.
 - [x] Create wall-wrapping for characters.
 - [x] Add Peach to the game.
-- [ ] Add win and lose conditions.
+- [x] Add win and lose conditions.
 - [x] Remove players when injured.
-- [ ] Add a pause menu.
+- [x] Add a pause menu.
 - [ ] Different movement speed for players and enemies.
 - [x] Change font colours for characters in console.
 
 ### Complex Features
 - [x] Implement a variety of different sound effects.
 - [ ] Provide characters with additional sprite sheets.
-- [ ] Incorporate a user interface.
+- [x] Incorporate a user interface.
 - [x] Create Level 2
