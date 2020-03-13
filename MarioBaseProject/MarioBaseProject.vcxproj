@@ -138,6 +138,8 @@
     <ClCompile Include="GameScreenLevel1.cpp" />
     <ClCompile Include="GameScreenLevel2.cpp" />
     <ClCompile Include="GameScreenManager.cpp" />
+    <ClCompile Include="GameScreenMenu.cpp" />
+    <ClCompile Include="GameScreenScore.cpp" />
     <ClCompile Include="LevelMap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PowBlock.cpp" />
@@ -158,6 +160,8 @@
     <ClInclude Include="GameScreenLevel1.h" />
     <ClInclude Include="GameScreenLevel2.h" />
     <ClInclude Include="GameScreenManager.h" />
+    <ClInclude Include="GameScreenMenu.h" />
+    <ClInclude Include="GameScreenScore.h" />
     <ClInclude Include="LevelMap.h" />
     <ClInclude Include="PowBlock.h" />
     <ClInclude Include="Texture2D.h" />
@@ -168,6 +172,9 @@
     <Library Include="SDL\SDL2_image.lib" />
     <Library Include="SDL\SDL2_mixer.lib" />
     <Library Include="SDL\SDL2_ttf.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

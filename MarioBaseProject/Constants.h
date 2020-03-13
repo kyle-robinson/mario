@@ -27,3 +27,4 @@
 // Miscellaneous Constants
 #define SCREENSHAKE_DURATION			0.25f
 #define MUSIC_TIMER						30000.0f
+#define START_TIMER						32000.0f

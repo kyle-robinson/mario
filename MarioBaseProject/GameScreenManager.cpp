@@ -1,6 +1,8 @@
 #include "GameScreen.h"
+#include "GameScreenMenu.h"
 #include "GameScreenLevel1.h"
 #include "GameScreenLevel2.h"
+#include "GameScreenScore.h"
 #include "GameScreenManager.h"
 
 #include <iostream>
@@ -42,39 +44,41 @@ void GameScreenManager::ChangeScreen(SCREENS newScreen)
 		delete mCurrentScreen;
 	}
 
-	GameScreenLevel1* tempScreen1;
-	GameScreenLevel2* tempScreen2;
+	GameScreenMenu* tempScreenMenu;
+	GameScreenLevel1* tempScreenLevel1;
+	GameScreenLevel2* tempScreenLevel2;
+	GameScreenScore* tempScreenScore;
 	switch (newScreen)
 	{
-	case SCREEN_INTRO:
-		tempScreen1 = new GameScreenLevel1(mRenderer);
-		mCurrentScreen = (GameScreen*)tempScreen1;
-		tempScreen1 = NULL;
-		break;
+	//case SCREEN_INTRO:
+	//	tempScreen1 = new GameScreenLevel1(mRenderer);
+	//	mCurrentScreen = (GameScreen*)tempScreen1;
+	//	tempScreen1 = NULL;
+	//	break;
 	case SCREEN_MENU:
-		tempScreen1 = new GameScreenLevel1(mRenderer);
-		mCurrentScreen = (GameScreen*)tempScreen1;
-		tempScreen1 = NULL;
+		tempScreenMenu = new GameScreenMenu(mRenderer);
+		mCurrentScreen = (GameScreen*)tempScreenMenu;
+		tempScreenMenu = NULL;
 		break;
 	case SCREEN_LEVEL1:
-		tempScreen1 = new GameScreenLevel1(mRenderer);
-		mCurrentScreen = (GameScreen*)tempScreen1;
-		tempScreen1 = NULL;
+		tempScreenLevel1 = new GameScreenLevel1(mRenderer);
+		mCurrentScreen = (GameScreen*)tempScreenLevel1;
+		tempScreenLevel1 = NULL;
 		break;
 	case SCREEN_LEVEL2:
-		tempScreen2 = new GameScreenLevel2(mRenderer);
-		mCurrentScreen = (GameScreen*)tempScreen2;
-		tempScreen2 = NULL;
+		tempScreenLevel2 = new GameScreenLevel2(mRenderer);
+		mCurrentScreen = (GameScreen*)tempScreenLevel2;
+		tempScreenLevel2 = NULL;
 		break;
-	case SCREEN_GAMEOVER:
-		tempScreen1 = new GameScreenLevel1(mRenderer);
-		mCurrentScreen = (GameScreen*)tempScreen1;
-		tempScreen1 = NULL;
-		break;
+	//case SCREEN_GAMEOVER:
+	//	tempScreen1 = new GameScreenLevel1(mRenderer);
+	//	mCurrentScreen = (GameScreen*)tempScreen1;
+	//	tempScreen1 = NULL;
+	//	break;
 	case SCREEN_HIGHSCORES:
-		tempScreen1 = new GameScreenLevel1(mRenderer);
-		mCurrentScreen = (GameScreen*)tempScreen1;
-		tempScreen1 = NULL;
+		tempScreenScore = new GameScreenScore(mRenderer);
+		mCurrentScreen = (GameScreen*)tempScreenScore;
+		tempScreenScore = NULL;
 		break;
 	default:
 		cout << "Was not able to load any of the game screens!" << endl;

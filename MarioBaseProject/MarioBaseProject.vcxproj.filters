@@ -66,6 +66,12 @@
     <ClInclude Include="GameScreenLevel2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameScreenMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScreenScore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -116,6 +122,12 @@
     <ClCompile Include="GameScreenLevel2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameScreenMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScreenScore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="SDL\SDL2_image.lib" />
@@ -123,5 +135,10 @@
     <Library Include="SDL\SDL2main.lib" />
     <Library Include="SDL\SDL2_ttf.lib" />
     <Library Include="SDL\SDL2.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

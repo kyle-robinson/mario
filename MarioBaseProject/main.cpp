@@ -25,7 +25,7 @@ int main(int argc, char* args[])
 	
 	InitSDL();
 
-	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL1);
+	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_MENU);
 	gOldTime = SDL_GetTicks();
 	bool quit = false;
 	while (!quit && !closeGame)
@@ -34,7 +34,23 @@ int main(int argc, char* args[])
 		quit = Update();
 	}
 
+	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL1);
+	quit = false;
+	while (!quit && !closeGame)
+	{
+		Render();
+		quit = Update();
+	}
+	
 	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL2);
+	quit = false;
+	while (!quit && !closeGame)
+	{
+		Render();
+		quit = Update();
+	}
+
+	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_HIGHSCORES);
 	quit = false;
 	while (!quit && !closeGame)
 	{
@@ -136,7 +152,9 @@ bool Update()
 		case SDL_KEYUP:
 			switch (e.key.keysym.sym)
 			{
-				case SDLK_q:
+				case SDLK_RETURN:
+					Mix_HaltMusic();
+					Mix_HaltChannel(-1);
 					return true;
 				break;
 				case SDLK_ESCAPE:

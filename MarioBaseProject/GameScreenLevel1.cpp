@@ -7,26 +7,19 @@
 
 GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
 {
-	marioScore = 0;
-	luigiScore = 0;
 	playersDead = false;
 	
 	paused = false;
 	startTimer = false;
 	pauseMusic = MUSIC_TIMER;
 	enemyTimer = ENEMY_TIMER;
+	startGameTimer = START_TIMER;
 
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	redFont = 12;
 	greenFont = 10;
 	pinkFont = 13;
 	whiteFont = 15;
-	
-	pauseTextRect.x = pauseTextRect.y = 0;
-	marioTextRect.x = marioTextRect.y = 0;
-	luigiTextRect.x = luigiTextRect.y = 0;
-	peachTextRect.x = peachTextRect.y = 0;
-	gameOverTextRect.x = gameOverTextRect.y = 0;
 
 	SetUpLevel();
 }
@@ -40,6 +33,12 @@ GameScreenLevel1::~GameScreenLevel1()
 	delete mLevelTexture;
 	mLevelTexture = NULL;
 
+	delete mTransparency;
+	mTransparency = NULL;
+
+	delete mBlackBackground;
+	mBlackBackground = NULL;
+
 	delete characterMario;
 	characterMario = NULL;
 
@@ -49,60 +48,10 @@ GameScreenLevel1::~GameScreenLevel1()
 	delete characterPeach;
 	characterPeach = NULL;
 
-	mLevelMap = NULL;
-
-	// SOUNDS
 	delete mPowBlock;
 	mPowBlock = NULL;
 
-	delete gMusic;
-	gMusic = NULL;
-
-	delete coinSound;
-	coinSound = NULL;
-
-	delete dieSound;
-	dieSound = NULL;
-
-	delete flagpoleSound;
-	flagpoleSound = NULL;
-
-	delete gameOverSound;
-	gameOverSound = NULL;
-
-	delete kickSound;
-	kickSound = NULL;
-
-	delete pauseSound;
-	pauseSound = NULL;
-
-	delete pipeSound;
-	pipeSound = NULL;
-
-	delete thwompSound;
-	thwompSound = NULL;
-
-	// FONTS
-	delete fontVeryLarge;
-	fontVeryLarge = NULL;
-
-	delete fontLarge;
-	fontLarge = NULL;
-
-	delete fontMedium;
-	fontMedium = NULL;
-
-	delete fontSmall;
-	fontSmall = NULL;
-
-	SDL_DestroyTexture(pauseText);
-	SDL_DestroyTexture(marioText);
-	SDL_DestroyTexture(marioScoreText);
-	SDL_DestroyTexture(luigiText);
-	SDL_DestroyTexture(luigiScoreText);
-	SDL_DestroyTexture(peachText);
-	SDL_DestroyTexture(gameOverText);
-	SDL_DestroyTexture(nextLevelText);
+	mLevelMap = NULL;
 
 	// ENEMIES
 	mEnemyKoopa.clear();
@@ -160,9 +109,18 @@ void GameScreenLevel1::Render()
 	}
 	else
 	{
-		if (characterPeach->isRescued)
+		if (startGameTimer >= 0.0f)
 		{
 			mTransparency->Render(Vector2D(), SDL_FLIP_NONE);
+
+			start1TextRect.x = (SCREEN_WIDTH / 2) - (start1TextRect.w / 2);
+			start1TextRect.y = (SCREEN_HEIGHT / 2) - (start1TextRect.h / 2);
+			SDL_RenderCopy(mRenderer, start1Text, NULL, &start1TextRect);
+		}
+		
+		if (characterPeach->isRescued)
+		{
+			mBlackBackground->Render(Vector2D(), SDL_FLIP_NONE);
 
 			peachTextRect.x = (SCREEN_WIDTH / 2) - (peachTextRect.w / 2);
 			peachTextRect.y = (SCREEN_HEIGHT / 2) - (peachTextRect.h / 2);
@@ -175,7 +133,7 @@ void GameScreenLevel1::Render()
 
 		if (characterMario->GetAlive() == false && characterLuigi->GetAlive() == false && !characterPeach->isRescued)
 		{
-			mTransparency->Render(Vector2D(), SDL_FLIP_NONE);
+			mBlackBackground->Render(Vector2D(), SDL_FLIP_NONE);
 
 			gameOverTextRect.x = (SCREEN_WIDTH / 2) - (gameOverTextRect.w / 2);
 			gameOverTextRect.y = (SCREEN_HEIGHT / 2) - (gameOverTextRect.h / 2);
@@ -190,9 +148,19 @@ void GameScreenLevel1::Render()
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
-	CheckPaused(e);
+	startGameTimer -= 1.0f;
+
+	if (startGameTimer <= 0.0f)
+	{
+		CheckPaused(e);
+	}
+
+	if (startGameTimer == 1000.0f)
+	{
+		Mix_PlayMusic(gOverworld, -1);
+	}
 	
-	if (!paused)
+	if (!paused && !characterPeach->isRescued && startGameTimer <= 0.0f)
 	{
 		if (pauseMusic == MUSIC_TIMER)
 		{
@@ -262,22 +230,6 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	}
 }
 
-void GameScreenLevel1::CheckPaused(SDL_Event e)
-{
-	switch (e.type)
-	{
-		case SDL_KEYUP:
-			switch (e.key.keysym.sym)
-			{
-				case SDLK_p:
-					Mix_PlayChannel(-1, pauseSound, 0);
-					paused = !paused;
-				break;
-			}
-		break;
-	}
-}
-
 bool GameScreenLevel1::SetUpLevel()
 {
 	SetLevelMap();
@@ -285,8 +237,14 @@ bool GameScreenLevel1::SetUpLevel()
 	LoadAudio();
 	LoadFont();
 
-	Mix_PlayChannel(-1, pipeSound, 0);
-	Mix_PlayMusic(gMusic, -1);
+	Mix_PlayChannel(-1, startSound, 0);
+
+	mBlackBackground = new Texture2D(mRenderer);
+	if (!mBlackBackground->LoadFromFile("Images/Levels/Level1/Black_Bg_Small.png"))
+	{
+		cout << "Failed to load black background texture!";
+		return false;
+	}
 
 	mBackgroundTexture = new Texture2D(mRenderer);
 	if (!mBackgroundTexture->LoadFromFile("Images/Levels/Level1/Overworld_Bg_Small.png"))
@@ -309,16 +267,16 @@ bool GameScreenLevel1::SetUpLevel()
 		return false;
 	}
 
-	characterMario = new CharacterMario(mRenderer, "Images/Characters/MarioWalk.png", Vector2D(64, 330), mLevelMap);
-	characterLuigi = new CharacterLuigi(mRenderer, "Images//Characters/LuigiWalk.png", Vector2D(414, 330), mLevelMap);
+	characterMario = new CharacterMario(mRenderer, "Images/Characters/MarioWalk.png", Vector2D(64, 342), mLevelMap);
+	characterLuigi = new CharacterLuigi(mRenderer, "Images//Characters/LuigiWalk.png", Vector2D(414, 342), mLevelMap);
 
 	mPowBlock = new PowBlock(mRenderer, mLevelMap);
 	mScreenshake = false;
 	mBackgroundYPos = 0.0f;
 
 	CreatePeach(Vector2D(32, 20), FACING_RIGHT);
-	CreateKoopa(Vector2D(64, 32), FACING_RIGHT);
-	CreateGoomba(Vector2D(414, 32), FACING_LEFT);
+	CreateKoopa(Vector2D(64, 34), FACING_RIGHT);
+	CreateGoomba(Vector2D(414, 34), FACING_LEFT);
 
 	// Create and set coin positions.
 	{
@@ -372,164 +330,6 @@ void GameScreenLevel1::SetLevelMap()
 
 	// Set the new one.
 	mLevelMap = new LevelMap(map);
-}
-
-void GameScreenLevel1::LoadAudio()
-{
-	gMusic = Mix_LoadMUS("Music/OGG/Mario_Overworld.ogg");
-	if (gMusic == NULL)
-	{
-		cout << "Failed to load overworld theme! Error: " << Mix_GetError() << endl;
-	}
-	
-	coinSound = Mix_LoadWAV("Music/WAV/Coin.wav");
-	if (coinSound == NULL)
-	{
-		cout << "Failed to load coin sound! Error: " << Mix_GetError() << endl;
-	}
-
-	dieSound = Mix_LoadWAV("Music/WAV/Die.wav");
-	if (dieSound == NULL)
-	{
-		cout << "Failed to load die sound! Error: " << Mix_GetError() << endl;
-	}
-
-	flagpoleSound = Mix_LoadWAV("Music/WAV/Flagpole.wav");
-	if (flagpoleSound == NULL)
-	{
-		cout << "Failed to load flagpole sound! Error: " << Mix_GetError() << endl;
-	}
-
-	gameOverSound = Mix_LoadWAV("Music/WAV/GameOver.wav");
-	if (gameOverSound == NULL)
-	{
-		cout << "Failed to load game over sound! Error: " << Mix_GetError() << endl;
-	}
-
-	kickSound = Mix_LoadWAV("Music/WAV/Kick.wav");
-	if (kickSound == NULL)
-	{
-		cout << "Failed to load kick sound! Error: " << Mix_GetError() << endl;
-	}
-
-	pauseSound = Mix_LoadWAV("Music/WAV/Pause.wav");
-	if (pauseSound == NULL)
-	{
-		cout << "Failed to load pause sound! Error: " << Mix_GetError() << endl;
-	}
-
-	pipeSound = Mix_LoadWAV("Music/WAV/Pipe.wav");
-	if (pipeSound == NULL)
-	{
-		cout << "Failed to load pipe sound! Error: " << Mix_GetError() << endl;
-	}
-
-	thwompSound = Mix_LoadWAV("Music/WAV/Thwomp.wav");
-	if (thwompSound == NULL)
-	{
-		cout << "Failed to load thwomp sound! Error: " << Mix_GetError() << endl;
-	}
-}
-
-void GameScreenLevel1::LoadFont()
-{
-	fontVeryLarge = TTF_OpenFont("Fonts/MarioFont.ttf", 72);
-	fontLarge = TTF_OpenFont("Fonts/MarioFont.ttf", 36);
-	fontMedium = TTF_OpenFont("Fonts/MarioFont.ttf", 24);
-	fontSmall = TTF_OpenFont("Fonts/MarioFont.ttf", 18);
-	
-	colorFg = { 255, 255, 255, 255 };
-	colorBg = { 0, 0, 0, 255 };
-	colorRed = { 240, 102, 102, 255 };
-	colorGreen = { 102, 240, 102, 255 };
-	colorPink = { 255, 153, 255, 255 };
-
-	// PAUSE
-	pauseTextSurface = TTF_RenderText_Solid(fontVeryLarge, "paused", colorFg);
-	pauseText = SDL_CreateTextureFromSurface(mRenderer, pauseTextSurface);
-	SDL_QueryTexture(pauseText, NULL, NULL, &pauseTextRect.w, &pauseTextRect.h);
-
-	SDL_FreeSurface(pauseTextSurface);
-	pauseTextSurface = nullptr;
-
-	// MARIO
-	marioTextSurface = TTF_RenderText_Solid(fontMedium, "mario score: ", colorRed);
-	marioText = SDL_CreateTextureFromSurface(mRenderer, marioTextSurface);
-	SDL_QueryTexture(marioText, NULL, NULL, &marioTextRect.w, &marioTextRect.h);
-
-	SDL_FreeSurface(marioTextSurface);
-	marioTextSurface = nullptr;
-
-	// MARIO SCORE
-	marioScoreString = to_string(marioScore);
-	marioScoreTextSurface = TTF_RenderText_Solid(fontSmall, marioScoreString.c_str(), colorFg);
-	marioScoreText = SDL_CreateTextureFromSurface(mRenderer, marioScoreTextSurface);
-	SDL_QueryTexture(marioScoreText, NULL, NULL, &marioScoreTextRect.w, &marioScoreTextRect.h);
-
-	SDL_FreeSurface(marioScoreTextSurface);
-	marioScoreTextSurface = nullptr;
-
-	// LUIGI
-	luigiTextSurface = TTF_RenderText_Solid(fontMedium, "luigi score: ", colorGreen);
-	luigiText = SDL_CreateTextureFromSurface(mRenderer, luigiTextSurface);
-	SDL_QueryTexture(luigiText, NULL, NULL, &luigiTextRect.w, &luigiTextRect.h);
-	
-	SDL_FreeSurface(luigiTextSurface);
-	luigiTextSurface = nullptr;
-
-	// LUIGI SCORE
-	luigiScoreString = to_string(luigiScore);
-	luigiScoreTextSurface = TTF_RenderText_Solid(fontSmall, luigiScoreString.c_str(), colorFg);
-	luigiScoreText = SDL_CreateTextureFromSurface(mRenderer, luigiScoreTextSurface);
-	SDL_QueryTexture(luigiScoreText, NULL, NULL, &luigiScoreTextRect.w, &luigiScoreTextRect.h);
-
-	SDL_FreeSurface(luigiScoreTextSurface);
-	luigiScoreTextSurface = nullptr;
-
-	// PEACH
-	peachTextSurface = TTF_RenderText_Solid(fontLarge, "princess peach has been rescued", colorPink);
-	peachText = SDL_CreateTextureFromSurface(mRenderer, peachTextSurface);
-	SDL_QueryTexture(peachText, NULL, NULL, &peachTextRect.w, &peachTextRect.h);
-
-	SDL_FreeSurface(peachTextSurface);
-	peachTextSurface = nullptr;
-	
-	// GAME OVER
-	gameOverTextSurface = TTF_RenderText_Solid(fontLarge, "game over", colorFg);
-	gameOverText = SDL_CreateTextureFromSurface(mRenderer, gameOverTextSurface);
-	SDL_QueryTexture(gameOverText, NULL, NULL, &gameOverTextRect.w, &gameOverTextRect.h);
-
-	SDL_FreeSurface(gameOverTextSurface);
-	gameOverTextSurface = nullptr;
-
-	// NEXT LEVEL
-	nextLevelTextSurface = TTF_RenderText_Solid(fontSmall, "PRESS 'Q' TO GO TO LEVEL 2 OR 'ESCAPE' TO EXIT", colorFg);
-	nextLevelText = SDL_CreateTextureFromSurface(mRenderer, nextLevelTextSurface);
-	SDL_QueryTexture(nextLevelText, NULL, NULL, &nextLevelTextRect.w, &nextLevelTextRect.h);
-
-	SDL_FreeSurface(nextLevelTextSurface);
-	nextLevelTextSurface = nullptr;
-}
-
-void GameScreenLevel1::LoadPlayerScores()
-{
-	// MARIO SCORE
-	marioScoreString = to_string(marioScore);
-	marioScoreTextSurface = TTF_RenderText_Solid(fontSmall, marioScoreString.c_str(), colorFg);
-	marioScoreText = SDL_CreateTextureFromSurface(mRenderer, marioScoreTextSurface);
-	SDL_QueryTexture(marioScoreText, NULL, NULL, &marioScoreTextRect.w, &marioScoreTextRect.h);
-	
-	SDL_FreeSurface(marioScoreTextSurface);
-	marioScoreTextSurface = nullptr;
-	
-	// LUIGI SCORE
-	luigiScoreString = to_string(luigiScore);
-	luigiScoreTextSurface = TTF_RenderText_Solid(fontSmall, luigiScoreString.c_str(), colorFg);
-	luigiScoreText = SDL_CreateTextureFromSurface(mRenderer, luigiScoreTextSurface);
-	SDL_QueryTexture(luigiScoreText, NULL, NULL, &luigiScoreTextRect.w, &luigiScoreTextRect.h);
-	
-	SDL_FreeSurface(luigiScoreTextSurface);
-	luigiScoreTextSurface = nullptr;
 }
 
 void GameScreenLevel1::UpdatePOWBlock()
