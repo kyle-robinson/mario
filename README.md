@@ -8,9 +8,9 @@ Super Mario game created in semester 2 as part of Games Engine Creation module.
 - [x] Audio
 
 #### Bug Fixes
-- [ ] Fix collision with the POW block.
+- [x] Fix collision with the POW block.
 - [x] Make wall-wrapping more fluid.
-- [ ] Make map collision more solid.
+- [x] Make map collision more solid.
 
 ### Additional Features
 - [x] Add coins to the game.
