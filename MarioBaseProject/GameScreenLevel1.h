@@ -12,8 +12,7 @@
 #include <Windows.h>
 #include <vector>
 #include <string>
-
-using namespace std;
+#include <fstream>
 
 class Texture2D;
 class Character;

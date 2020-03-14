@@ -56,10 +56,103 @@ GameScreenLevel1::~GameScreenLevel1()
 
 	mLevelMap = NULL;
 
+	// FILE HANDLING
+	if (marioFileOut.is_open())
+	{
+		marioFileOut.close();
+	}
+	if (luigiFileOut.is_open())
+	{
+		luigiFileOut.close();
+	}
+
+	if (marioFileIn.is_open())
+	{
+		marioFileIn.close();
+	}
+	if (luigiFileIn.is_open())
+	{
+		luigiFileIn.close();
+	}
+
 	// ENEMIES
 	mEnemyKoopa.clear();
 	mEnemyGoomba.clear();
 	mCoins.clear();
+
+	// SOUNDS
+	delete gOverworld;
+	gOverworld = NULL;
+
+	delete gUnderworld;
+	gUnderworld = NULL;
+
+	delete gameStartSound;
+	gameStartSound = NULL;
+
+	delete coinSound;
+	coinSound = NULL;
+
+	delete dieSound;
+	dieSound = NULL;
+
+	delete flagpoleSound;
+	flagpoleSound = NULL;
+
+	delete gameOverSound;
+	gameOverSound = NULL;
+
+	delete kickSound;
+	kickSound = NULL;
+
+	delete pauseSound;
+	pauseSound = NULL;
+
+	delete pipeSound;
+	pipeSound = NULL;
+
+	delete startSound;
+	startSound = NULL;
+
+	delete thwompSound;
+	thwompSound = NULL;
+
+	delete victorySound;
+	victorySound = NULL;
+
+	// FONTS
+	delete fontVeryLarge;
+	fontVeryLarge = NULL;
+
+	delete fontLarge;
+	fontLarge = NULL;
+
+	delete fontMedium;
+	fontMedium = NULL;
+
+	delete fontSmall;
+	fontSmall = NULL;
+
+	SDL_DestroyTexture(startText);
+	SDL_DestroyTexture(copyrightText);
+	SDL_DestroyTexture(start1Text);
+	SDL_DestroyTexture(start2Text);
+	SDL_DestroyTexture(pauseText);
+	SDL_DestroyTexture(titleText);
+	SDL_DestroyTexture(multiplyText);
+	SDL_DestroyTexture(marioText);
+	SDL_DestroyTexture(marioScoreText);
+	SDL_DestroyTexture(marioFinalScoreText);
+	SDL_DestroyTexture(marioWinText);
+	SDL_DestroyTexture(luigiText);
+	SDL_DestroyTexture(luigiScoreText);
+	SDL_DestroyTexture(luigiFinalScoreText);
+	SDL_DestroyTexture(luigiWinText);
+	SDL_DestroyTexture(peachText);
+	SDL_DestroyTexture(gameOverText);
+	SDL_DestroyTexture(nextLevelText);
+	SDL_DestroyTexture(escapeText);
+	SDL_DestroyTexture(exitText);
 }
 
 void GameScreenLevel1::Render()
@@ -239,6 +332,8 @@ bool GameScreenLevel1::SetUpLevel()
 	
 	LoadAudio();
 	LoadFont();
+	
+	OpenOutFiles();
 
 	Mix_PlayChannel(-1, startSound, 0);
 
@@ -436,11 +531,11 @@ void GameScreenLevel1::UpdatePeach(float deltaTime, SDL_Event e)
 			Mix_PlayChannel(-1, flagpoleSound, 0);
 			
 			characterPeach->isRescued = true;
-			level1_mario_peach = true;
 			
+			marioSavedPeach += 1;
 			marioScore += 50;
+			WriteToFiles();
 			LoadPlayerScores();
-			characterMario->mScore += 50;
 
 			SetConsoleTextAttribute(hConsole, redFont);
 			cout << endl << "Mario";
@@ -452,7 +547,7 @@ void GameScreenLevel1::UpdatePeach(float deltaTime, SDL_Event e)
 			SetConsoleTextAttribute(hConsole, redFont);
 			cout << "Mario";
 			SetConsoleTextAttribute(hConsole, whiteFont);
-			cout << "'s score: " << characterMario->mScore << endl;
+			cout << "'s score: " << marioScore << endl;
 		}
 		else if (Collisions::Instance()->Circle(characterPeach, characterLuigi))
 		{
@@ -460,11 +555,11 @@ void GameScreenLevel1::UpdatePeach(float deltaTime, SDL_Event e)
 			Mix_PlayChannel(-1, flagpoleSound, 0);
 			
 			characterPeach->isRescued = true;
-			level1_luigi_peach = true;
 			
+			luigiSavedPeach += 1;
 			luigiScore += 50;
+			WriteToFiles();
 			LoadPlayerScores();
-			characterLuigi->mScore += 50;
 
 			SetConsoleTextAttribute(hConsole, greenFont);
 			cout << endl << "Luigi";
@@ -476,7 +571,7 @@ void GameScreenLevel1::UpdatePeach(float deltaTime, SDL_Event e)
 			SetConsoleTextAttribute(hConsole, greenFont);
 			cout << "Luigi";
 			SetConsoleTextAttribute(hConsole, whiteFont);
-			cout << "'s score: " << characterLuigi->mScore << endl;
+			cout << "'s score: " << luigiScore << endl;
 		}
 	}
 }
@@ -516,8 +611,8 @@ void GameScreenLevel1::UpdateKoopas(float deltaTime, SDL_Event e)
 						mEnemyKoopa[i]->SetAlive(false);
 
 						marioScore += 20;
+						WriteToFiles();
 						LoadPlayerScores();
-						characterMario->mScore += 20;
 
 						SetConsoleTextAttribute(hConsole, redFont);
 						cout << endl << "Mario";
@@ -527,7 +622,7 @@ void GameScreenLevel1::UpdateKoopas(float deltaTime, SDL_Event e)
 						SetConsoleTextAttribute(hConsole, redFont);
 						cout << "Mario";
 						SetConsoleTextAttribute(hConsole, whiteFont);
-						cout << " 's score: " << characterMario->mScore << endl;
+						cout << " 's score: " << marioScore << endl;
 					}
 					else
 					{
@@ -552,8 +647,8 @@ void GameScreenLevel1::UpdateKoopas(float deltaTime, SDL_Event e)
 						mEnemyKoopa[i]->SetAlive(false);
 						
 						luigiScore += 20;
+						WriteToFiles();
 						LoadPlayerScores();
-						characterLuigi->mScore += 20;
 						
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << endl << "Luigi";
@@ -563,7 +658,7 @@ void GameScreenLevel1::UpdateKoopas(float deltaTime, SDL_Event e)
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << "Luigi";
 						SetConsoleTextAttribute(hConsole, whiteFont);
-						cout << " 's score: " << characterLuigi->mScore << endl;
+						cout << " 's score: " << luigiScore << endl;
 					}
 					else
 					{
@@ -641,8 +736,8 @@ void GameScreenLevel1::UpdateGoombas(float deltaTime, SDL_Event e)
 						mEnemyGoomba[i]->SetAlive(false);
 						
 						marioScore += 20;
+						WriteToFiles();
 						LoadPlayerScores();
-						characterMario->mScore += 20;
 
 						SetConsoleTextAttribute(hConsole, redFont);
 						cout << endl << "Mario";
@@ -652,7 +747,7 @@ void GameScreenLevel1::UpdateGoombas(float deltaTime, SDL_Event e)
 						SetConsoleTextAttribute(hConsole, redFont);
 						cout << "Mario";
 						SetConsoleTextAttribute(hConsole, whiteFont);
-						cout << " 's score: " << characterMario->mScore << endl;
+						cout << " 's score: " << marioScore << endl;
 					}
 					else
 					{
@@ -677,8 +772,8 @@ void GameScreenLevel1::UpdateGoombas(float deltaTime, SDL_Event e)
 						mEnemyGoomba[i]->SetAlive(false);
 						
 						luigiScore += 20;
+						WriteToFiles();
 						LoadPlayerScores();
-						characterLuigi->mScore += 20;
 
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << endl << "Luigi";
@@ -688,7 +783,7 @@ void GameScreenLevel1::UpdateGoombas(float deltaTime, SDL_Event e)
 						SetConsoleTextAttribute(hConsole, greenFont);
 						cout << "Luigi";
 						SetConsoleTextAttribute(hConsole, whiteFont);
-						cout << "'s score: " << characterLuigi->mScore << endl;
+						cout << "'s score: " << luigiScore << endl;
 					}
 					else
 					{
@@ -747,8 +842,8 @@ void GameScreenLevel1::UpdateCoin(float deltaTime, SDL_Event e)
 				mCoins[i]->SetAlive(false);
 
 				marioScore += 10;
+				WriteToFiles();
 				LoadPlayerScores();
-				characterMario->mScore += 10;
 				
 				SetConsoleTextAttribute(hConsole, redFont);
 				cout << endl << "Mario";
@@ -758,16 +853,16 @@ void GameScreenLevel1::UpdateCoin(float deltaTime, SDL_Event e)
 				SetConsoleTextAttribute(hConsole, redFont);
 				cout << "Mario";
 				SetConsoleTextAttribute(hConsole, whiteFont);
-				cout << "'s Score: " << characterMario->mScore << endl;
+				cout << "'s Score: " << marioScore << endl;
 			}
 			if (Collisions::Instance()->Circle(mCoins[i], characterLuigi))
 			{
 				Mix_PlayChannel(-1, coinSound, 0);
 				mCoins[i]->SetAlive(false);
-
+				
 				luigiScore += 10;
+				WriteToFiles();
 				LoadPlayerScores();
-				characterLuigi->mScore += 10;
 
 				SetConsoleTextAttribute(hConsole, greenFont);
 				cout << endl << "Luigi";
@@ -777,7 +872,7 @@ void GameScreenLevel1::UpdateCoin(float deltaTime, SDL_Event e)
 				SetConsoleTextAttribute(hConsole, greenFont);
 				cout << "Luigi";
 				SetConsoleTextAttribute(hConsole, whiteFont);
-				cout << "'s Score: " << characterLuigi->mScore << endl;
+				cout << "'s Score: " << luigiScore << endl;
 			}
 
 			if (!mCoins[i]->GetAlive())

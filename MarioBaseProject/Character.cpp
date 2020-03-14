@@ -13,8 +13,6 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D startPos
     mMovingLeft = false;
     mMovingRight = false;
 
-	mScore = 0;
-
     mCollisionRadius = 15.0f;
 
 	mCurrentLevelMap = map;

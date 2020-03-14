@@ -128,7 +128,8 @@ void CloseSDL()
 
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
-
+	
+	Mix_Quit();
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();

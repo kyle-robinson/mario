@@ -3,10 +3,6 @@
 
 GameScreenMenu::GameScreenMenu(SDL_Renderer* renderer) : GameScreen(renderer)
 {
-	startTextRect.x = startTextRect.y = 0;
-	exitTextRect.x = exitTextRect.y = 0;
-	copyrightTextRect.x = copyrightTextRect.y = 0;
-
 	SetUpMenu();
 }
 
@@ -20,8 +16,44 @@ GameScreenMenu::~GameScreenMenu()
 	mMarioLogo = NULL;
 
 	// SOUNDS
+	delete gOverworld;
+	gOverworld = NULL;
+
+	delete gUnderworld;
+	gUnderworld = NULL;
+
+	delete gameStartSound;
+	gameStartSound = NULL;
+
+	delete coinSound;
+	coinSound = NULL;
+
+	delete dieSound;
+	dieSound = NULL;
+
+	delete flagpoleSound;
+	flagpoleSound = NULL;
+
+	delete gameOverSound;
+	gameOverSound = NULL;
+
+	delete kickSound;
+	kickSound = NULL;
+
+	delete pauseSound;
+	pauseSound = NULL;
+
+	delete pipeSound;
+	pipeSound = NULL;
+
 	delete startSound;
 	startSound = NULL;
+
+	delete thwompSound;
+	thwompSound = NULL;
+
+	delete victorySound;
+	victorySound = NULL;
 
 	// FONTS
 	delete fontVeryLarge;
@@ -37,8 +69,25 @@ GameScreenMenu::~GameScreenMenu()
 	fontSmall = NULL;
 
 	SDL_DestroyTexture(startText);
-	SDL_DestroyTexture(exitText);
 	SDL_DestroyTexture(copyrightText);
+	SDL_DestroyTexture(start1Text);
+	SDL_DestroyTexture(start2Text);
+	SDL_DestroyTexture(pauseText);
+	SDL_DestroyTexture(titleText);
+	SDL_DestroyTexture(multiplyText);
+	SDL_DestroyTexture(marioText);
+	SDL_DestroyTexture(marioScoreText);
+	SDL_DestroyTexture(marioFinalScoreText);
+	SDL_DestroyTexture(marioWinText);
+	SDL_DestroyTexture(luigiText);
+	SDL_DestroyTexture(luigiScoreText);
+	SDL_DestroyTexture(luigiFinalScoreText);
+	SDL_DestroyTexture(luigiWinText);
+	SDL_DestroyTexture(peachText);
+	SDL_DestroyTexture(gameOverText);
+	SDL_DestroyTexture(nextLevelText);
+	SDL_DestroyTexture(escapeText);
+	SDL_DestroyTexture(exitText);
 }
 
 void GameScreenMenu::Render()
@@ -69,7 +118,7 @@ bool GameScreenMenu::SetUpMenu()
 	LoadAudio();
 	LoadFont();
 
-	Mix_PlayChannel(-1, startSound, 0);
+	Mix_PlayChannel(-1, gameStartSound, 0);
 
 	mBlackBackground = new Texture2D(mRenderer);
 	if (!mBlackBackground->LoadFromFile("Images/Levels/Menu/Black_Bg_Small.png"))
@@ -86,49 +135,4 @@ bool GameScreenMenu::SetUpMenu()
 	}
 
 	return true;
-}
-
-void GameScreenMenu::LoadAudio()
-{
-	startSound = Mix_LoadWAV("Music/WAV/TitleTheme.wav");
-	if (startSound == NULL)
-	{
-		cout << "Failed to load start sound! Error: " << Mix_GetError() << endl;
-	}
-}
-
-void GameScreenMenu::LoadFont()
-{
-	fontVeryLarge = TTF_OpenFont("Fonts/MarioFont.ttf", 72);
-	fontLarge = TTF_OpenFont("Fonts/MarioFont.ttf", 36);
-	fontMedium = TTF_OpenFont("Fonts/MarioFont.ttf", 24);
-	fontSmall = TTF_OpenFont("Fonts/MarioFont.ttf", 18);
-
-	colorFg = { 255, 255, 255, 255 };
-	colorBg = { 0, 0, 0, 255 };
-	colorYellow = {255, 156, 51, 255};
-
-	// START
-	startTextSurface = TTF_RenderText_Solid(fontMedium, "'ENTER' TO START", colorYellow);
-	startText = SDL_CreateTextureFromSurface(mRenderer, startTextSurface);
-	SDL_QueryTexture(startText, NULL, NULL, &startTextRect.w, &startTextRect.h);
-
-	SDL_FreeSurface(startTextSurface);
-	startTextSurface = nullptr;
-
-	// EXIT
-	exitTextSurface = TTF_RenderText_Solid(fontMedium, "'ESC' TO EXIT", colorYellow);
-	exitText = SDL_CreateTextureFromSurface(mRenderer, exitTextSurface);
-	SDL_QueryTexture(exitText, NULL, NULL, &exitTextRect.w, &exitTextRect.h);
-
-	SDL_FreeSurface(exitTextSurface);
-	exitTextSurface = nullptr;
-
-	// COPYRIGHT
-	copyrightTextSurface = TTF_RenderText_Solid(fontMedium, "©1983. ©1988. ©1999 NINTENDO", colorFg);
-	copyrightText = SDL_CreateTextureFromSurface(mRenderer, copyrightTextSurface);
-	SDL_QueryTexture(copyrightText, NULL, NULL, &copyrightTextRect.w, &copyrightTextRect.h);
-
-	SDL_FreeSurface(copyrightTextSurface);
-	copyrightTextSurface = nullptr;
 }

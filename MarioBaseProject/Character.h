@@ -43,8 +43,6 @@ public:
 	void SetAlive(bool isAlive);
 	bool GetAlive() { return alive; }
 
-	int mScore;
-
 private:
 	LevelMap* mCurrentLevelMap;
 

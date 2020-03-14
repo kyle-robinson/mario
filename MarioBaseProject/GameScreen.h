@@ -4,6 +4,7 @@
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -17,15 +18,23 @@ public:
 	virtual void Update(float deltaTime, SDL_Event e);
 
 	int marioScore;
-	bool level1_mario_peach;
-	bool level2_mario_peach;
+	int marioSavedPeach;
 
 	int luigiScore;
-	bool level1_luigi_peach;
-	bool level2_luigi_peach;
+	int luigiSavedPeach;
 
 	void CheckPaused(SDL_Event e);
 	bool paused;
+
+	// FILE HANDLING
+	bool OpenOutFiles();
+	void WriteToFiles();
+	ofstream marioFileOut;
+	ofstream luigiFileOut;
+
+	bool OpenInFiles();
+	ifstream marioFileIn;
+	ifstream luigiFileIn;
 
 	// FONTS
 	void LoadFont();
@@ -41,6 +50,16 @@ public:
 	SDL_Color colorRed;
 	SDL_Color colorGreen;
 	SDL_Color colorPink;
+	SDL_Color colorYellow;
+
+	// Start of level text
+	SDL_Surface* startTextSurface;
+	SDL_Texture* startText;
+	SDL_Rect startTextRect;
+
+	SDL_Surface* copyrightTextSurface;
+	SDL_Texture* copyrightText;
+	SDL_Rect copyrightTextRect;
 
 	SDL_Surface* start1TextSurface;
 	SDL_Texture* start1Text;
@@ -54,6 +73,15 @@ public:
 	SDL_Texture* pauseText;
 	SDL_Rect pauseTextRect;
 
+	SDL_Surface* titleTextSurface;
+	SDL_Texture* titleText;
+	SDL_Rect titleTextRect;
+
+	SDL_Surface* multiplyTextSurface;
+	SDL_Texture* multiplyText;
+	SDL_Rect multiplyTextRect;
+
+	// Mario text
 	SDL_Surface* marioTextSurface;
 	SDL_Texture* marioText;
 	SDL_Rect marioTextRect;
@@ -63,6 +91,16 @@ public:
 	SDL_Rect marioScoreTextRect;
 	string marioScoreString;
 
+	SDL_Surface* marioFinalScoreTextSurface;
+	SDL_Texture* marioFinalScoreText;
+	SDL_Rect marioFinalScoreTextRect;
+	string marioFinalScoreString;
+	
+	SDL_Surface* marioWinTextSurface;
+	SDL_Texture* marioWinText;
+	SDL_Rect marioWinTextRect;
+
+	// Luigi text
 	SDL_Surface* luigiTextSurface;
 	SDL_Texture* luigiText;
 	SDL_Rect luigiTextRect;
@@ -72,10 +110,21 @@ public:
 	SDL_Rect luigiScoreTextRect;
 	string luigiScoreString;
 
+	SDL_Surface* luigiFinalScoreTextSurface;
+	SDL_Texture* luigiFinalScoreText;
+	SDL_Rect luigiFinalScoreTextRect;
+	string luigiFinalScoreString;
+
+	SDL_Surface* luigiWinTextSurface;
+	SDL_Texture* luigiWinText;
+	SDL_Rect luigiWinTextRect;
+
+	// Peach text
 	SDL_Surface* peachTextSurface;
 	SDL_Texture* peachText;
 	SDL_Rect peachTextRect;
 
+	// End of level text
 	SDL_Surface* gameOverTextSurface;
 	SDL_Texture* gameOverText;
 	SDL_Rect gameOverTextRect;
@@ -88,6 +137,10 @@ public:
 	SDL_Texture* escapeText;
 	SDL_Rect escapeTextRect;
 
+	SDL_Surface* exitTextSurface;
+	SDL_Texture* exitText;
+	SDL_Rect exitTextRect;
+
 	// SOUNDS
 	bool LoadAudio();
 
@@ -97,6 +150,7 @@ public:
 	float pauseMusic;
 	float startGameTimer;
 
+	Mix_Chunk* gameStartSound;
 	Mix_Chunk* coinSound;
 	Mix_Chunk* dieSound;
 	Mix_Chunk* flagpoleSound;
@@ -106,6 +160,7 @@ public:
 	Mix_Chunk* pipeSound;
 	Mix_Chunk* startSound;
 	Mix_Chunk* thwompSound;
+	Mix_Chunk* victorySound;
 
 private:
 
