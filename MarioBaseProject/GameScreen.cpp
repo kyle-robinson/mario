@@ -4,7 +4,6 @@
 GameScreen::GameScreen(SDL_Renderer* renderer)
 {
 	mRenderer = renderer;
-	paused = false;
 }
 
 GameScreen::~GameScreen()
@@ -275,7 +274,7 @@ void GameScreen::LoadFont()
 	nextLevelTextSurface = nullptr;
 
 	// ESCAPE
-	escapeTextSurface = TTF_RenderText_Solid(fontSmall, "'ESC' - EXIT", colorFg);
+	escapeTextSurface = TTF_RenderText_Solid(fontSmall, "'ENTER' - VIEW SCORES || 'ESC' - EXIT", colorFg);
 	escapeText = SDL_CreateTextureFromSurface(mRenderer, escapeTextSurface);
 	SDL_QueryTexture(escapeText, NULL, NULL, &escapeTextRect.w, &escapeTextRect.h);
 

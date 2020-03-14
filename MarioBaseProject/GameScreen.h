@@ -17,7 +17,12 @@ public:
 	virtual void Update(float deltaTime, SDL_Event e);
 
 	int marioScore;
+	bool level1_mario_peach;
+	bool level2_mario_peach;
+
 	int luigiScore;
+	bool level1_luigi_peach;
+	bool level2_luigi_peach;
 
 	void CheckPaused(SDL_Event e);
 	bool paused;

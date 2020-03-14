@@ -22,7 +22,7 @@ public:
 	virtual void Render();
 	virtual void Update(float deltaTime, SDL_Event e);
 
-	void LoadAudio();
+	bool LoadAudio();
 	Mix_Chunk* jumpSound;
 
 	void SetPosition(Vector2D newPosition);

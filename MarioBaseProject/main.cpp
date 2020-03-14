@@ -33,7 +33,7 @@ int main(int argc, char* args[])
 		Render();
 		quit = Update();
 	}
-
+	
 	gameScreenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL1);
 	quit = false;
 	while (!quit && !closeGame)

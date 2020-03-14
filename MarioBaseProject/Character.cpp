@@ -32,8 +32,21 @@ void Character::Render()
 
 void Character::Update(float deltaTime, SDL_Event e)
 {
+	int headPosition = (int)(mPosition.y + mTexture->GetHeight() - 32) / TILE_HEIGHT;
 	int centralXPosition = (int)(mPosition.x + (mTexture->GetWidth() * 0.5f)) / TILE_WIDTH;
 	int footPosition = (int)(mPosition.y + mTexture->GetHeight()) / TILE_HEIGHT;
+
+	// Deal with Jumping first
+	if (mJumping)
+	{
+		mPosition.y -= mJumpForce * deltaTime;
+		mJumpForce -= JUMP_FORCE_DECREMENT * deltaTime;
+
+		if (mJumpForce <= 0.0f && mCurrentLevelMap->GetTileAt(footPosition, centralXPosition) == 1)
+		{
+			mJumping = false;
+		}
+	}
 
 	// Deal with gravity.
 	if (mCurrentLevelMap->GetTileAt(footPosition, centralXPosition) == 0)
@@ -44,18 +57,12 @@ void Character::Update(float deltaTime, SDL_Event e)
 	{
 		mCanJump = true;
 	}
-	
-	// Deal with Jumping first
-    if (mJumping)
-    {
-        mPosition.y -= mJumpForce * deltaTime;
-        mJumpForce -= JUMP_FORCE_DECREMENT * deltaTime;
 
-        if (mJumpForce <= 0.0f)
-        {
-            mJumping = false;
-        }
-    }
+	if (mCurrentLevelMap->GetTileAt(headPosition, centralXPosition) == 1)
+	{
+		mJumpForce = 0.0f;
+		mCanJump = false;
+	}
 
 	if (mMovingLeft)
     {
@@ -141,11 +148,13 @@ void Character::SetAlive(bool isAlive)
 	alive = isAlive;
 }
 
-void Character::LoadAudio()
+bool Character::LoadAudio()
 {
 	jumpSound = Mix_LoadWAV("Music/WAV/Jump.wav");
 	if (jumpSound == NULL)
 	{
 		cout << "Failed to load jump sound! Error: " << Mix_GetError() << endl;
+		return false;
 	}
+	return true;
 }

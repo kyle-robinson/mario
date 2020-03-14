@@ -27,6 +27,9 @@ private:
 	Texture2D* characterMario;
 	Texture2D* characterLuigi;
 	Texture2D* characterPeach;
+	Texture2D* coinTexture;
+
+	void LoadScores();
 
 	// FONTS
 	void LoadFont();
@@ -46,18 +49,14 @@ private:
 	SDL_Texture* titleText;
 	SDL_Rect titleTextRect;
 
-	SDL_Surface* marioTextSurface;
-	SDL_Texture* marioText;
-	SDL_Rect marioTextRect;
+	SDL_Surface* multiplyTextSurface;
+	SDL_Texture* multiplyText;
+	SDL_Rect multiplyTextRect;
 
 	SDL_Surface* marioScoreTextSurface;
 	SDL_Texture* marioScoreText;
 	SDL_Rect marioScoreTextRect;
 	string marioScoreString;
-
-	SDL_Surface* luigiTextSurface;
-	SDL_Texture* luigiText;
-	SDL_Rect luigiTextRect;
 
 	SDL_Surface* luigiScoreTextSurface;
 	SDL_Texture* luigiScoreText;
@@ -68,9 +67,13 @@ private:
 	SDL_Texture* peachText;
 	SDL_Rect peachTextRect;
 
-	SDL_Surface* winTextSurface;
-	SDL_Texture* winText;
-	SDL_Rect winTextRect;
+	SDL_Surface* marioWinTextSurface;
+	SDL_Texture* marioWinText;
+	SDL_Rect marioWinTextRect;
+
+	SDL_Surface* luigiWinTextSurface;
+	SDL_Texture* luigiWinText;
+	SDL_Rect luigiWinTextRect;
 
 	SDL_Surface* exitTextSurface;
 	SDL_Texture* exitText;
@@ -79,6 +82,5 @@ private:
 	// SOUNDS
 	void LoadAudio();
 
-	Mix_Chunk* coinSound;
 	Mix_Chunk* victorySound;
 };

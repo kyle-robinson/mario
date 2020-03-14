@@ -33,8 +33,6 @@ public:
 
 	bool playersDead;
 
-	void UpdatePOWBlock();
-
 private:
 	bool SetUpLevel();
 	Texture2D* mBackgroundTexture;
@@ -44,15 +42,6 @@ private:
 
 	void SetLevelMap();
 	LevelMap* mLevelMap;
-
-	PowBlock* mPowBlock;
-
-	bool mScreenshake;
-	float mScreenshakeTime;
-	float mWobble;
-	float mBackgroundYPos;
-	
-	void DoScreenShake();
 
 	void WallWrapping(Character* character);
 
@@ -67,6 +56,17 @@ private:
 	void UpdateCoin(float deltaTime, SDL_Event e);
 	void CreateCoin(Vector2D position);
 	vector<CharacterCoin*> mCoins;
+
+	PowBlock* mPowBlock;
+	bool hitPowBlock;
+	float hitTimer;
+	void UpdatePOWBlock();
+
+	bool mScreenshake;
+	float mScreenshakeTime;
+	float mWobble;
+	float mBackgroundYPos;
+	void DoScreenShake();
 
 	// ENEMIES
 	void UpdateKoopas(float deltaTime, SDL_Event e);

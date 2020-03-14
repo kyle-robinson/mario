@@ -21,6 +21,9 @@ GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer
 	pinkFont = 13;
 	whiteFont = 15;
 
+	hitPowBlock = false;
+	hitTimer = 0.0f;
+
 	SetUpLevel();
 }
 
@@ -192,7 +195,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 		UpdatePOWBlock();
 
 		// Update and spawn the enemy characters.
-		enemyTimer -= 0.5f;
+		enemyTimer -= 0.25f;
 		switch ((int)enemyTimer)
 		{
 		case 15000:
@@ -310,7 +313,7 @@ void GameScreenLevel1::SetLevelMap()
 {
 	int map[MAP_HEIGHT][MAP_WIDTH] = {	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-										{1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1},
+										{1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0},
@@ -334,15 +337,28 @@ void GameScreenLevel1::SetLevelMap()
 
 void GameScreenLevel1::UpdatePOWBlock()
 {
+	if (hitPowBlock)
+	{
+		hitTimer -= 1.0f;
+	}
+	if (hitTimer == 0.0f)
+	{
+		hitPowBlock = false;
+	}
+
 	if (Collisions::Instance()->Box(characterMario->GetCollisionBox(), mPowBlock->GetCollisionBox()))
 	{
 		if (mPowBlock->IsAvailable())
 		{
-			if (characterMario->IsJumping())
+			if (characterMario->IsJumping() && !hitPowBlock)
 			{
 				Mix_PlayChannel(-1, thwompSound, 0);
 				DoScreenShake();
+
 				mPowBlock->TakeAHit();
+				hitTimer = POWBLOCK_HIT_TIMER;
+				hitPowBlock = true;
+
 				characterMario->CancelJump();
 
 				SetConsoleTextAttribute(hConsole, redFont);
@@ -354,13 +370,17 @@ void GameScreenLevel1::UpdatePOWBlock()
 	}
 	else if (Collisions::Instance()->Box(characterLuigi->GetCollisionBox(), mPowBlock->GetCollisionBox()))
 	{
-		if (mPowBlock->IsAvailable())
+		if (mPowBlock->IsAvailable() && !hitPowBlock)
 		{
 			if (characterLuigi->IsJumping())
 			{
 				Mix_PlayChannel(-1, thwompSound, 0);
 				DoScreenShake();
+
 				mPowBlock->TakeAHit();
+				hitTimer = POWBLOCK_HIT_TIMER;
+				hitPowBlock = true;
+
 				characterLuigi->CancelJump();
 
 				SetConsoleTextAttribute(hConsole, greenFont);
@@ -416,6 +436,7 @@ void GameScreenLevel1::UpdatePeach(float deltaTime, SDL_Event e)
 			Mix_PlayChannel(-1, flagpoleSound, 0);
 			
 			characterPeach->isRescued = true;
+			level1_mario_peach = true;
 			
 			marioScore += 50;
 			LoadPlayerScores();
@@ -439,6 +460,7 @@ void GameScreenLevel1::UpdatePeach(float deltaTime, SDL_Event e)
 			Mix_PlayChannel(-1, flagpoleSound, 0);
 			
 			characterPeach->isRescued = true;
+			level1_luigi_peach = true;
 			
 			luigiScore += 50;
 			LoadPlayerScores();

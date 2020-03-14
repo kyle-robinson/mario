@@ -4,12 +4,12 @@
 GameScreenScore::GameScreenScore(SDL_Renderer* renderer) : GameScreen(renderer)
 {
 	titleTextRect.x = titleTextRect.y = 0;
-	marioTextRect.x = marioTextRect.y = 0;
+	multiplyTextRect.x = multiplyTextRect.y = 0;
 	marioScoreTextRect.x = marioScoreTextRect.y = 0;
-	luigiTextRect.x = luigiTextRect.y = 0;
 	luigiScoreTextRect.x = luigiScoreTextRect.y = 0;
 	peachTextRect.x = peachTextRect.y = 0;
-	winTextRect.x = winTextRect.y = 0;
+	marioWinTextRect.x = marioWinTextRect.y = 0;
+	luigiWinTextRect.x = luigiWinTextRect.y = 0;
 	exitTextRect.x = exitTextRect.y = 0;
 
 	SetUpScreen();
@@ -30,6 +30,9 @@ GameScreenScore::~GameScreenScore()
 	delete characterPeach;
 	characterPeach = NULL;
 
+	delete coinTexture;
+	coinTexture = NULL;
+
 	// FONTS
 	delete fontVeryLarge;
 	fontVeryLarge = NULL;
@@ -44,18 +47,15 @@ GameScreenScore::~GameScreenScore()
 	fontSmall = NULL;
 
 	SDL_DestroyTexture(titleText);
-	SDL_DestroyTexture(marioText);
+	SDL_DestroyTexture(multiplyText);
 	SDL_DestroyTexture(marioScoreText);
-	SDL_DestroyTexture(luigiText);
 	SDL_DestroyTexture(luigiScoreText);
 	SDL_DestroyTexture(peachText);
-	SDL_DestroyTexture(winText);
+	SDL_DestroyTexture(marioWinText);
+	SDL_DestroyTexture(luigiWinText);
 	SDL_DestroyTexture(exitText);
 
 	// SOUNDS
-	delete coinSound;
-	coinSound = NULL;
-
 	delete victorySound;
 	victorySound = NULL;
 }
@@ -68,14 +68,89 @@ void GameScreenScore::Render()
 	titleTextRect.y = 20;
 	SDL_RenderCopy(mRenderer, titleText, NULL, &titleTextRect);
 
+	// MARIO SCORE
 	characterMario->Render(Vector2D(100, 110), SDL_FLIP_NONE);
+	
+	multiplyTextRect.x = 150;
+	multiplyTextRect.y = 121;
+	SDL_RenderCopy(mRenderer, multiplyText, NULL, &multiplyTextRect);
+
+	coinTexture->Render(Vector2D(170, 119), SDL_FLIP_NONE);
+
+	marioScoreTextRect.x = 210;
+	marioScoreTextRect.y = 117;
+	SDL_RenderCopy(mRenderer, marioScoreText, NULL, &marioScoreTextRect);
+
+	if (level1_mario_peach || level2_mario_peach)
+	{
+		multiplyTextRect.x = 300;
+		multiplyTextRect.y = 121;
+		SDL_RenderCopy(mRenderer, multiplyText, NULL, &multiplyTextRect);
+	}
+
+	if (level1_mario_peach && !level1_mario_peach)
+	{
+		characterPeach->Render(Vector2D(330, 110), SDL_FLIP_NONE);
+	}
+	else if (!level1_mario_peach && level1_mario_peach)
+	{
+		characterPeach->Render(Vector2D(330, 110), SDL_FLIP_NONE);
+	}
+	else if (level1_mario_peach && level1_mario_peach)
+	{
+		characterPeach->Render(Vector2D(330, 110), SDL_FLIP_NONE);
+		characterPeach->Render(Vector2D(370, 110), SDL_FLIP_NONE);
+	}
+
+	// LUIGI SCORE
 	characterLuigi->Render(Vector2D(100, 220), SDL_FLIP_NONE);
-	characterPeach->Render(Vector2D(), SDL_FLIP_NONE);
 
-	winTextRect.x = (SCREEN_WIDTH / 2) - (winTextRect.w / 2);
-	winTextRect.y = SCREEN_HEIGHT - 100;
-	SDL_RenderCopy(mRenderer, winText, NULL, &winTextRect);
+	multiplyTextRect.x = 150;
+	multiplyTextRect.y = 231;
+	SDL_RenderCopy(mRenderer, multiplyText, NULL, &multiplyTextRect);
 
+	coinTexture->Render(Vector2D(170, 229), SDL_FLIP_NONE);
+
+	luigiScoreTextRect.x = 210;
+	luigiScoreTextRect.y = 227;
+	SDL_RenderCopy(mRenderer, luigiScoreText, NULL, &luigiScoreTextRect);
+
+	if (level1_luigi_peach || level2_luigi_peach)
+	{
+		multiplyTextRect.x = 300;
+		multiplyTextRect.y = 231;
+		SDL_RenderCopy(mRenderer, multiplyText, NULL, &multiplyTextRect);
+	}
+
+	if (level1_luigi_peach && !level1_luigi_peach)
+	{
+		characterPeach->Render(Vector2D(330, 220), SDL_FLIP_NONE);
+	}
+	else if (!level1_luigi_peach && level1_luigi_peach)
+	{
+		characterPeach->Render(Vector2D(330, 220), SDL_FLIP_NONE);
+	}
+	else if (level1_luigi_peach && level1_luigi_peach)
+	{
+		characterPeach->Render(Vector2D(330, 220), SDL_FLIP_NONE);
+		characterPeach->Render(Vector2D(370, 220), SDL_FLIP_NONE);
+	}
+
+	// WINNER
+	if (marioScore > luigiScore)
+	{
+		marioWinTextRect.x = (SCREEN_WIDTH / 2) - (marioWinTextRect.w / 2);
+		marioWinTextRect.y = SCREEN_HEIGHT - 100;
+		SDL_RenderCopy(mRenderer, marioWinText, NULL, &marioWinTextRect);
+	}
+	else if (luigiScore > marioScore)
+	{
+		luigiWinTextRect.x = (SCREEN_WIDTH / 2) - (luigiWinTextRect.w / 2);
+		luigiWinTextRect.y = SCREEN_HEIGHT - 100;
+		SDL_RenderCopy(mRenderer, luigiWinText, NULL, &luigiWinTextRect);
+	}
+
+	// EXIT
 	exitTextRect.x = (SCREEN_WIDTH / 2) - (exitTextRect.w / 2);
 	exitTextRect.y = SCREEN_HEIGHT - 50;
 	SDL_RenderCopy(mRenderer, exitText, NULL, &exitTextRect);
@@ -90,6 +165,7 @@ bool GameScreenScore::SetUpScreen()
 {
 	LoadAudio();
 	LoadFont();
+	LoadScores();
 
 	Mix_PlayChannel(-1, victorySound, 0);
 
@@ -121,6 +197,13 @@ bool GameScreenScore::SetUpScreen()
 		return false;
 	}
 
+	coinTexture = new Texture2D(mRenderer);
+	if (!coinTexture->LoadFromFile("Images/Objects/CoinTexture.png"))
+	{
+		cout << "Failed to load coin texture!";
+		return false;
+	}
+
 	return true;
 }
 
@@ -145,37 +228,13 @@ void GameScreenScore::LoadFont()
 	SDL_FreeSurface(titleTextSurface);
 	titleTextSurface = nullptr;
 
-	// MARIO
-	marioTextSurface = TTF_RenderText_Solid(fontMedium, "MARIO", colorRed);
-	marioText = SDL_CreateTextureFromSurface(mRenderer, marioTextSurface);
-	SDL_QueryTexture(marioText, NULL, NULL, &marioTextRect.w, &marioTextRect.h);
+	// MULTIPLY
+	multiplyTextSurface = TTF_RenderText_Solid(fontMedium, "x", colorFg);
+	multiplyText = SDL_CreateTextureFromSurface(mRenderer, multiplyTextSurface);
+	SDL_QueryTexture(multiplyText, NULL, NULL, &multiplyTextRect.w, &multiplyTextRect.h);
 
-	SDL_FreeSurface(marioTextSurface);
-	marioTextSurface = nullptr;
-
-	// MARIO SCORE
-	marioScoreTextSurface = TTF_RenderText_Solid(fontMedium, "MARIO SCORE", colorFg);
-	marioScoreText = SDL_CreateTextureFromSurface(mRenderer, marioScoreTextSurface);
-	SDL_QueryTexture(marioScoreText, NULL, NULL, &marioScoreTextRect.w, &marioScoreTextRect.h);
-
-	SDL_FreeSurface(marioScoreTextSurface);
-	marioScoreTextSurface = nullptr;
-
-	// LUIGI
-	luigiTextSurface = TTF_RenderText_Solid(fontMedium, "LUIGI", colorGreen);
-	luigiText = SDL_CreateTextureFromSurface(mRenderer, luigiTextSurface);
-	SDL_QueryTexture(luigiText, NULL, NULL, &luigiTextRect.w, &luigiTextRect.h);
-
-	SDL_FreeSurface(luigiTextSurface);
-	luigiTextSurface = nullptr;
-
-	// LUIGI SCORE
-	luigiScoreTextSurface = TTF_RenderText_Solid(fontMedium, "LUIGI SCORE", colorFg);
-	luigiScoreText = SDL_CreateTextureFromSurface(mRenderer, luigiScoreTextSurface);
-	SDL_QueryTexture(luigiScoreText, NULL, NULL, &luigiScoreTextRect.w, &luigiScoreTextRect.h);
-
-	SDL_FreeSurface(luigiScoreTextSurface);
-	luigiScoreTextSurface = nullptr;
+	SDL_FreeSurface(multiplyTextSurface);
+	multiplyTextSurface = nullptr;
 
 	// PEACH
 	peachTextSurface = TTF_RenderText_Solid(fontMedium, "PEACH", colorPink);
@@ -186,12 +245,19 @@ void GameScreenScore::LoadFont()
 	peachTextSurface = nullptr;
 
 	// WIN
-	winTextSurface = TTF_RenderText_Solid(fontMedium, "PLAYER 'X' WINS!", colorFg);
-	winText = SDL_CreateTextureFromSurface(mRenderer, winTextSurface);
-	SDL_QueryTexture(winText, NULL, NULL, &winTextRect.w, &winTextRect.h);
+	marioWinTextSurface = TTF_RenderText_Solid(fontMedium, "PLAYER 'MARIO' WINS!", colorRed);
+	marioWinText = SDL_CreateTextureFromSurface(mRenderer, marioWinTextSurface);
+	SDL_QueryTexture(marioWinText, NULL, NULL, &marioWinTextRect.w, &marioWinTextRect.h);
 
-	SDL_FreeSurface(winTextSurface);
-	winTextSurface = nullptr;
+	SDL_FreeSurface(marioWinTextSurface);
+	marioWinTextSurface = nullptr;
+
+	luigiWinTextSurface = TTF_RenderText_Solid(fontMedium, "PLAYER 'LUIGI' WINS!", colorGreen);
+	luigiWinText = SDL_CreateTextureFromSurface(mRenderer, luigiWinTextSurface);
+	SDL_QueryTexture(luigiWinText, NULL, NULL, &luigiWinTextRect.w, &luigiWinTextRect.h);
+
+	SDL_FreeSurface(luigiWinTextSurface);
+	luigiWinTextSurface = nullptr;
 
 	// EXIT
 	exitTextSurface = TTF_RenderText_Solid(fontMedium, "PRESS 'ESC' TO EXIT", colorFg);
@@ -204,15 +270,30 @@ void GameScreenScore::LoadFont()
 
 void GameScreenScore::LoadAudio()
 {
-	coinSound = Mix_LoadWAV("Music/WAV/1up.wav");
-	if (coinSound == NULL)
-	{
-		cout << "Failed to load coin sound! Error: " << Mix_GetError() << endl;
-	}
-
 	victorySound = Mix_LoadWAV("Music/WAV/Respawn.wav");
 	if (victorySound == NULL)
 	{
 		cout << "Failed to load victory sound! Error: " << Mix_GetError() << endl;
 	}
+}
+
+void GameScreenScore::LoadScores()
+{
+	// MARIO SCORE
+	marioScoreString = to_string(marioScore);
+	marioScoreTextSurface = TTF_RenderText_Solid(fontMedium, marioScoreString.c_str(), colorFg);
+	marioScoreText = SDL_CreateTextureFromSurface(mRenderer, marioScoreTextSurface);
+	SDL_QueryTexture(marioScoreText, NULL, NULL, &marioScoreTextRect.w, &marioScoreTextRect.h);
+
+	SDL_FreeSurface(marioScoreTextSurface);
+	marioScoreTextSurface = nullptr;
+
+	// LUIGI SCORE
+	luigiScoreString = to_string(luigiScore);
+	luigiScoreTextSurface = TTF_RenderText_Solid(fontMedium, luigiScoreString.c_str(), colorFg);
+	luigiScoreText = SDL_CreateTextureFromSurface(mRenderer, luigiScoreTextSurface);
+	SDL_QueryTexture(luigiScoreText, NULL, NULL, &luigiScoreTextRect.w, &luigiScoreTextRect.h);
+
+	SDL_FreeSurface(luigiScoreTextSurface);
+	luigiScoreTextSurface = nullptr;
 }

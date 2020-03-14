@@ -5,7 +5,7 @@
 LevelMap::LevelMap(int map[MAP_HEIGHT][MAP_WIDTH])
 {
 	// Allocate memory for the level map.
-	mMap = new int* [MAP_HEIGHT];
+	mMap = new int*[MAP_HEIGHT];
 	for (unsigned int i = 0; i < MAP_HEIGHT; i++)
 	{
 		mMap[i] = new int[MAP_WIDTH];

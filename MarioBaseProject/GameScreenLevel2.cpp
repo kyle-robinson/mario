@@ -287,7 +287,7 @@ void GameScreenLevel2::SetLevelMap()
 										{0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-										{0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0},
+										{0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0},
 										{0, 0, 0, 0, 0, 0 ,0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 										{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -375,6 +375,7 @@ void GameScreenLevel2::UpdatePeach(float deltaTime, SDL_Event e)
 			Mix_PlayChannel(-1, flagpoleSound, 0);
 
 			characterPeach->isRescued = true;
+			level2_mario_peach = true;
 
 			marioScore += 50;
 			LoadPlayerScores();
@@ -398,6 +399,7 @@ void GameScreenLevel2::UpdatePeach(float deltaTime, SDL_Event e)
 			Mix_PlayChannel(-1, flagpoleSound, 0);
 
 			characterPeach->isRescued = true;
+			level2_luigi_peach = true;
 
 			luigiScore += 50;
 			LoadPlayerScores();
