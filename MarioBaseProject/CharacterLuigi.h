@@ -19,6 +19,7 @@ private:
 
 	float mFrameDelay;
 	int mCurrentFrame;
+	bool reverseAnimate;
 
 	void AnimateLuigi(float deltaTime, SDL_Event e);
 };

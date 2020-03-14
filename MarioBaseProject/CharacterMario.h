@@ -21,6 +21,7 @@ private:
 	
 	float mFrameDelay;
 	int mCurrentFrame;
+	bool reverseAnimate;
 
 	void AnimateMario(float deltaTime, SDL_Event e);
 };

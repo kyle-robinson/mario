@@ -22,6 +22,7 @@
 #define INJURED_TIME					2.5f
 #define INITIAL_JUMP_FORCE_SMALL		250
 #define ENEMY_TIMER						20000.0f
+#define PLAYER_ANIMATION_DELAY			0.05
 #define ANIMATION_DELAY					0.15
 
 // Miscellaneous Constants

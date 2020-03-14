@@ -6,6 +6,8 @@ CharacterMario::CharacterMario(SDL_Renderer* renderer, string imagePath, Vector2
 	
 	mSingleSpriteWidth = mTexture->GetWidth() / 3;
 	mSingleSpriteHeight = mTexture->GetHeight();
+
+	reverseAnimate = false;
 }
 
 CharacterMario::~CharacterMario()
@@ -92,12 +94,26 @@ void CharacterMario::AnimateMario(float deltaTime, SDL_Event e)
 	mFrameDelay -= deltaTime;
 	if (mFrameDelay <= 0.0f)
 	{
-		mFrameDelay = ANIMATION_DELAY;
-		mCurrentFrame++;
+		mFrameDelay = PLAYER_ANIMATION_DELAY;
 
-		if (mCurrentFrame > 2)
+		if (!reverseAnimate)
 		{
-			mCurrentFrame = 0;
+			mCurrentFrame++;
+			if (mCurrentFrame > 2)
+			{
+				mCurrentFrame = 2;
+				reverseAnimate = true;
+			}
+		}
+		else
+		{
+			mCurrentFrame--;
+
+			if (mCurrentFrame < 0)
+			{
+				reverseAnimate = false;
+				mCurrentFrame = 0;
+			}
 		}
 	}
 }
