@@ -3,15 +3,11 @@
 #ifndef _TEXTURE2D_H
 #define _TEXTURE2D_H
 
+#include <SDL_mixer.h>
 #include <iostream>
-#include "Constants.h"
+
 #include "Texture2D.h"
 #include "LevelMap.h"
-#include <SDL_mixer.h>
-
-using namespace std;
-
-class Texture2D;
 
 class Character
 {

@@ -11,8 +11,6 @@
 
 #include <Windows.h>
 #include <vector>
-#include <string>
-#include <fstream>
 
 class Texture2D;
 class Character;

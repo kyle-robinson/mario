@@ -1,11 +1,8 @@
-#include <SDL_image.h>
 #include <SDL_mixer.h>
-#include <SDL_ttf.h>
 #include <iostream>
 
 #include "Texture2D.h"
 #include "GameScreenManager.h"
-#include "Constants.h"
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;

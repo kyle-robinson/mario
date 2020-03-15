@@ -6,7 +6,12 @@
 #include <string>
 #include <fstream>
 
+#include "Collisions.h"
+#include "Constants.h"
+
 using namespace std;
+
+class Texture2D;
 
 class GameScreen
 {
@@ -17,6 +22,7 @@ public:
 	virtual void Render();
 	virtual void Update(float deltaTime, SDL_Event e);
 
+	void CharacterCollisions(Character* character1, Character* character2);
 	int marioScore;
 	int marioSavedPeach;
 

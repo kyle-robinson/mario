@@ -469,3 +469,62 @@ bool GameScreen::OpenInFiles()
 
 	return true;
 }
+
+void GameScreen::CharacterCollisions(Character* character1, Character* character2)
+{
+	if (Collisions::Instance()->Circle(character1, character2))
+	{
+		int tempPosition;
+		int newPosition;
+
+		// Both players moving.
+		if (character1->mMovingRight && character2->mMovingLeft)
+		{
+			tempPosition = character1->GetPosition().x;
+			newPosition = tempPosition -= COLLISION_FORCE;
+			character1->SetPosition(Vector2D(newPosition, character1->GetPosition().y));
+
+			tempPosition = character2->GetPosition().x;
+			newPosition = tempPosition += COLLISION_FORCE;
+			character2->SetPosition(Vector2D(newPosition, character2->GetPosition().y));
+		}
+		else if (character1->mMovingLeft && character2->mMovingRight)
+		{
+			tempPosition = character1->GetPosition().x;
+			newPosition = tempPosition += COLLISION_FORCE;
+			character1->SetPosition(Vector2D(newPosition, character1->GetPosition().y));
+
+			tempPosition = character2->GetPosition().x;
+			newPosition = tempPosition -= COLLISION_FORCE;
+			character2->SetPosition(Vector2D(newPosition, character2->GetPosition().y));
+		}// Only player 1 moving.
+		else if (character1->mMovingRight)
+		{
+			tempPosition = character1->GetPosition().x;
+			newPosition = tempPosition -= COLLISION_FORCE;
+			character1->SetPosition(Vector2D(newPosition, character1->GetPosition().y));
+		}
+		else if (character1->mMovingLeft)
+		{
+			tempPosition = character1->GetPosition().x;
+			newPosition = tempPosition += COLLISION_FORCE;
+			character1->SetPosition(Vector2D(newPosition, character1->GetPosition().y));
+		}// Only player 2 moving.
+		else if (character2->mMovingRight)
+		{
+			tempPosition = character2->GetPosition().x;
+			newPosition = tempPosition -= COLLISION_FORCE;
+			character2->SetPosition(Vector2D(newPosition, character2->GetPosition().y));
+		}
+		else if (character2->mMovingLeft)
+		{
+			tempPosition = character2->GetPosition().x;
+			newPosition = tempPosition += COLLISION_FORCE;
+			character2->SetPosition(Vector2D(newPosition, character2->GetPosition().y));
+		}// Both moving the same direction.
+		else if ((character1->mMovingRight && character2->mMovingRight) || (character1->mMovingLeft && character2->mMovingLeft))
+		{
+			// Don't do anything.
+		}
+	}
+}

@@ -1,5 +1,4 @@
 #include "GameScreenLevel1.h"
-#include "Collisions.h"
 #include "Texture2D.h"
 #include "CharacterMario.h"
 #include "CharacterLuigi.h"
@@ -283,6 +282,8 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 
 		characterLuigi->Update(deltaTime, e);
 		WallWrapping(characterLuigi);
+
+		CharacterCollisions(characterMario, characterLuigi);
 
 		UpdatePeach(deltaTime, e);
 		UpdatePOWBlock();

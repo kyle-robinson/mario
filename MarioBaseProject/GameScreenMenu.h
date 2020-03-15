@@ -1,14 +1,7 @@
 #pragma once
 
-#include "Commons.h"
 #include "GameScreen.h"
 #include "Texture2D.h"
-
-#include <SDL_mixer.h>
-#include <SDL_ttf.h>
-#include <string>
-
-using namespace std;
 
 class Texture2D;
 

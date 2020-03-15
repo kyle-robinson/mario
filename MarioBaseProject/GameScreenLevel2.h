@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Commons.h"
 #include "GameScreen.h"
 #include "LevelMap.h"
 
@@ -11,8 +10,6 @@
 
 #include <Windows.h>
 #include <vector>
-#include <string>
-#include <fstream>
 
 using namespace std;
 
