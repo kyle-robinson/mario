@@ -13,4 +13,4 @@ Super Mario game created in semester 2 as part of Games Engine Creation module.
 |                       | Pause Menu            |                       |
 |                       | Fonts Rendering       |                       |
 
-![Mario Game](screenshot.png)
+<img src="screenshot.png" width="100%" height="auto" />
