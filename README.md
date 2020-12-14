@@ -23,3 +23,15 @@ Super Mario game created in semester 2 as part of Games Engine Creation module.
 - [x] Level System
 - [x] POW Block
 - [x] Sound Effects
+
+---
+
+### Credits
+
+        Audio:
+                    https://themushroomkingdom.net/media/smb/wav
+                    https://www.mariomayhem.com/downloads/sounds/
+                    
+        Sprites:
+                    https://www.spriters-resource.com/nes/supermariobros/
+                    https://www.spriters-resource.com/snes/smarioworld/
