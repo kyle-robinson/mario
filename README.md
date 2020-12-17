@@ -2,7 +2,7 @@
 
 Super Mario game created in semester 2 as part of Games Engine Creation module.
 
-*Click any image to view on YouTube*<br/>
+*- Click any image to view on YouTube -*<br/>
 <a href="https://www.youtube.com/watch?v=LfMLOClO6qs" target="_blank">
         <img src="MarioBaseProject/Images/GitHub/title.png" alt="Mario Bros. Title Screen" border="10" width="48%" />
 </a>
