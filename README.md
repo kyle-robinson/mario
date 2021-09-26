@@ -3,8 +3,6 @@
 Super Mario replica game created in semester 2 as part of Games Engine Creation module, using C++ and SDL2.
 
 *- Click <a href="https://www.youtube.com/watch?v=LfMLOClO6qs" target="_blank">here</a> to view on YouTube -*<br/>
-<img src="MarioBaseProject/Images/GitHub/title.png" alt="Mario Bros. Title Screen" border="10" width="48%" />
-<img src="MarioBaseProject/Images/GitHub/level-1.png" alt="Mario Bros. Title Screen" border="10" width="48%" />
 
 https://user-images.githubusercontent.com/39779606/134824126-f0851317-cfdd-4073-9d87-90c4b4dc7c40.mp4
 
