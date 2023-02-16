@@ -1,5 +1,11 @@
 # Mario Game
 
+[![MSBuild-Debug](https://github.com/kyle-robinson/mario/actions/workflows/msbuild-debug.yml/badge.svg)](https://github.com/kyle-robinson/mario/actions/workflows/msbuild-debug.yml)
+&nbsp;
+[![MSBuild-Release](https://github.com/kyle-robinson/mario/actions/workflows/msbuild-release.yml/badge.svg)](https://github.com/kyle-robinson/mario/actions/workflows/msbuild-release.yml)
+&nbsp;
+[![CodeQL](https://github.com/kyle-robinson/mario/actions/workflows/codeql.yml/badge.svg)](https://github.com/kyle-robinson/mario/actions/workflows/codeql.yml)
+
 Super Mario replica game created in semester 2 as part of Games Engine Creation module, using C++ and SDL2.
 
 *- Click <a href="https://www.youtube.com/watch?v=LfMLOClO6qs" target="_blank">here</a> to view on YouTube -*<br/>
