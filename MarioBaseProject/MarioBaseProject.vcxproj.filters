@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\_x86">
+      <UniqueIdentifier>{1257a711-337d-4a5a-8573-c7f5bb351b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\_x64">
+      <UniqueIdentifier>{1a0e2d1f-a1f1-44f3-b15d-6927404467ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h">
@@ -130,15 +136,46 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="SDL\SDL2_image.lib" />
-    <Library Include="SDL\SDL2_mixer.lib" />
-    <Library Include="SDL\SDL2main.lib" />
-    <Library Include="SDL\SDL2_ttf.lib" />
-    <Library Include="SDL\SDL2.lib" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="Resource.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="SDL\main\_x86\SDL2test.lib">
+      <Filter>Resource Files\_x86</Filter>
+    </Library>
+    <Library Include="SDL\main\_x86\SDL2main.lib">
+      <Filter>Resource Files\_x86</Filter>
+    </Library>
+    <Library Include="SDL\main\_x86\SDL2.lib">
+      <Filter>Resource Files\_x86</Filter>
+    </Library>
+    <Library Include="SDL\main\_x64\SDL2.lib">
+      <Filter>Resource Files\_x64</Filter>
+    </Library>
+    <Library Include="SDL\main\_x64\SDL2main.lib">
+      <Filter>Resource Files\_x64</Filter>
+    </Library>
+    <Library Include="SDL\main\_x64\SDL2test.lib">
+      <Filter>Resource Files\_x64</Filter>
+    </Library>
+    <Library Include="SDL\mixer\_x64\SDL2_mixer.lib">
+      <Filter>Resource Files\_x64</Filter>
+    </Library>
+    <Library Include="SDL\ttf\_x64\SDL2_ttf.lib">
+      <Filter>Resource Files\_x64</Filter>
+    </Library>
+    <Library Include="SDL\ttf\_x86\SDL2_ttf.lib">
+      <Filter>Resource Files\_x86</Filter>
+    </Library>
+    <Library Include="SDL\mixer\_x86\SDL2_mixer.lib">
+      <Filter>Resource Files\_x86</Filter>
+    </Library>
+    <Library Include="SDL\image\_x64\SDL2_image.lib">
+      <Filter>Resource Files\_x64</Filter>
+    </Library>
+    <Library Include="SDL\image\_x86\SDL2_image.lib">
+      <Filter>Resource Files\_x86</Filter>
+    </Library>
   </ItemGroup>
 </Project>
