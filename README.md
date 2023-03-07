@@ -25,14 +25,35 @@ https://user-images.githubusercontent.com/39779606/134824126-f0851317-cfdd-4073-
 - [x] POW Block
 - [x] Sound Effects
 
+## Getting Started
+
+Refer to the following information on how to install and use the application.
+
+### Dependencies
+To use the application, the following prerequisites must be met.
+* Windows 10+
+* Visual Studio
+* Git Version Control
+
+The application relies on the following libraries and APIs to function.
+* SDL2
+
+### Installing
+
+To download a copy of the application, select "Download ZIP" from the main code repository page, or create a fork of the project. More information on forking a GitHub respository can be found [here](https://www.youtube.com/watch?v=XTolZqmZq6s).
+
+### Executing program
+
+As the project settings have been modified to support the addition of the aforementioned libraries and APIs, there are no additional steps required to execute the application.
+
 ---
 
 ### Credits
 
-        Audio:
-                    https://themushroomkingdom.net/media/smb/wav
-                    https://www.mariomayhem.com/downloads/sounds/
+        Audio
+            https://themushroomkingdom.net/media/smb/wav
+            https://www.mariomayhem.com/downloads/sounds/
                     
-        Sprites:
-                    https://www.spriters-resource.com/nes/supermariobros/
-                    https://www.spriters-resource.com/snes/smarioworld/
+        Sprites
+            https://www.spriters-resource.com/nes/supermariobros/
+            https://www.spriters-resource.com/snes/smarioworld/
